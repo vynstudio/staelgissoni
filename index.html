@@ -20,6 +20,32 @@
 <meta content="Stael Gissoni — English &amp; Portuguese Interpreter" name="twitter:title"/>
 <meta content="Professional interpreter, translator &amp; language teacher. Book your session today." name="twitter:description"/>
 <meta content="https://staelfogarty.com/og-image.png" name="twitter:image"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Stael Gissoni — English & Portuguese Interpreter",
+  "description": "Professional English–Portuguese interpreter, translator, and language coach based in Orlando, Florida.",
+  "url": "https://staelfogarty.com/",
+  "image": "https://staelfogarty.com/og-image.png",
+  "email": "hello@staelfogarty.com",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Orlando",
+    "addressRegion": "FL",
+    "addressCountry": "US"
+  },
+  "areaServed": "United States",
+  "provider": {
+    "@type": "Person",
+    "name": "Stael Gissoni",
+    "jobTitle": "Professional Interpreter & Translator"
+  },
+  "serviceType": ["Interpretation", "Translation", "Language Coaching"],
+  "availableLanguage": ["English", "Portuguese"]
+}
+</script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&amp;family=Nunito:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
@@ -434,12 +460,14 @@ a { text-decoration: none; color: inherit; }
   border-radius: var(--radius-md);
   text-align: center;
 }
-.about-stat h3 {
+.about-stat h3, .about-stat .stat-value {
   font-family: 'Fraunces', serif;
   font-size: 1.6rem; font-weight: 800;
   color: var(--blue);
   margin-bottom: 4px;
 }
+/* Accessibility: peach contrast override for text on light bg */
+.accent-warm { color: #C46A35; }
 .about-stat p {
   font-size: 0.8rem; color: var(--text-muted); font-weight: 600;
 }
@@ -898,13 +926,19 @@ a { text-decoration: none; color: inherit; }
 .sv-card { display: flex; flex-direction: column; }
 .sv-card p { flex: 1; }
 .sv-price { margin-top: auto; }
+
+/* Accessibility: skip link + focus */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 24px;background:var(--blue);color:white;font-weight:700;font-size:0.9rem;border-radius:0 0 var(--radius-sm) var(--radius-sm);text-decoration:none}
+.skip-link:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
 </style>
 <!-- Tracking -->
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <!-- ═══════════ NAVIGATION ═══════════ -->
-<nav class="nav" id="nav">
+<header><nav class="nav" id="nav">
 <a class="nav-logo" href="index.html">stael<span>.</span></a>
 <button aria-label="Toggle menu" class="nav-toggle" id="navToggle">
 <span></span><span></span><span></span>
@@ -917,8 +951,9 @@ a { text-decoration: none; color: inherit; }
 <div id="langToggle" style="display:flex;align-items:center;border:1.5px solid var(--border);border-radius:var(--radius-pill);overflow:hidden;margin-right:4px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;"><button aria-label="Switch to English" id="langBtn_en" onclick="I18N.set('en')" style="padding:6px 13px;border:none;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:pointer;transition:all 0.2s;color:var(--text)">EN</button><span style="width:1px;background:var(--border);align-self:stretch;"></span><button aria-label="Mudar para Português" id="langBtn_pt" onclick="I18N.set('pt')" style="padding:6px 13px;border:none;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:pointer;transition:all 0.2s;color:var(--text)">PT</button></div>
 <a class="nav-link nav-cta" data-i18n="nav_book" href="contact.html">Book a Session</a>
 </div>
-</nav>
+</nav></header>
 <!-- ═══════════ HERO ═══════════ -->
+<main id="main-content">
 <section class="hero" id="home">
 <div class="hero-shape hs-1"></div>
 <div class="hero-shape hs-2"></div>
@@ -982,15 +1017,15 @@ a { text-decoration: none; color: inherit; }
 <p class="about-text" data-i18n="about_p">I'm Stael Gissoni, a professional bilingual interpreter specializing in English and Portuguese. With years of experience across medical, legal, business, and personal settings, I bring clarity and confidence to every conversation. My personalized approach means every session is tailored to your unique needs.</p>
 <div class="about-stats">
 <div class="about-stat">
-<h3 data-i18n="about_stat1_n">500+</h3>
+<p class="stat-value" data-i18n="about_stat1_n">500+</p>
 <p data-i18n="about_stat1_l">Sessions</p>
 </div>
 <div class="about-stat">
-<h3 data-i18n="about_stat2_n">100%</h3>
+<p class="stat-value" data-i18n="about_stat2_n">100%</p>
 <p data-i18n="about_stat2_l">Satisfaction</p>
 </div>
 <div class="about-stat">
-<h3 data-i18n="about_stat3_n">Inglês↔Português</h3>
+<p class="stat-value" data-i18n="about_stat3_n">Inglês↔Português</p>
 <p data-i18n="about_stat3_l">Bilingual</p>
 </div>
 </div>
@@ -1086,6 +1121,7 @@ a { text-decoration: none; color: inherit; }
 </div>
 </section>
 <!-- ═══════════ FOOTER ═══════════ -->
+</main>
 <footer class="footer">
 <div class="container">
 <div class="footer-grid">
@@ -1093,9 +1129,9 @@ a { text-decoration: none; color: inherit; }
 <a class="nav-logo" href="index.html">stael<span>.</span></a>
 <p data-i18n="footer_tagline">Professional English–Portuguese interpretation and personalized language services. Connecting people, one conversation at a time.</p>
 <div class="footer-social">
-<a aria-label="Facebook" class="social-link" href="#">f</a>
-<a aria-label="Instagram" class="social-link" href="#">ig</a>
-<a aria-label="LinkedIn" class="social-link" href="#">in</a>
+<a aria-label="Facebook" class="social-link" href="https://www.facebook.com/StaelFlorida/" target="_blank" rel="noopener noreferrer">f</a>
+<a aria-label="Instagram" class="social-link" href="https://www.instagram.com/staelfogarty/" target="_blank" rel="noopener noreferrer">ig</a>
+<a aria-label="LinkedIn" class="social-link" href="https://www.linkedin.com/in/staelgissonifogarty" target="_blank" rel="noopener noreferrer">in</a>
 </div>
 </div>
 <div class="footer-col">
@@ -1129,8 +1165,8 @@ a { text-decoration: none; color: inherit; }
 <div class="footer-bottom">
 <p data-i18n="footer_rights">© 2026 Stael Gissoni. All rights reserved.</p>
 <p>
-<a href="#" style="color: var(--text-light); margin-right: 16px;">Privacy Policy</a>
-<a href="#" style="color: var(--text-light);">Terms of Service</a>
+<a href="/privacy" style="color: var(--text-light); margin-right: 16px;">Privacy Policy</a>
+<a href="/terms" style="color: var(--text-light);">Terms of Service</a>
 </p>
 </div>
 </div>
@@ -1210,6 +1246,6 @@ function toggleFaq(btn) {
 <script>
 fetch("chatbot.html").then(r=>r.text()).then(html=>{const d=document.createElement("div");d.innerHTML=html;document.body.appendChild(d);const scripts=d.querySelectorAll("script");scripts.forEach(s=>{const ns=document.createElement("script");ns.textContent=s.textContent;document.body.appendChild(ns);});});
 </script>
-<script src="/lang.js"></script>
+<script src="/lang.js" defer></script>
 </body>
 </html>

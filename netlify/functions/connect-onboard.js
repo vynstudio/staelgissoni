@@ -1,35 +1,62 @@
-// Stripe Connect — onboard Stael as an Express connected account
-// This function does two things:
-// 1. If called with ?existing=true, creates an account link for an EXISTING account
-// 2. If called fresh, creates a new Express account and returns the onboarding link
+// Stripe Connect — onboard Stael as an Express connected account.
 //
-// Since Stael already has acct_1TDSoKQe7O4V0tdq, use ?existing=true
+// Admin-only. Requires `Authorization: Bearer <ADMIN_SECRET>` header matching
+// the ADMIN_SECRET env var. Creates a new Express account and returns an
+// onboarding link. Onboarding arbitrary caller-supplied account IDs is NOT
+// permitted — use `?existing=true` to reuse the configured STAEL_STRIPE_ACCOUNT_ID.
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const { preflight, jsonResponse, corsHeaders } = require('./lib/cors');
+
+function timingSafeEqual(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
+function isAuthorized(event) {
+  const expected = process.env.ADMIN_SECRET;
+  if (!expected) return false;
+  const header = event.headers?.authorization || event.headers?.Authorization || '';
+  const m = /^Bearer\s+(.+)$/.exec(header);
+  if (!m) return false;
+  return timingSafeEqual(m[1], expected);
+}
 
 exports.handler = async (event) => {
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-  };
+  const pre = preflight(event);
+  if (pre) return pre;
 
-  if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+  if (!process.env.ADMIN_SECRET) {
+    console.error('ADMIN_SECRET not set; refusing to run connect-onboard');
+    return jsonResponse(500, { error: 'Server misconfigured' });
+  }
+
+  if (!isAuthorized(event)) {
+    return jsonResponse(401, { error: 'Unauthorized' });
   }
 
   try {
     const params = event.queryStringParameters || {};
-    const existingAccountId = params.account || process.env.STAEL_STRIPE_ACCOUNT_ID;
+
+    // Only two modes are permitted:
+    //   - ?existing=true → reuse the configured STAEL_STRIPE_ACCOUNT_ID
+    //   - (nothing)      → create a brand new Express account
+    // Caller-supplied ?account=acct_XXX is explicitly rejected.
+    if (params.account) {
+      return jsonResponse(400, { error: 'Arbitrary account IDs are not allowed' });
+    }
 
     let accountId;
-
-    if (existingAccountId) {
-      // Use existing account — just create a new account link for it
-      accountId = existingAccountId;
+    if (params.existing === 'true') {
+      accountId = process.env.STAEL_STRIPE_ACCOUNT_ID;
+      if (!accountId) {
+        return jsonResponse(500, { error: 'STAEL_STRIPE_ACCOUNT_ID not set' });
+      }
       console.log('Using existing account:', accountId);
     } else {
-      // Create a new Express connected account
       const account = await stripe.accounts.create({
         type: 'express',
         country: 'US',
@@ -49,39 +76,28 @@ exports.handler = async (event) => {
       console.log('Created new account:', accountId);
     }
 
-    // Create onboarding link
     const accountLink = await stripe.accountLinks.create({
       account: accountId,
-      refresh_url: `${process.env.URL || 'https://staelfogarty.com'}/.netlify/functions/connect-onboard?account=${accountId}`,
-      return_url: `${process.env.URL || 'https://staelfogarty.com'}/connect-success.html?account=${accountId}`,
+      refresh_url: `${process.env.URL || 'https://staelfogarty.com'}/.netlify/functions/connect-onboard?existing=true`,
+      return_url: `${process.env.URL || 'https://staelfogarty.com'}/connect-success.html`,
       type: 'account_onboarding',
     });
 
-    // If called from browser directly, redirect
     if (event.httpMethod === 'GET') {
       return {
         statusCode: 302,
-        headers: { ...headers, Location: accountLink.url },
+        headers: { ...corsHeaders(), Location: accountLink.url },
         body: '',
       };
     }
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        url: accountLink.url,
-        accountId,
-        message: `Add to Netlify env vars: STAEL_STRIPE_ACCOUNT_ID = ${accountId}`,
-      }),
-    };
-
+    return jsonResponse(200, {
+      url: accountLink.url,
+      accountId,
+      message: `Add to Netlify env vars: STAEL_STRIPE_ACCOUNT_ID = ${accountId}`,
+    });
   } catch (err) {
     console.error('Stripe Connect error:', err);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: err.message }),
-    };
+    return jsonResponse(500, { error: 'Stripe Connect failed' });
   }
 };

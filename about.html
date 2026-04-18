@@ -20,6 +20,29 @@
 <meta content="About Stael Gissoni — English &amp; Portuguese Interpreter" name="twitter:title"/>
 <meta content="Meet Stael — professional interpreter, translator &amp; language teacher based in Orlando, FL." name="twitter:description"/>
 <meta content="https://staelfogarty.com/og-image.png" name="twitter:image"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Stael Gissoni",
+  "jobTitle": "Professional Interpreter, Translator & Language Coach",
+  "description": "Professional bilingual interpreter specializing in English and Portuguese. Medical, legal, business, and personal interpretation services.",
+  "url": "https://staelfogarty.com/about",
+  "image": "https://staelfogarty.com/og-image.png",
+  "email": "hello@staelfogarty.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Orlando",
+    "addressRegion": "FL",
+    "addressCountry": "US"
+  },
+  "knowsLanguage": ["English", "Portuguese"],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Stael Gissoni Interpretation Services"
+  }
+}
+</script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&amp;family=Nunito:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
@@ -636,13 +659,19 @@ a { text-decoration: none; color: inherit; }
 @media (max-width: 480px) {
   .about-stats-row { grid-template-columns: 1fr; }
 }
+
+/* Accessibility: skip link + focus */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 24px;background:var(--blue);color:white;font-weight:700;font-size:0.9rem;border-radius:0 0 var(--radius-sm) var(--radius-sm);text-decoration:none}
+.skip-link:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
 </style>
 <!-- Tracking -->
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <!-- ═══════════ NAVIGATION ═══════════ -->
-<nav class="nav" id="nav">
+<header><nav class="nav" id="nav">
 <a class="nav-logo" href="index.html">stael<span>.</span></a>
 <button aria-label="Toggle menu" class="nav-toggle" id="navToggle">
 <span></span><span></span><span></span>
@@ -656,9 +685,10 @@ a { text-decoration: none; color: inherit; }
 <a class="nav-link" data-i18n="nav_interpretation" href="interpretation.html">Interpretation</a>
 <a class="nav-link nav-cta" data-i18n="nav_book" href="contact.html">Book a Session</a>
 </div>
-</nav>
+</nav></header>
 <!-- ═══════════ PAGE HERO ═══════════ -->
-<section class="page-hero">
+<main>
+<section class="page-hero" id="main-content">
 <div class="page-hero-shape phs-1"></div>
 <div class="page-hero-shape phs-2"></div>
 <div class="page-hero-inner">
@@ -848,6 +878,7 @@ a { text-decoration: none; color: inherit; }
 </div>
 </section>
 <!-- ═══════════ FOOTER ═══════════ -->
+</main>
 <footer class="footer">
 <div class="container">
 <div class="footer-grid">
@@ -855,19 +886,19 @@ a { text-decoration: none; color: inherit; }
 <a class="nav-logo" href="index.html">stael<span>.</span></a>
 <p data-i18n="footer_tagline">Professional English–Portuguese interpretation, and language teaching. Connecting people, one conversation at a time.</p>
 <div class="footer-social">
-<a aria-label="Facebook" class="social-link" href="#">f</a>
-<a aria-label="Instagram" class="social-link" href="#">ig</a>
-<a aria-label="LinkedIn" class="social-link" href="#">in</a>
+<a aria-label="Facebook" class="social-link" href="https://www.facebook.com/StaelFlorida/" target="_blank" rel="noopener noreferrer">f</a>
+<a aria-label="Instagram" class="social-link" href="https://www.instagram.com/staelfogarty/" target="_blank" rel="noopener noreferrer">ig</a>
+<a aria-label="LinkedIn" class="social-link" href="https://www.linkedin.com/in/staelgissonifogarty" target="_blank" rel="noopener noreferrer">in</a>
 </div>
 </div>
 <div class="footer-col">
 <h4 data-i18n="footer_services">Services</h4>
 <ul class="footer-links">
-<li><a data-i18n="footer_about" href="services/live-interpretation.html">On-Site Interpretation</a></li>
-<li><a data-i18n="footer_how" href="services/virtual-sessions.html">Remote Interpretations</a></li>
-<li><a data-i18n="footer_testimonials" href="services/medical-interpretation.html">Medical Interpretation</a></li>
-<li><a data-i18n="footer_faq" href="services/legal-interpretation.html">Legal Interpretation</a></li>
-<li><a href="services/language-coaching.html">One-on-One Private Lessons</a></li>
+<li><a data-i18n="footer_about" href="/interpretation">On-Site Interpretation</a></li>
+<li><a data-i18n="footer_how" href="/interpretation">Remote Interpretations</a></li>
+<li><a data-i18n="footer_testimonials" href="/interpretation">Medical Interpretation</a></li>
+<li><a data-i18n="footer_faq" href="/interpretation">Legal Interpretation</a></li>
+<li><a href="/lessons">One-on-One Private Lessons</a></li>
 </ul>
 </div>
 <div class="footer-col">
@@ -891,8 +922,8 @@ a { text-decoration: none; color: inherit; }
 <div class="footer-bottom">
 <p data-i18n="footer_rights">© 2026 Stael Gissoni. All rights reserved.</p>
 <p>
-<a href="#" style="color: var(--text-light); margin-right: 16px;">Privacy Policy</a>
-<a href="#" style="color: var(--text-light);">Terms of Service</a>
+<a href="/privacy" style="color: var(--text-light); margin-right: 16px;">Privacy Policy</a>
+<a href="/terms" style="color: var(--text-light);">Terms of Service</a>
 </p>
 </div>
 </div>
@@ -957,6 +988,6 @@ revealEls.forEach(el => observer.observe(el));
 <script>
 fetch("chatbot.html").then(r=>r.text()).then(html=>{const d=document.createElement("div");d.innerHTML=html;document.body.appendChild(d);const scripts=d.querySelectorAll("script");scripts.forEach(s=>{const ns=document.createElement("script");ns.textContent=s.textContent;document.body.appendChild(ns);});});
 </script>
-<script src="/lang.js"></script>
+<script src="/lang.js" defer></script>
 </body>
 </html>

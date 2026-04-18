@@ -1,188 +1,246 @@
 // On every confirmed booking:
 // 1. Creates a Google Calendar event with Google Meet link (virtual services)
-// 2. Sends confirmation emails via Resend (Gmail API as fallback)
+// 2. Sends confirmation emails via Resend
 // 3. Notifies Vyn Studio with commission amount
-//
-// Netlify env vars needed:
-//   GOOGLE_SERVICE_ACCOUNT_JSON — service account key JSON
-//   GOOGLE_IMPERSONATE          — hello@staelfogarty.com
-//   STAEL_EMAIL                 — hello@staelfogarty.com
-//   RESEND_API_KEY              — for email delivery
-//   VYN_EMAIL                   — hello@vyn.studio
 
 const { google } = require('googleapis');
 const { Resend } = require('resend');
+const { preflight, jsonResponse } = require('./lib/cors');
+const { isValidEmail, sanitizeHeader, sanitizeText } = require('./lib/validation');
 
 const VIRTUAL_SERVICES = ['Remote Interpretation', 'One-on-One Private Lessons', 'Educational Interpretation', 'Legal Interpretation'];
 const STAEL_EMAIL = process.env.STAEL_EMAIL || 'hello@staelfogarty.com';
 
-exports.handler = async (event) => {
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  };
-
-  if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers, body: '' };
-  if (event.httpMethod !== 'POST') return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
-
-  try {
-    const data = JSON.parse(event.body);
-    const { service, price, date, time, fname, lname, email, notes, sessionId } = data;
-    const clientName = `${fname} ${lname}`.trim();
-    const isVirtual = VIRTUAL_SERVICES.includes(service);
-
-    let meetLink = null;
-    let calendarEventLink = null;
-
-    // ── Google Auth (Service Account with domain-wide delegation) ──
-    let googleAuth = null;
-    let saKey = null;
-    if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
-      try {
-        saKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
-        const impersonate = process.env.GOOGLE_IMPERSONATE || STAEL_EMAIL;
-        // Use JWT for impersonation — required for domain-wide delegation
-        googleAuth = new google.auth.JWT({
-          email: saKey.client_email,
-          key: saKey.private_key,
-          scopes: [
-            'https://www.googleapis.com/auth/calendar',
-            'https://www.googleapis.com/auth/gmail.send',
-          ],
-          subject: impersonate,
-        });
-        googleAuth.projectId = saKey.project_id;
-        await googleAuth.authorize();
-        console.log('✓ Google auth OK — impersonating', impersonate);
-      } catch (e) {
-        console.error('Google auth error:', e.message);
-        googleAuth = null;
-      }
-    }
-
-    // ── Create Google Calendar event with Meet link ──
-    if (googleAuth) {
-      try {
-        const calendar = google.calendar({ version: 'v3', auth: googleAuth });
-        const startISO = parseDateTime(date, time);
-        const duration = service === 'One-on-One Private Lessons' ? 60 : 90;
-        const endISO = new Date(new Date(startISO).getTime() + duration * 60000).toISOString();
-
-        const eventBody = {
-          summary: `${service} — ${clientName}`,
-          description: [
-            `Service: ${service}`,
-            `Price: $${price}`,
-            notes ? `Notes: ${notes}` : '',
-            `Stripe: ${sessionId || 'N/A'}`,
-            `staelfogarty.com`,
-          ].filter(Boolean).join('\n'),
-          start: { dateTime: startISO, timeZone: 'America/New_York' },
-          end: { dateTime: endISO, timeZone: 'America/New_York' },
-          attendees: [
-            { email: STAEL_EMAIL, displayName: 'Stael Gissoni', organizer: true },
-            { email, displayName: clientName },
-          ],
-          reminders: {
-            useDefault: false,
-            overrides: [
-              { method: 'email', minutes: 24 * 60 },
-              { method: 'popup', minutes: 30 },
-            ],
-          },
-          sendUpdates: 'all',
-        };
-
-        // Add Google Meet for virtual services
-        if (isVirtual) {
-          eventBody.conferenceData = {
-            createRequest: {
-              requestId: `stael-${Date.now()}`,
-              conferenceSolutionKey: { type: 'hangoutsMeet' },
-            },
-          };
-        }
-
-        const calEvent = await calendar.events.insert({
-          calendarId: 'primary',
-          requestBody: eventBody,
-          conferenceDataVersion: isVirtual ? 1 : 0,
-          sendUpdates: 'all',
-        });
-
-        calendarEventLink = calEvent.data.htmlLink;
-
-        // Extract Meet link
-        if (isVirtual && calEvent.data.conferenceData) {
-          const ep = calEvent.data.conferenceData.entryPoints?.find(e => e.entryPointType === 'video');
-          if (ep) meetLink = ep.uri;
-        }
-
-        console.log(`✓ Calendar event created${meetLink ? ' with Meet link: ' + meetLink : ''}`);
-      } catch (e) {
-        console.error('Google Calendar error:', e.message);
-      }
-    }
-
-    // ── Build email content ──
-    const meetSection = meetLink
-      ? `\nGoogle Meet link: ${meetLink}\n`
-      : isVirtual ? '\nGoogle Meet link: Stael will send this before your session.\n' : '';
-
-    const staelBody = `Hi Stael,\n\nNew booking confirmed!\n\nSERVICE: ${service}\nCLIENT: ${clientName}\nEMAIL: ${email}\nDATE: ${date}\nTIME: ${time} ET\nPRICE: $${price}${meetSection}\nNOTES: ${notes || 'None'}\nSTRIPE: ${sessionId || 'N/A'}\n${calendarEventLink ? '\nCalendar: ' + calendarEventLink : ''}\n\n— staelfogarty.com`;
-
-    const clientBody = `Hi ${fname},\n\nYour session with Stael is confirmed!\n\nSERVICE: ${service}\nDATE: ${date}\nTIME: ${time} ET\nPRICE: $${price}${meetSection}\n${isVirtual && meetLink ? 'Click the Google Meet link above to join at the scheduled time.' : isVirtual ? 'Stael will send your Google Meet link before the session.' : 'Stael will meet you in person and confirm the location details.'}\n\nCANCELLATION: Free cancellation up to 24 hours before your session.\nContact: hello@staelfogarty.com\n\nThank you for choosing Stael Gissoni!\n\n— staelfogarty.com`;
-
-    const vynBody = `New booking on staelfogarty.com!\n\nSERVICE: ${service}\nCLIENT: ${clientName}\nEMAIL: ${email}\nDATE: ${date}\nTIME: ${time} ET\nPRICE: $${price}\nCOMMISSION (20%): $${Math.round(price * 0.20 * 100) / 100}${meetSection}\nNOTES: ${notes || 'None'}\nSTRIPE: ${sessionId || 'N/A'}\n${calendarEventLink ? '\nCalendar: ' + calendarEventLink : ''}\n\n— staelfogarty.com`;
-
-    // ── Send emails via Resend ──
-    let emailsSent = false;
-    if (process.env.RESEND_API_KEY) {
-      try {
-        const resend = new Resend(process.env.RESEND_API_KEY);
-        const vynEmail = process.env.VYN_EMAIL || 'hello@vyn.studio';
-
-        await resend.emails.send({ from: `Stael Gissoni <noreply@staelfogarty.com>`, to: STAEL_EMAIL, subject: `New Booking: ${service} — ${clientName}`, text: staelBody });
-        await resend.emails.send({ from: `Stael Gissoni <noreply@staelfogarty.com>`, to: email, subject: `Your session is confirmed — ${service} with Stael Gissoni`, text: clientBody });
-        await resend.emails.send({ from: `Stael Gissoni Site <noreply@staelfogarty.com>`, to: vynEmail, subject: `💰 New Booking: ${service} — ${clientName} — $${price}`, text: vynBody });
-
-        emailsSent = true;
-        console.log('✓ Emails sent via Resend');
-      } catch (e) {
-        console.error('Email error:', e.message);
-      }
-    }
-
-    // Fallback Google Calendar link for success page button
-    const gcalLink = buildGCalLink({ service, clientName, date, time, meetLink, isVirtual });
-
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({ success: true, meetLink, calendarEventLink, gcalLink, emailsSent, isVirtual }),
-    };
-
-  } catch (err) {
-    console.error('Function error:', err);
-    return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
-  }
-};
-
-function parseDateTime(dateStr, timeStr) {
-  try {
-    const year = new Date().getFullYear();
-    const clean = dateStr.replace(/^[A-Za-z]+,\s*/, '');
-    const d = new Date(`${clean} ${year} ${timeStr}`);
-    if (!isNaN(d)) return d.toISOString();
-  } catch (e) {}
-  return new Date().toISOString();
+let cachedSaKey = null;
+function getSaKey() {
+  if (!process.env.GOOGLE_SERVICE_ACCOUNT_JSON) return null;
+  if (!cachedSaKey) cachedSaKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+  return cachedSaKey;
 }
 
-function buildGCalLink({ service, clientName, date, time, meetLink, isVirtual }) {
+exports.handler = async (event) => {
+  const pre = preflight(event);
+  if (pre) return pre;
+  if (event.httpMethod !== 'POST') {
+    return jsonResponse(405, { error: 'Method not allowed' });
+  }
+
+  let data;
+  try {
+    data = JSON.parse(event.body || '{}');
+  } catch {
+    return jsonResponse(400, { error: 'Invalid JSON' });
+  }
+
+  const { service, price, date, time, fname, lname, email, notes, sessionId } = data;
+
+  if (!service || !date || !time || !fname) {
+    return jsonResponse(400, { error: 'Missing required fields' });
+  }
+  if (!isValidEmail(email)) {
+    return jsonResponse(400, { error: 'Invalid email' });
+  }
+  if (price == null || !Number.isFinite(Number(price)) || Number(price) <= 0) {
+    return jsonResponse(400, { error: 'Invalid price' });
+  }
+  if (notes && String(notes).length > 450) {
+    return jsonResponse(400, { error: 'Notes too long (max 450 chars)' });
+  }
+
+  const safeFname = sanitizeHeader(fname, 80);
+  const safeLname = sanitizeHeader(lname, 80);
+  const safeService = sanitizeHeader(service, 80);
+  const safeDate = sanitizeHeader(date, 40);
+  const safeTime = sanitizeHeader(time, 20);
+  const safeNotes = sanitizeText(notes, 450);
+  const safeSessionId = sanitizeHeader(sessionId, 80);
+  const clientName = `${safeFname} ${safeLname}`.trim();
+  const isVirtual = VIRTUAL_SERVICES.includes(safeService);
+
+  const startISO = parseDateTime(date, time);
+  if (!startISO) {
+    return jsonResponse(400, { error: 'Invalid date/time' });
+  }
+
+  let meetLink = null;
+  let calendarEventLink = null;
+
+  // ── Google Auth ──
+  let googleAuth = null;
+  const saKey = getSaKey();
+  if (saKey) {
+    try {
+      const impersonate = process.env.GOOGLE_IMPERSONATE || STAEL_EMAIL;
+      googleAuth = new google.auth.JWT({
+        email: saKey.client_email,
+        key: saKey.private_key,
+        scopes: [
+          'https://www.googleapis.com/auth/calendar',
+          'https://www.googleapis.com/auth/gmail.send',
+        ],
+        subject: impersonate,
+      });
+      googleAuth.projectId = saKey.project_id;
+      await googleAuth.authorize();
+      console.log('✓ Google auth OK — impersonating', impersonate);
+    } catch (e) {
+      console.error('Google auth error:', e.message);
+      return jsonResponse(500, { error: 'Google auth failed' });
+    }
+  } else {
+    return jsonResponse(500, { error: 'Google service account not configured' });
+  }
+
+  // ── Create Google Calendar event ──
+  try {
+    const calendar = google.calendar({ version: 'v3', auth: googleAuth });
+    const duration = safeService === 'One-on-One Private Lessons' ? 60 : 90;
+    const endISO = new Date(new Date(startISO).getTime() + duration * 60000).toISOString();
+
+    const eventBody = {
+      summary: `${safeService} — ${clientName}`,
+      description: [
+        `Service: ${safeService}`,
+        `Price: $${Number(price)}`,
+        safeNotes ? `Notes: ${safeNotes}` : '',
+        `Stripe: ${safeSessionId || 'N/A'}`,
+        'staelfogarty.com',
+      ].filter(Boolean).join('\n'),
+      start: { dateTime: startISO, timeZone: 'America/New_York' },
+      end: { dateTime: endISO, timeZone: 'America/New_York' },
+      attendees: [
+        { email: STAEL_EMAIL, displayName: 'Stael Gissoni', organizer: true },
+        { email, displayName: clientName },
+      ],
+      reminders: {
+        useDefault: false,
+        overrides: [
+          { method: 'email', minutes: 24 * 60 },
+          { method: 'popup', minutes: 30 },
+        ],
+      },
+      sendUpdates: 'all',
+    };
+
+    if (isVirtual) {
+      eventBody.conferenceData = {
+        createRequest: {
+          requestId: `stael-${Date.now()}`,
+          conferenceSolutionKey: { type: 'hangoutsMeet' },
+        },
+      };
+    }
+
+    const calEvent = await calendar.events.insert({
+      calendarId: 'primary',
+      requestBody: eventBody,
+      conferenceDataVersion: isVirtual ? 1 : 0,
+      sendUpdates: 'all',
+    });
+
+    calendarEventLink = calEvent.data.htmlLink;
+
+    if (isVirtual && calEvent.data.conferenceData) {
+      const ep = calEvent.data.conferenceData.entryPoints?.find(e => e.entryPointType === 'video');
+      if (ep) meetLink = ep.uri;
+    }
+
+    console.log(`✓ Calendar event created${meetLink ? ' with Meet link: ' + meetLink : ''}`);
+  } catch (e) {
+    console.error('Google Calendar error:', e.message);
+    return jsonResponse(500, { error: 'Calendar event creation failed' });
+  }
+
+  // ── Build email content ──
+  const meetSection = meetLink
+    ? `\nGoogle Meet link: ${meetLink}\n`
+    : isVirtual ? '\nGoogle Meet link: Stael will send this before your session.\n' : '';
+
+  const staelBody = `Hi Stael,\n\nNew booking confirmed!\n\nSERVICE: ${safeService}\nCLIENT: ${clientName}\nEMAIL: ${email}\nDATE: ${safeDate}\nTIME: ${safeTime} ET\nPRICE: $${Number(price)}${meetSection}\nNOTES: ${safeNotes || 'None'}\nSTRIPE: ${safeSessionId || 'N/A'}\n${calendarEventLink ? '\nCalendar: ' + calendarEventLink : ''}\n\n— staelfogarty.com`;
+
+  const clientBody = `Hi ${safeFname},\n\nYour session with Stael is confirmed!\n\nSERVICE: ${safeService}\nDATE: ${safeDate}\nTIME: ${safeTime} ET\nPRICE: $${Number(price)}${meetSection}\n${isVirtual && meetLink ? 'Click the Google Meet link above to join at the scheduled time.' : isVirtual ? 'Stael will send your Google Meet link before the session.' : 'Stael will meet you in person and confirm the location details.'}\n\nCANCELLATION: Free cancellation up to 24 hours before your session.\nContact: hello@staelfogarty.com\n\nThank you for choosing Stael Gissoni!\n\n— staelfogarty.com`;
+
+  const vynBody = `New booking on staelfogarty.com!\n\nSERVICE: ${safeService}\nCLIENT: ${clientName}\nEMAIL: ${email}\nDATE: ${safeDate}\nTIME: ${safeTime} ET\nPRICE: $${Number(price)}\nCOMMISSION (20%): $${Math.round(Number(price) * 0.20 * 100) / 100}${meetSection}\nNOTES: ${safeNotes || 'None'}\nSTRIPE: ${safeSessionId || 'N/A'}\n${calendarEventLink ? '\nCalendar: ' + calendarEventLink : ''}\n\n— staelfogarty.com`;
+
+  // ── Send emails via Resend ──
+  let emailsSent = false;
+  if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY not set');
+    return jsonResponse(500, { error: 'Email provider not configured' });
+  }
+
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const vynEmail = process.env.VYN_EMAIL || 'hello@vyn.studio';
+
+    const results = await Promise.allSettled([
+      resend.emails.send({
+        from: 'Stael Gissoni <noreply@staelfogarty.com>',
+        to: STAEL_EMAIL,
+        subject: `New Booking: ${safeService} — ${clientName}`,
+        text: staelBody,
+      }),
+      resend.emails.send({
+        from: 'Stael Gissoni <noreply@staelfogarty.com>',
+        to: email,
+        subject: `Your session is confirmed — ${safeService} with Stael Gissoni`,
+        text: clientBody,
+      }),
+      resend.emails.send({
+        from: 'Stael Gissoni Site <noreply@staelfogarty.com>',
+        to: vynEmail,
+        subject: `New Booking: ${safeService} — ${clientName} — $${Number(price)}`,
+        text: vynBody,
+      }),
+    ]);
+
+    const failures = results.filter(r => r.status === 'rejected');
+    if (failures.length === results.length) {
+      console.error('All emails failed:', failures.map(f => f.reason?.message));
+      return jsonResponse(500, { error: 'Email send failed' });
+    }
+    if (failures.length > 0) {
+      console.error('Some emails failed:', failures.map(f => f.reason?.message));
+    }
+    emailsSent = true;
+    console.log('✓ Emails sent via Resend');
+  } catch (e) {
+    console.error('Email error:', e.message);
+    return jsonResponse(500, { error: 'Email send failed' });
+  }
+
+  const gcalLink = buildGCalLink({ service: safeService, clientName, date: safeDate, time: safeTime, meetLink, isVirtual, startISO });
+
+  return jsonResponse(200, { success: true, meetLink, calendarEventLink, gcalLink, emailsSent, isVirtual });
+};
+
+// Parse "Fri, Oct 25" + "3:00 PM" into an ISO timestamp. Uses the current year
+// as a best-effort when the input lacks one — callers must pre-validate the
+// date is within the 21-day availability window, so year rollover is rare.
+// Returns null on failure (caller treats that as a 400, not a silent fallback).
+function parseDateTime(dateStr, timeStr) {
+  if (typeof dateStr !== 'string' || typeof timeStr !== 'string') return null;
   try {
     const year = new Date().getFullYear();
-    const start = new Date(`${date.replace(/^[A-Za-z]+,\s*/, '')} ${year} ${time}`);
+    const clean = dateStr.replace(/^[A-Za-z]+,\s*/, '').trim();
+    const d = new Date(`${clean} ${year} ${timeStr}`);
+    if (isNaN(d.getTime())) return null;
+    // Treat dates >60 days in the past as year-rollover: bump to next year.
+    const now = Date.now();
+    if (d.getTime() < now - 60 * 24 * 60 * 60 * 1000) {
+      const bumped = new Date(`${clean} ${year + 1} ${timeStr}`);
+      if (isNaN(bumped.getTime())) return null;
+      return bumped.toISOString();
+    }
+    return d.toISOString();
+  } catch {
+    return null;
+  }
+}
+
+function buildGCalLink({ service, clientName, date, time, meetLink, isVirtual, startISO }) {
+  try {
+    const start = startISO ? new Date(startISO) : new Date();
     const end = new Date(start.getTime() + 60 * 60000);
     const fmt = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
     const title = encodeURIComponent(`${service} — Stael Gissoni`);
@@ -191,5 +249,7 @@ function buildGCalLink({ service, clientName, date, time, meetLink, isVirtual })
       'hello@staelfogarty.com | staelfogarty.com',
     ].join('\n'));
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(start)}/${fmt(end)}&details=${details}`;
-  } catch (e) { return 'https://calendar.google.com'; }
+  } catch {
+    return 'https://calendar.google.com';
+  }
 }

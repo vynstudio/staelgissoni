@@ -73,7 +73,7 @@ a{text-decoration:none;color:inherit}
 .bt-mint{background:var(--mint-wash);color:var(--mint-deep)}
 .bt-lav{background:var(--lavender-wash);color:var(--lavender)}
 
-.blog-card h3{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;color:var(--dark);margin-bottom:10px;line-height:1.35}
+.blog-card h2,.blog-card h3{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;color:var(--dark);margin-bottom:10px;line-height:1.35}
 .blog-card p{font-size:0.88rem;color:var(--text-muted);line-height:1.65;margin-bottom:16px}
 .blog-meta{display:flex;align-items:center;justify-content:space-between;font-size:0.8rem;color:var(--text-light);font-weight:600}
 .blog-read{color:var(--blue);font-weight:700;display:flex;align-items:center;gap:4px;transition:gap 0.3s}
@@ -85,7 +85,7 @@ a{text-decoration:none;color:inherit}
 .bf-img{min-height:320px;display:flex;align-items:center;justify-content:center;font-size:4rem;background:linear-gradient(135deg,var(--blue) 0%,#7BA4D4 50%,var(--lavender) 100%)}
 .bf-body{padding:48px 40px;display:flex;flex-direction:column;justify-content:center}
 .bf-body .blog-tag{margin-bottom:18px}
-.bf-body h3{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:800;color:var(--dark);margin-bottom:14px;line-height:1.3}
+.bf-body h2,.bf-body h3{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:800;color:var(--dark);margin-bottom:14px;line-height:1.3}
 .bf-body p{font-size:1rem;color:var(--text-muted);line-height:1.7;margin-bottom:24px}
 .bf-body .blog-meta{font-size:0.85rem}
 
@@ -123,12 +123,18 @@ a{text-decoration:none;color:inherit}
   .footer-grid{grid-template-columns:1fr;gap:32px}
   .footer-bottom{flex-direction:column;gap:12px;text-align:center}
 }
+
+/* Accessibility: skip link + focus */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 24px;background:var(--blue);color:white;font-weight:700;font-size:0.9rem;border-radius:0 0 var(--radius-sm) var(--radius-sm);text-decoration:none}
+.skip-link:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
 </style>
 <!-- Tracking -->
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>
 <body>
-<nav class="nav" id="nav">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header><nav class="nav" id="nav">
 <a class="nav-logo" href="index.html">stael<span>.</span></a>
 <button aria-label="Toggle menu" class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
 <div class="nav-menu" id="navMenu">
@@ -140,8 +146,9 @@ a{text-decoration:none;color:inherit}
 <a class="nav-link" data-i18n="nav_interpretation" href="interpretation.html">Interpretation</a>
 <a class="nav-link nav-cta" data-i18n="nav_book" href="contact.html">Book a Session</a>
 </div>
-</nav>
-<section class="page-hero">
+</nav></header>
+<main>
+<section class="page-hero" id="main-content">
 <div class="page-hero-shape phs-1"></div>
 <div class="page-hero-shape phs-2"></div>
 <div class="page-hero-inner">
@@ -157,7 +164,7 @@ a{text-decoration:none;color:inherit}
 <div class="bf-img">🌎</div>
 <div class="bf-body">
 <span class="blog-tag bt-blue" data-i18n="blog_feat_tag">Featured</span>
-<h3 data-i18n="blog_feat_h3">Why Every Brazilian in Orlando Needs a Professional Interpreter</h3>
+<h2 data-i18n="blog_feat_h3">Why Every Brazilian in Orlando Needs a Professional Interpreter</h2>
 <p data-i18n="blog_feat_p">Navigating the US healthcare system, legal proceedings, and business meetings without a professional interpreter can lead to costly mistakes. Here's why having a bilingual expert matters.</p>
 <div class="blog-meta">
 <span data-i18n="blog_feat_meta">March 2026 · 5 min read</span>
@@ -166,11 +173,11 @@ a{text-decoration:none;color:inherit}
 </div>
 </a>
 <!-- Post 2 -->
-<a class="blog-card reveal reveal-delay-1" href="blog/why-brazilians-orlando-need-interpreter.html">
+<a class="blog-card reveal reveal-delay-1" href="blog/documents-translated-uscis.html">
 <div class="blog-img bi-peach">📋</div>
 <div class="blog-body">
 <span class="blog-tag bt-peach" data-i18n="blog2_tag">Translation</span>
-<h3 data-i18n="blog2_h3">What Documents Do You Need Translated for USCIS?</h3>
+<h2 data-i18n="blog2_h3">What Documents Do You Need Translated for USCIS?</h2>
 <p data-i18n="blog2_p">A complete guide to which documents need certified translation for your immigration application.</p>
 <div class="blog-meta">
 <span>March 2026</span>
@@ -179,11 +186,11 @@ a{text-decoration:none;color:inherit}
 </div>
 </a>
 <!-- Post 3 -->
-<a class="blog-card reveal reveal-delay-2" href="blog/documents-translated-uscis.html">
+<a class="blog-card reveal reveal-delay-2" href="blog/how-virtual-interpretation-works.html">
 <div class="blog-img bi-mint">💻</div>
 <div class="blog-body">
 <span class="blog-tag bt-mint" data-i18n="blog3_tag">Virtual</span>
-<h3 data-i18n="blog3_h3">How Virtual Interpretation Works (And Why It's Just as Good)</h3>
+<h2 data-i18n="blog3_h3">How Virtual Interpretation Works (And Why It's Just as Good)</h2>
 <p data-i18n="blog3_p">Everything you need to know about booking a remote interpretation session via Zoom or phone.</p>
 <div class="blog-meta">
 <span>March 2026</span>
@@ -192,11 +199,11 @@ a{text-decoration:none;color:inherit}
 </div>
 </a>
 <!-- Post 4 -->
-<a class="blog-card reveal reveal-delay-3" href="blog/how-virtual-interpretation-works.html">
+<a class="blog-card reveal reveal-delay-3" href="blog/medical-appointment-interpreter-tips.html">
 <div class="blog-img bi-lav">🏥</div>
 <div class="blog-body">
 <span class="blog-tag bt-lav" data-i18n="blog4_tag">Medical</span>
-<h3 data-i18n="blog4_h3">5 Things to Know Before Your Medical Appointment with an Interpreter</h3>
+<h2 data-i18n="blog4_h3">5 Things to Know Before Your Medical Appointment with an Interpreter</h2>
 <p data-i18n="blog4_p">How to prepare for a doctor's visit when you'll be using a Portuguese interpreter.</p>
 <div class="blog-meta">
 <span>March 2026</span>
@@ -205,11 +212,11 @@ a{text-decoration:none;color:inherit}
 </div>
 </a>
 <!-- Post 5 -->
-<a class="blog-card reveal reveal-delay-1" href="blog/medical-appointment-interpreter-tips.html">
+<a class="blog-card reveal reveal-delay-1" href="blog/legal-rights-interpreter.html">
 <div class="blog-img bi-blue">⚖️</div>
 <div class="blog-body">
 <span class="blog-tag bt-blue" data-i18n="blog5_tag">Legal</span>
-<h3 data-i18n="blog5_h3">Your Rights to an Interpreter in Legal Proceedings</h3>
+<h2 data-i18n="blog5_h3">Your Rights to an Interpreter in Legal Proceedings</h2>
 <p data-i18n="blog5_p">Understanding your legal right to interpretation services in court, depositions, and USCIS interviews.</p>
 <div class="blog-meta">
 <span>March 2026</span>
@@ -218,11 +225,11 @@ a{text-decoration:none;color:inherit}
 </div>
 </a>
 <!-- Post 6 -->
-<a class="blog-card reveal reveal-delay-2" href="blog/legal-rights-interpreter.html">
+<a class="blog-card reveal reveal-delay-2" href="blog/portuguese-phrases-english-speakers.html">
 <div class="blog-img bi-peach">📚</div>
 <div class="blog-body">
 <span class="blog-tag bt-peach" data-i18n="blog6_tag">Language</span>
-<h3 data-i18n="blog6_h3">10 Portuguese Phrases Every English Speaker Should Know</h3>
+<h2 data-i18n="blog6_h3">10 Portuguese Phrases Every English Speaker Should Know</h2>
 <p data-i18n="blog6_p">Starting your Portuguese journey? These everyday phrases will get you communicating right away.</p>
 <div class="blog-meta">
 <span>March 2026</span>
@@ -231,11 +238,11 @@ a{text-decoration:none;color:inherit}
 </div>
 </a>
 <!-- Post 7 -->
-<a class="blog-card reveal reveal-delay-3" href="blog/portuguese-phrases-english-speakers.html">
+<a class="blog-card reveal reveal-delay-3" href="blog/working-brazilian-clients-culture-tips.html">
 <div class="blog-img bi-mint">🤝</div>
 <div class="blog-body">
 <span class="blog-tag bt-mint" data-i18n="blog7_tag">Business</span>
-<h3 data-i18n="blog7_h3">Working with Brazilian Clients? Here's How to Bridge the Culture Gap</h3>
+<h2 data-i18n="blog7_h3">Working with Brazilian Clients? Here's How to Bridge the Culture Gap</h2>
 <p data-i18n="blog7_p">Cultural tips for American businesses collaborating with Portuguese-speaking partners.</p>
 <div class="blog-meta">
 <span>March 2026</span>
@@ -247,6 +254,7 @@ a{text-decoration:none;color:inherit}
 </div>
 </section>
 <!-- FOOTER -->
+</main>
 <footer class="footer">
 <div class="container">
 <div class="footer-grid">
@@ -254,12 +262,12 @@ a{text-decoration:none;color:inherit}
 <a class="nav-logo" href="index.html">stael<span>.</span></a>
 <p data-i18n="footer_tagline">Professional English–Portuguese interpretation, translation, and language teaching.</p>
 <div class="footer-social">
-<a class="social-link" href="#">f</a>
-<a class="social-link" href="#">ig</a>
-<a class="social-link" href="#">in</a>
+<a aria-label="Facebook" class="social-link" href="https://www.facebook.com/StaelFlorida/" target="_blank" rel="noopener noreferrer">f</a>
+<a aria-label="Instagram" class="social-link" href="https://www.instagram.com/staelfogarty/" target="_blank" rel="noopener noreferrer">ig</a>
+<a aria-label="LinkedIn" class="social-link" href="https://www.linkedin.com/in/staelgissonifogarty" target="_blank" rel="noopener noreferrer">in</a>
 </div>
 </div>
-<div class="footer-col"><h4 data-i18n="footer_services">Services</h4><ul class="footer-links"><li><a data-i18n="footer_svc_onsite" href="services/live-interpretation.html">Live Interpretation</a></li><li><a data-i18n="footer_svc_remote" href="services/virtual-sessions.html">Virtual Sessions</a></li><li><a data-i18n="footer_svc_medical" href="services/medical-interpretation.html">Medical Interpretation</a></li><li><a data-i18n="footer_svc_legal" href="services/legal-interpretation.html">Legal Interpretation</a></li><li><a data-i18n="footer_svc_lessons" href="services/language-coaching.html">Language Coaching</a></li></ul></div>
+<div class="footer-col"><h4 data-i18n="footer_services">Services</h4><ul class="footer-links"><li><a data-i18n="footer_svc_onsite" href="/interpretation">Live Interpretation</a></li><li><a data-i18n="footer_svc_remote" href="/interpretation">Virtual Sessions</a></li><li><a data-i18n="footer_svc_medical" href="/interpretation">Medical Interpretation</a></li><li><a data-i18n="footer_svc_legal" href="/interpretation">Legal Interpretation</a></li><li><a data-i18n="footer_svc_lessons" href="/lessons">Language Coaching</a></li></ul></div>
 <div class="footer-col"><h4 data-i18n="footer_company">Company</h4><ul class="footer-links"><li><a data-i18n="footer_about" href="about.html">About</a></li><li><a data-i18n="footer_how" href="services.html">Services</a></li><li><a data-i18n="footer_testimonials" href="blog.html">Blog</a></li><li><a data-i18n="footer_faq" href="contact.html">Contact</a></li></ul></div>
 <div class="footer-col"><h4 data-i18n="footer_contact">Contact</h4><ul class="footer-links"><li><a href="mailto:hello@staelfogarty.com">hello@staelfogarty.com</a></li><li><a href="#">Orlando, FL</a></li></ul></div>
 </div>
@@ -278,6 +286,6 @@ const toggle=document.getElementById('navToggle'),menu=document.getElementById('
 toggle.addEventListener('click',()=>{menu.classList.toggle('open');const s=toggle.querySelectorAll('span');if(menu.classList.contains('open')){s[0].style.transform='rotate(45deg) translate(4px,4px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(4px,-4px)';}else{s[0].style.transform='none';s[1].style.opacity='1';s[2].style.transform='none';}});
 const revealEls=document.querySelectorAll('.reveal');const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});revealEls.forEach(el=>observer.observe(el));
 </script>
-<script src="/lang.js"></script>
+<script src="/lang.js" defer></script>
 </body>
 </html>

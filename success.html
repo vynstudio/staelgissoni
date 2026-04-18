@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Booking Confirmed — Stael Gissoni</title>
+<meta name="description" content="Your booking with Stael Gissoni has been confirmed.">
+<meta name="robots" content="noindex, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -44,6 +46,11 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   .success-card{padding:40px 24px}
   .success-trust{flex-direction:column;align-items:center;gap:10px}
 }
+
+/* Accessibility: skip link + focus */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 24px;background:var(--blue);color:white;font-weight:700;font-size:0.9rem;border-radius:0 0 12px 12px;text-decoration:none}
+.skip-link:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
 </style>
 <!-- Tracking -->
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
@@ -117,7 +124,8 @@ setTimeout(() => { if (window.sfTrack) sfTrack.purchase('Session Booking', 0); }
 </script>
 </head>
 <body>
-
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<main id="main-content">
 <div class="success-card">
   <a href="index.html" class="nav-logo">stael<span>.</span></a>
   <span class="success-icon">🎉</span>
@@ -146,7 +154,8 @@ setTimeout(() => { if (window.sfTrack) sfTrack.purchase('Session Booking', 0); }
     <img src="https://www.google.com/favicon.ico" alt="Google"> Add to Google Calendar
   </a>
 </div>
+</main>
 
-<script src="/lang.js"></script>
+<script src="/lang.js" defer></script>
 </body>
 </html>

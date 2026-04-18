@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="canonical" href="https://staelfogarty.com/blog/medical-appointment-interpreter-tips">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>5 Things to Know Before Your Medical Appointment with an Interpreter — Stael Gissoni Blog</title>
 <meta name="description" content="Preparing for a doctor's appointment with a Portuguese interpreter? Here are 5 tips to make your medical visit smooth, accurate, and stress-free.">
@@ -56,10 +57,43 @@ a{color:var(--blue);text-decoration:none}a:hover{color:var(--blue-deep)}
   .nav{padding:0 24px;height:64px}.nav-menu{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);padding:16px 24px 24px;flex-direction:column;border-bottom:1.5px solid var(--border)}.nav-menu.open{display:flex}.nav-toggle{display:block}.nav-cta{margin-left:0;width:100%;text-align:center}
   .article{padding:110px 20px 60px}.article h1{font-size:1.6rem}.footer-mini{flex-direction:column;gap:8px;text-align:center}
 }
+
+/* Accessibility: skip link + focus */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 24px;background:var(--blue);color:white;font-weight:700;font-size:0.9rem;border-radius:0 0 var(--radius-sm) var(--radius-sm);text-decoration:none}
+.skip-link:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Medical Appointment Interpreter Tips",
+  "description": "Practical tips for patients and families working with medical interpreters to ensure clear communication with healthcare providers.",
+  "url": "https://staelfogarty.com/blog/medical-appointment-interpreter-tips",
+  "image": "https://staelfogarty.com/og-image.png",
+  "author": {
+    "@type": "Person",
+    "name": "Stael Gissoni",
+    "url": "https://staelfogarty.com/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Stael Gissoni",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://staelfogarty.com/og-image.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://staelfogarty.com/blog/medical-appointment-interpreter-tips"
+  }
+}
+</script>
 </head>
 <body>
-<nav class="nav" id="nav">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header><nav class="nav" id="nav">
   <a href="../index.html" class="nav-logo">stael<span>.</span></a>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   <div class="nav-menu" id="navMenu">
@@ -68,8 +102,9 @@ a{color:var(--blue);text-decoration:none}a:hover{color:var(--blue-deep)}
     <a href="../blog.html" class="nav-link active">Blog</a>
     <a href="../contact.html" class="nav-link nav-cta">Book a Session</a>
   </div>
-</nav>
+</nav></header>
 
+<main id="main-content">
 <article class="article">
   <a href="../blog.html" class="article-back">← Back to Blog</a>
   <span class="article-tag bt-lav">Medical</span>
@@ -118,11 +153,12 @@ a{color:var(--blue);text-decoration:none}a:hover{color:var(--blue-deep)}
     <a href="../contact.html">Book a Session →</a>
   </div>
 </article>
+</main>
 
-<div class="footer-mini">
+<footer class="footer-mini">
   <p>© 2026 Stael Gissoni</p>
   <p><a href="../privacy.html" style="color:var(--text-light);margin-right:16px">Privacy Policy</a><a href="../terms.html" style="color:var(--text-light)">Terms of Service</a></p>
-</div>
+</footer>
 
 <script>
 fetch("../chatbot.html").then(r=>r.text()).then(html=>{const d=document.createElement("div");d.innerHTML=html;document.body.appendChild(d);const scripts=d.querySelectorAll("script");scripts.forEach(s=>{const ns=document.createElement("script");ns.textContent=s.textContent;document.body.appendChild(ns);});});

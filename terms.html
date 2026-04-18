@@ -5,6 +5,8 @@
 <link rel="canonical" href="https://staelfogarty.com/terms">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Terms of Service — Stael Gissoni</title>
+<meta name="description" content="Terms of Service for staelfogarty.com — booking, payment, cancellation, and service policies.">
+<meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -34,10 +36,16 @@ a{color:var(--blue);text-decoration:none}a:hover{color:var(--blue-deep)}
 .footer-mini{max-width:780px;margin:0 auto;padding:40px 24px;border-top:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .footer-mini p{font-size:0.85rem;color:var(--text-light)}
 @media(max-width:768px){.nav{padding:0 24px;height:64px}.nav-menu{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);padding:16px 24px 24px;flex-direction:column;border-bottom:1.5px solid var(--border)}.nav-menu.open{display:flex}.nav-toggle{display:block}.nav-cta{margin-left:0;width:100%;text-align:center}.content{padding:110px 20px 60px}.content h1{font-size:1.8rem}.footer-mini{flex-direction:column;gap:8px;text-align:center}}
+
+/* Accessibility: skip link + focus */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 24px;background:var(--blue);color:white;font-weight:700;font-size:0.9rem;border-radius:0 0 var(--radius-sm) var(--radius-sm);text-decoration:none}
+.skip-link:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
 </style>
 </head>
 <body>
-<nav class="nav" id="nav">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header><nav class="nav" id="nav">
   <a href="index.html" class="nav-logo">stael<span>.</span></a>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   <div class="nav-menu" id="navMenu">
@@ -48,8 +56,9 @@ a{color:var(--blue);text-decoration:none}a:hover{color:var(--blue-deep)}
     <a href="interpretation.html" class="nav-link">Interpretation</a>
     <a href="contact.html" class="nav-link nav-cta">Book a Session</a>
   </div>
-</nav>
+</nav></header>
 
+<main id="main-content">
 <div class="content">
   <h1>Terms of Service</h1>
   <p class="updated">Last updated: March 15, 2026</p>
@@ -117,16 +126,17 @@ a{color:var(--blue);text-decoration:none}a:hover{color:var(--blue-deep)}
   Orlando, Florida</p>
 </div>
 
-<div class="footer-mini">
+</main>
+<footer class="footer-mini">
   <p>&copy; 2026 Stael Gissoni</p>
   <p><a href="privacy.html" style="color:var(--text-light);margin-right:16px">Privacy Policy</a><a href="terms.html" style="color:var(--text-light)">Terms of Service</a></p>
-</div>
+</footer>
 
 <script>
 const nav=document.getElementById('nav');window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>20));
 const toggle=document.getElementById('navToggle'),menu=document.getElementById('navMenu');
 toggle.addEventListener('click',()=>{menu.classList.toggle('open');const s=toggle.querySelectorAll('span');if(menu.classList.contains('open')){s[0].style.transform='rotate(45deg) translate(4px,4px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(4px,-4px)';}else{s[0].style.transform='none';s[1].style.opacity='1';s[2].style.transform='none';}});
 </script>
-<script src="/lang.js"></script>
+<script src="/lang.js" defer></script>
 </body>
 </html>
