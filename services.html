@@ -170,11 +170,17 @@ img{max-width:100%;display:block}
 .svc-card p { flex: 1; }
 .svc-features { margin-top: 0; }
 .svc-footer { margin-top: auto; }
+
+/* Accessibility: skip link + focus */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 24px;background:var(--blue);color:white;font-weight:700;font-size:0.9rem;border-radius:0 0 var(--radius-sm) var(--radius-sm);text-decoration:none}
+.skip-link:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
 </style>
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>
 <body>
-<nav class="nav" id="nav">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header><nav class="nav" id="nav">
 <a class="nav-logo" href="index.html">stael<span>.</span></a>
 <button aria-label="Toggle menu" class="nav-toggle" id="navToggle">
 <span></span><span></span><span></span>
@@ -188,8 +194,9 @@ img{max-width:100%;display:block}
 <a class="nav-link" data-i18n="nav_interpretation" href="interpretation.html">Interpretation</a>
 <a class="nav-link nav-cta" data-i18n="nav_book" href="contact.html">Book a Session</a>
 </div>
-</nav>
-<section class="page-hero">
+</nav></header>
+<main>
+<section class="page-hero" id="main-content">
 <div class="phs phs-1"></div>
 <div class="phs phs-2"></div>
 <div class="page-hero-inner">
@@ -318,6 +325,7 @@ img{max-width:100%;display:block}
 </div>
 </div>
 </section>
+</main>
 <footer class="footer">
 <div class="container">
 <div class="footer-grid">
@@ -325,9 +333,9 @@ img{max-width:100%;display:block}
 <a class="nav-logo" href="index.html">stael<span>.</span></a>
 <p data-i18n="footer_tagline">Professional English–Portuguese interpretation and language coaching. Connecting people, one conversation at a time.</p>
 <div class="footer-social">
-<a class="social-link" href="#">f</a>
-<a class="social-link" href="#">ig</a>
-<a class="social-link" href="#">in</a>
+<a aria-label="Facebook" class="social-link" href="https://www.facebook.com/StaelFlorida/" target="_blank" rel="noopener noreferrer">f</a>
+<a aria-label="Instagram" class="social-link" href="https://www.instagram.com/staelfogarty/" target="_blank" rel="noopener noreferrer">ig</a>
+<a aria-label="LinkedIn" class="social-link" href="https://www.linkedin.com/in/staelgissonifogarty" target="_blank" rel="noopener noreferrer">in</a>
 </div>
 </div>
 <div class="footer-col">
@@ -383,6 +391,6 @@ const revealEls=document.querySelectorAll('.reveal');
 const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
 revealEls.forEach(el=>observer.observe(el));
 </script>
-<script src="/lang.js"></script>
+<script src="/lang.js" defer></script>
 </body>
 </html>

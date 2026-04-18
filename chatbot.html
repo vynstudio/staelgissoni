@@ -42,7 +42,7 @@
 
     <!-- Input -->
     <div id="sf-input-area">
-      <input type="text" id="sf-input" placeholder="Type your message..." onkeydown="if(event.key==='Enter')sfChat.sendUser()">
+      <label for="sf-input" class="sr-only" style="position:absolute;left:-9999px;">Type your message</label><input type="text" id="sf-input" aria-label="Type your message" placeholder="Type your message..." onkeydown="if(event.key==='Enter')sfChat.sendUser()">
       <button id="sf-send" onclick="sfChat.sendUser()">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
       </button>

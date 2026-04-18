@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Request a Site Change — Stael</title>
+<meta name="description" content="Internal form to request a change to staelfogarty.com.">
+<meta name="robots" content="noindex, nofollow">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f4f1;color:#222;padding:24px 16px 60px;font-size:16px}
@@ -34,8 +36,8 @@ textarea{resize:vertical;min-height:120px}
 
 <div class="card">
   <div class="field">
-    <label>What do you want to change? *</label>
-    <textarea id="what" placeholder="Examples:
+    <label for="what">What do you want to change? *</label>
+    <textarea id="what" name="what" placeholder="Examples:
 • Change Live Interpretation price from $65 to $70
 • Rename 'Virtual Session' to 'Online Session'  
 • Update my bio on the About page to say...
@@ -46,8 +48,8 @@ textarea{resize:vertical;min-height:120px}
   </div>
 
   <div class="field">
-    <label>How urgent?</label>
-    <select id="urgency">
+    <label for="urgency">How urgent?</label>
+    <select id="urgency" name="urgency">
       <option value="Not urgent — this week is fine">🟢 Not urgent — this week is fine</option>
       <option value="Soon — within 1-2 days">🟡 Soon — within 1-2 days</option>
       <option value="URGENT — as soon as possible">🔴 URGENT — as soon as possible</option>
@@ -55,8 +57,8 @@ textarea{resize:vertical;min-height:120px}
   </div>
 
   <div class="field" style="margin-bottom:0">
-    <label>Anything else to add? (optional)</label>
-    <input type="text" id="extra" placeholder="e.g. I'll send the photo on WhatsApp">
+    <label for="extra">Anything else to add? (optional)</label>
+    <input type="text" id="extra" name="extra" placeholder="e.g. I'll send the photo on WhatsApp">
   </div>
 </div>
 

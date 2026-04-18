@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — Stael Gissoni</title>
+<meta name="description" content="The page you're looking for doesn't exist. Return to staelfogarty.com home.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#FEFBF6;--white:#FFFFFF;--blue:#5B8EC9;--blue-deep:#4A78B0;--blue-wash:#EBF2FA;--peach:#F2A07B;--peach-wash:#FFF2EB;--lavender-wash:#F5F1FB;--dark:#2A2A3A;--text:#3D3D50;--text-muted:#7C7C96;--border:#EDECF0;--radius-sm:12px;--radius-md:18px;--radius-pill:100px;--shadow-blue:0 8px 28px rgba(91,142,201,0.28)}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden}
+.shape{position:absolute;border-radius:50%;pointer-events:none}
+.shape-1{width:400px;height:400px;top:-100px;right:-60px;background:radial-gradient(circle,var(--lavender-wash) 0%,transparent 70%);opacity:0.6}
+.shape-2{width:300px;height:300px;bottom:-60px;left:-60px;background:radial-gradient(circle,var(--peach-wash) 0%,transparent 70%);opacity:0.5}
+main{max-width:540px;width:100%;text-align:center;position:relative;z-index:1}
+.nav-logo{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:800;color:var(--dark);text-decoration:none;display:inline-block;margin-bottom:48px}
+.nav-logo span{color:var(--peach)}
+.error-code{font-family:'Fraunces',serif;font-size:clamp(5rem,16vw,9rem);font-weight:800;color:var(--blue);line-height:1;margin-bottom:16px;letter-spacing:-0.04em}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:var(--dark);margin-bottom:14px;line-height:1.2}
+p{font-size:1.05rem;color:var(--text-muted);line-height:1.7;margin-bottom:36px;max-width:440px;margin-left:auto;margin-right:auto}
+.btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:var(--radius-md);font-family:'Nunito',sans-serif;font-weight:700;font-size:0.95rem;text-decoration:none;transition:all 0.25s;cursor:pointer}
+.btn-primary{background:var(--blue);color:var(--white);box-shadow:var(--shadow-blue)}
+.btn-primary:hover{background:var(--blue-deep);transform:translateY(-2px)}
+.btn-secondary{background:var(--white);color:var(--dark);border:1.5px solid var(--border)}
+.btn-secondary:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-wash)}
+.links{font-size:0.9rem;color:var(--text-muted)}
+.links a{color:var(--blue);text-decoration:none;font-weight:600;margin:0 8px}
+.links a:hover{color:var(--blue-deep);text-decoration:underline}
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 24px;background:var(--blue);color:white;font-weight:700;font-size:0.9rem;border-radius:0 0 var(--radius-sm) var(--radius-sm);text-decoration:none}
+.skip-link:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="shape shape-1"></div>
+<div class="shape shape-2"></div>
+<main id="main-content">
+  <a href="/" class="nav-logo">stael<span>.</span></a>
+  <div class="error-code">404</div>
+  <h1>This page wandered off</h1>
+  <p>The page you're looking for doesn't exist or has moved. Let's get you back on track.</p>
+  <div class="btn-row">
+    <a href="/" class="btn btn-primary">← Back to Home</a>
+    <a href="/contact" class="btn btn-secondary">Book a Session</a>
+  </div>
+  <p class="links">
+    Or visit:
+    <a href="/about">About</a> ·
+    <a href="/services">Services</a> ·
+    <a href="/blog">Blog</a> ·
+    <a href="/interpretation">Interpretation</a> ·
+    <a href="/lessons">Lessons</a>
+  </p>
+</main>
+</body>
+</html>

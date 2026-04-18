@@ -178,12 +178,18 @@ h1.hero-h1 .bl{color:var(--blue)}
 .svc-card p { flex: 1; }
 .svc-features { margin-top: 0; }
 .svc-footer { margin-top: auto; }
+
+/* Accessibility: skip link + focus */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 24px;background:var(--blue);color:white;font-weight:700;font-size:0.9rem;border-radius:0 0 var(--radius-sm) var(--radius-sm);text-decoration:none}
+.skip-link:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
 </style>
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>
 <body>
 
-<nav class="nav" id="nav">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header><nav class="nav" id="nav">
   <a href="index.html" class="logo">stael<span>.</span></a>
   <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
   <div class="nav-right" id="navMenu">
@@ -192,9 +198,10 @@ h1.hero-h1 .bl{color:var(--blue)}
     <a href="about.html" class="nav-link">About</a>
     <a href="contact.html" class="nav-link nav-cta">Book a Lesson →</a>
   </div>
-</nav>
+</nav></header>
 
-<section class="hero">
+<main>
+<section class="hero" id="main-content">
   <div class="hb hb1"></div>
   <div class="hb hb2"></div>
   <div class="hero-inner">
@@ -348,6 +355,7 @@ h1.hero-h1 .bl{color:var(--blue)}
   </div>
 </div>
 
+</main>
 <footer class="footer">
   <div class="container">
     <div class="footer-inner">
@@ -364,7 +372,7 @@ h1.hero-h1 .bl{color:var(--blue)}
 </footer>
 
 <script>fetch("chatbot.html").then(r=>r.text()).then(html=>{const d=document.createElement("div");d.innerHTML=html;document.body.appendChild(d);const s=d.querySelectorAll("script");s.forEach(sc=>{const n=document.createElement("script");n.textContent=sc.textContent;document.body.appendChild(n);});});</script>
-<script src="/lang.js"></script>
+<script src="/lang.js" defer></script>
 <script>
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>20));

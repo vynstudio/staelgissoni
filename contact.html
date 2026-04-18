@@ -226,12 +226,18 @@ textarea.form-input{resize:vertical;min-height:72px}
 .service-options { align-items: stretch; }
 .service-opt { display: flex; flex-direction: column; }
 .so-summary { flex: 1; }
+
+/* Accessibility: skip link + focus */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 24px;background:var(--blue);color:white;font-weight:700;font-size:0.9rem;border-radius:0 0 var(--radius-sm) var(--radius-sm);text-decoration:none}
+.skip-link:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
 </style>
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>
 <body>
 
-<nav class="nav" id="nav">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header><nav class="nav" id="nav">
   <a href="index.html" class="nav-logo">stael<span>.</span></a>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   <div class="nav-menu" id="navMenu">
@@ -242,9 +248,10 @@ textarea.form-input{resize:vertical;min-height:72px}
     <a href="index.html#faq" class="nav-link" data-i18n="nav_faq">FAQ</a>
     <div id="langToggle" style="display:flex;align-items:center;border:1.5px solid var(--border);border-radius:var(--radius-pill);overflow:hidden;margin-right:4px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;"><button id="langBtn_en" onclick="I18N.set('en')" style="padding:6px 13px;border:none;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:pointer;transition:all 0.2s;color:var(--text)" aria-label="Switch to English">EN</button><span style="width:1px;background:var(--border);align-self:stretch;"></span><button id="langBtn_pt" onclick="I18N.set('pt')" style="padding:6px 13px;border:none;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:pointer;transition:all 0.2s;color:var(--text)" aria-label="Mudar para Português">PT</button></div><a href="contact.html" class="nav-link nav-cta active" data-i18n="nav_book">Book a Session</a>
   </div>
-</nav>
+</nav></header>
 
-<section class="page-hero">
+<main>
+<section class="page-hero" id="main-content">
   <div class="phs phs-1"></div>
   <div class="phs phs-2"></div>
   <div class="page-hero-inner">
@@ -382,28 +389,28 @@ textarea.form-input{resize:vertical;min-height:72px}
           <!-- Contact info -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label" data-i18n="label_fname">First Name</label>
-              <input type="text" class="form-input" id="fname" placeholder="Jane">
+              <label class="form-label" for="fname" data-i18n="label_fname">First Name</label>
+              <input type="text" class="form-input" id="fname" name="fname" placeholder="Jane">
             </div>
             <div class="form-group">
-              <label class="form-label" data-i18n="label_lname">Last Name</label>
-              <input type="text" class="form-input" id="lname" placeholder="Doe">
+              <label class="form-label" for="lname" data-i18n="label_lname">Last Name</label>
+              <input type="text" class="form-input" id="lname" name="lname" placeholder="Doe">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label" data-i18n="label_email">Email</label>
-              <input type="email" class="form-input" id="email" placeholder="jane@email.com">
+              <label class="form-label" for="email" data-i18n="label_email">Email</label>
+              <input type="email" class="form-input" id="email" name="email" placeholder="jane@email.com">
             </div>
             <div class="form-group">
-              <label class="form-label" data-i18n="label_phone">Phone</label>
-              <input type="tel" class="form-input" id="phone" placeholder="(555) 555-5555">
+              <label class="form-label" for="phone" data-i18n="label_phone">Phone</label>
+              <input type="tel" class="form-input" id="phone" name="phone" placeholder="(555) 555-5555">
             </div>
           </div>
           <div class="form-row full">
             <div class="form-group">
-              <label class="form-label" data-i18n="label_notes">Notes for Stael (optional)</label>
-              <textarea class="form-input" id="notes" placeholder="Any details, requirements, or questions..."></textarea>
+              <label class="form-label" for="notes" data-i18n="label_notes">Notes for Stael (optional)</label>
+              <textarea class="form-input" id="notes" name="notes" placeholder="Any details, requirements, or questions..."></textarea>
             </div>
           </div>
 
@@ -472,6 +479,7 @@ textarea.form-input{resize:vertical;min-height:72px}
   </div>
 </section>
 
+</main>
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
@@ -479,9 +487,9 @@ textarea.form-input{resize:vertical;min-height:72px}
         <a href="index.html" class="nav-logo">stael<span>.</span></a>
         <p>Professional English–Portuguese interpretation and language coaching. Connecting people, one conversation at a time.</p>
         <div class="footer-social">
-          <a href="#" class="social-link">f</a>
-          <a href="#" class="social-link">ig</a>
-          <a href="#" class="social-link">in</a>
+          <a aria-label="Facebook" href="https://www.facebook.com/StaelFlorida/" target="_blank" rel="noopener noreferrer" class="social-link">f</a>
+          <a aria-label="Instagram" href="https://www.instagram.com/staelfogarty/" target="_blank" rel="noopener noreferrer" class="social-link">ig</a>
+          <a aria-label="LinkedIn" href="https://www.linkedin.com/in/staelgissonifogarty" target="_blank" rel="noopener noreferrer" class="social-link">in</a>
         </div>
       </div>
       <div class="footer-col"><h4>Services</h4><ul class="footer-links">
@@ -809,6 +817,6 @@ async function submitBooking(){
   if(email){const em=document.getElementById('email');if(em)em.value=email;}
 })();
 </script>
-<script src="/lang.js"></script>
+<script src="/lang.js" defer></script>
 </body>
 </html>

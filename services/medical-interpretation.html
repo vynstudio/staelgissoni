@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="canonical" href="https://staelfogarty.com/services/medical-interpretation">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Medical Interpretation — Stael Gissoni | English & Portuguese Interpreter</title>
 <meta name="description" content="Professional medical English-Portuguese interpretation for healthcare appointments, hospitals, and telehealth. HIPAA-aware. Orlando, FL.">
@@ -178,13 +179,19 @@ a{text-decoration:none;color:inherit}
   .footer-grid{grid-template-columns:1fr;gap:32px}
   .footer-bottom{flex-direction:column;gap:12px;text-align:center}
 }
+
+/* Accessibility: skip link + focus */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:10000;padding:12px 24px;background:var(--blue);color:white;font-weight:700;font-size:0.9rem;border-radius:0 0 var(--radius-sm) var(--radius-sm);text-decoration:none}
+.skip-link:focus{position:fixed;left:50%;top:0;transform:translateX(-50%);width:auto;height:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
 </style>
 <!-- Tracking -->
 <script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>
 <body>
 
-<nav class="nav" id="nav">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header><nav class="nav" id="nav">
   <a href="../index.html" class="nav-logo">stael<span>.</span></a>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   <div class="nav-menu" id="navMenu">
@@ -194,9 +201,10 @@ a{text-decoration:none;color:inherit}
     <a href="../index.html#faq" class="nav-link">FAQ</a>
     <a href="../contact.html?service=Medical+Interpretation" class="nav-link nav-cta">Book a Session</a>
   </div>
-</nav>
+</nav></header>
 
 <!-- HERO -->
+<main id="main-content">
 <section class="svc-hero">
   <div class="svc-hero-shape sh-1"></div>
   <div class="svc-hero-shape sh-2"></div>
@@ -338,10 +346,11 @@ a{text-decoration:none;color:inherit}
 </section>
 
 <!-- FOOTER -->
+</main>
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="nav-logo">stael<span>.</span></a><p>Professional English–Portuguese interpretation, translation, and language teaching.</p><div class="footer-social"><a href="#" class="social-link">f</a><a href="#" class="social-link">ig</a><a href="#" class="social-link">in</a></div></div>
+      <div class="footer-brand"><a href="../index.html" class="nav-logo">stael<span>.</span></a><p>Professional English–Portuguese interpretation, translation, and language teaching.</p><div class="footer-social"><a aria-label="Facebook" href="https://www.facebook.com/StaelFlorida/" target="_blank" rel="noopener noreferrer" class="social-link">f</a><a aria-label="Instagram" href="https://www.instagram.com/staelfogarty/" target="_blank" rel="noopener noreferrer" class="social-link">ig</a><a aria-label="LinkedIn" href="https://www.linkedin.com/in/staelgissonifogarty" target="_blank" rel="noopener noreferrer" class="social-link">in</a></div></div>
       <div class="footer-col"><h4>Services</h4><ul class="footer-links"><li><a href="live-interpretation.html">Live Interpretation</a></li><li><a href="virtual-sessions.html">Virtual Sessions</a></li><li><a href="medical-interpretation.html">Medical Interpretation</a></li><li><a href="legal-interpretation.html">Legal Interpretation</a></li><li><a href="language-coaching.html">Language Coaching</a></li></ul></div>
       <div class="footer-col"><h4>Company</h4><ul class="footer-links"><li><a href="../about.html">About</a></li><li><a href="../services.html">Services</a></li><li><a href="../index.html#testimonials">Testimonials</a></li><li><a href="../contact.html?service=Medical+Interpretation">Contact</a></li></ul></div>
       <div class="footer-col"><h4>Contact</h4><ul class="footer-links"><li><a href="mailto:hello@staelfogarty.com">hello@staelfogarty.com</a></li><li><a href="#">Orlando, FL</a></li></ul></div>
