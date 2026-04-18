@@ -1,19 +1,37 @@
 const { google } = require('googleapis');
+const { preflight, jsonResponse } = require('./lib/cors');
+const { wallClockToUtc } = require('./lib/time');
 
 const TIME_SLOTS = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM'];
 const DAYS_AHEAD = 21;
 const TIMEZONE = 'America/New_York';
 
+// Cache the parsed service-account key across warm invocations.
+let cachedSaKey = null;
+function getSaKey() {
+  if (!process.env.GOOGLE_SERVICE_ACCOUNT_JSON) return null;
+  if (!cachedSaKey) cachedSaKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+  return cachedSaKey;
+}
+
+function slotHour(slot) {
+  const [time, ampm] = slot.split(' ');
+  let [h] = time.split(':').map(Number);
+  if (ampm === 'PM' && h !== 12) h += 12;
+  if (ampm === 'AM' && h === 12) h = 0;
+  return h;
+}
+
 exports.handler = async (event) => {
-  const headers = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, OPTIONS' };
-  if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers, body: '' };
+  const pre = preflight(event);
+  if (pre) return pre;
 
   try {
-    if (!process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
-      return { statusCode: 200, headers, body: JSON.stringify({ availability: getMock(), source: 'mock' }) };
+    const saKey = getSaKey();
+    if (!saKey) {
+      return jsonResponse(200, { availability: getMock(), source: 'mock' });
     }
 
-    const saKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
     const calendarId = process.env.GOOGLE_IMPERSONATE || 'hello@staelfogarty.com';
 
     const auth = new google.auth.JWT({
@@ -34,7 +52,7 @@ exports.handler = async (event) => {
         timeMax: timeMax.toISOString(),
         timeZone: TIMEZONE,
         items: [{ id: calendarId }],
-      }
+      },
     });
 
     const busy = res.data.calendars[calendarId]?.busy || [];
@@ -50,11 +68,10 @@ exports.handler = async (event) => {
         const dateKey = d.toISOString().split('T')[0];
         const label = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: TIMEZONE });
         const freeSlots = TIME_SLOTS.filter(slot => {
-          const [time, ampm] = slot.split(' ');
-          let [h, m] = time.split(':').map(Number);
-          if (ampm === 'PM' && h !== 12) h += 12;
-          if (ampm === 'AM' && h === 12) h = 0;
-          const slotStart = new Date(`${dateKey}T${String(h).padStart(2,'0')}:00:00-05:00`);
+          const h = slotHour(slot);
+          // DST-safe: compute the actual UTC instant for `h:00` America/New_York
+          // on this date. A hardcoded -05:00 offset breaks ~8 months/year.
+          const slotStart = wallClockToUtc(dateKey, h, 0, TIMEZONE);
           const slotEnd = new Date(slotStart.getTime() + 60 * 60000);
           return !busy.some(b => new Date(b.start) < slotEnd && new Date(b.end) > slotStart);
         });
@@ -63,11 +80,10 @@ exports.handler = async (event) => {
       d.setDate(d.getDate() + 1);
     }
 
-    return { statusCode: 200, headers, body: JSON.stringify({ availability, source: 'google' }) };
-
+    return jsonResponse(200, { availability, source: 'google' });
   } catch (err) {
     console.error('Calendar error:', err.message);
-    return { statusCode: 200, headers, body: JSON.stringify({ availability: getMock(), source: 'fallback', error: err.message }) };
+    return jsonResponse(200, { availability: getMock(), source: 'fallback' });
   }
 };
 
