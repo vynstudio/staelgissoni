@@ -89,26 +89,17 @@ footer a:hover { color: var(--peach-deep); }
 </head>
 <body>
 
-<header class="top-bar">
-  <div class="top-bar-row">
-    <a href="/" class="logo">stael<span>.</span></a>
-    <nav class="nav" id="nav">
-      <a href="/services" class="active">Services</a>
-      <a href="/enterprise">Enterprise</a>
-      <a href="/about">About us</a>
-      <a href="/blog">Blog</a>
-      <a href="/book" class="mobile-cta">Book now →</a>
-      <div class="mobile-lang"><div class="lang" role="group" aria-label="Language">
-      <button type="button" class="on" data-lang="en" aria-label="English">EN</button>
-      <button type="button" data-lang="pt" aria-label="Português">PT</button>
-    </div></div>
+<header class="site-header">
+  <div class="nav-container">
+    <a href="/" class="site-logo">stael<span>.</span></a>
+    <nav class="site-nav" id="siteNav" aria-label="Primary">
+        <a href="/services" class="active">Services</a>
+        <a href="/enterprise">Enterprise</a>
+        <a href="/about">About us</a>
+        <a href="/blog">Blog</a>
     </nav>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" class="on" data-lang="en" aria-label="English">EN</button>
-      <button type="button" data-lang="pt" aria-label="Português">PT</button>
-    </div>
-    <a href="/book" class="cta">Book now →</a>
-    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <a href="/book" class="nav-cta">Book now</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -310,7 +301,7 @@ footer a:hover { color: var(--peach-deep); }
         <h5>Company</h5>
         <ul>
           <li><a href="/about">About Stael</a></li>
-          <li><a href="/book">Book a session</a></li>
+          <li><a href="/book">Book now</a></li>
           <li><a href="mailto:hello@staelgissoni.com">Contact</a></li>
         </ul>
       </div>
@@ -327,8 +318,8 @@ footer a:hover { color: var(--peach-deep); }
 </footer>
 
 <script>
-  document.getElementById('menuBtn').addEventListener('click', () => {
-    document.getElementById('nav').classList.toggle('open');
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('siteNav').classList.toggle('open');
   });
   document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
