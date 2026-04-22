@@ -4,7 +4,7 @@
 const { Resend } = require('resend');
 const { getAdminClient } = require('./supabase');
 
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'hello@staelfogarty.com';
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'hello@staelgissoni.com';
 
 function fmtMoney(cents, currency = 'usd') {
   return new Intl.NumberFormat('en-US', {
@@ -17,13 +17,13 @@ function renderDownloadEmail({ name, product, downloadUrl, amountCents, expiresO
   const firstName = String(name || '').trim().split(/\s+/)[0] || 'there';
   return `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Your download — Stael Fogarty</title></head>
+<title>Your download — Stael Gissoni</title></head>
 <body style="margin:0;padding:0;background:#FFF8F3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#2B2B2B">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FFF8F3;padding:32px 16px">
 <tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border:1px solid #F2D9C6;border-radius:16px;overflow:hidden">
 <tr><td style="background:#F2A07B;padding:22px 28px;color:#ffffff">
-<div style="font-family:'Fraunces',Georgia,serif;font-weight:800;font-size:22px;letter-spacing:-0.01em">Stael Fogarty</div>
+<div style="font-family:'Fraunces',Georgia,serif;font-weight:800;font-size:22px;letter-spacing:-0.01em">Stael Gissoni</div>
 <div style="font-size:12px;margin-top:4px;opacity:0.9">Languages · Lessons · Connection</div>
 </td></tr>
 <tr><td style="padding:28px 28px 16px;color:#2B2B2B">
@@ -47,7 +47,7 @@ Your link works until <strong>${expiresOn}</strong>. If you run into any trouble
 </p>
 </td></tr>
 <tr><td style="background:#FFF8F3;padding:14px 28px;text-align:center;color:#6B6B6B;font-size:11px">
-STAEL FOGARTY · Orlando, FL · staelfogarty.com
+STAEL GISSONI · Orlando, FL · staelgissoni.com
 </td></tr>
 </table>
 </td></tr></table>
@@ -107,7 +107,7 @@ async function sendDownloadEmail(order, fallbackEmail) {
     return { ok: true, emailed: false };
   }
 
-  const base = process.env.SITE_BASE_URL || 'https://staelfogarty.com';
+  const base = process.env.SITE_BASE_URL || 'https://staelgissoni.com';
   const downloadUrl = `${base}/download?token=${order.download_token}`;
   const expiresOn = new Date(order.download_expires_at).toLocaleDateString('en-US', {
     month: 'long', day: 'numeric', year: 'numeric',
@@ -115,7 +115,7 @@ async function sendDownloadEmail(order, fallbackEmail) {
 
   const resend = new Resend(process.env.RESEND_API_KEY);
   await resend.emails.send({
-    from: `Stael Fogarty <${FROM_EMAIL}>`,
+    from: `Stael Gissoni <${FROM_EMAIL}>`,
     to: [order.customer_email || fallbackEmail],
     replyTo: FROM_EMAIL,
     subject: `Your download — ${product.title}`,

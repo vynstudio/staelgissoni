@@ -3,7 +3,7 @@
 //
 // Setup in Stripe Dashboard:
 //   Developers → Webhooks → Add endpoint
-//   URL: https://staelfogarty.com/.netlify/functions/stripe-webhook
+//   URL: https://staelgissoni.com/.netlify/functions/stripe-webhook
 //   Events: checkout.session.completed
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -100,7 +100,7 @@ exports.handler = async (event) => {
   // Trigger Zoom + notification function. On downstream failure we return 500
   // so Stripe retries the webhook — do NOT mark the event as seen in that case.
   try {
-    const baseUrl = process.env.URL || 'https://staelfogarty.com';
+    const baseUrl = process.env.URL || 'https://staelgissoni.com';
     const res = await fetch(`${baseUrl}/.netlify/functions/create-zoom-meeting`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

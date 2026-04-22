@@ -12,7 +12,7 @@ Supabase migrations for the shop (digital downloads) feature. Run in order.
    - `SUPABASE_URL` — https://<project-ref>.supabase.co
    - `SUPABASE_SERVICE_ROLE_KEY` — service role (server-only)
    - `SHOP_BUCKET` — `shop-products` (or whatever you named the bucket; defaults to this)
-   - `SITE_BASE_URL` — `https://staelfogarty.com`
+   - `SITE_BASE_URL` — `https://staelgissoni.com`
 
 ## Adding a product
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Stael Fogarty</title>
+<title>Stael Gissoni</title>
 <meta name="description" content="Digital product by Stael Gissoni.">
 <link href="https://fonts.googleapis.com" rel="preconnect">
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
@@ -70,7 +70,7 @@ h1{font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:8
     if (!r.ok) throw new Error((await r.json()).error || 'HTTP ' + r.status);
     const { product } = await r.json();
 
-    document.title = product.title + ' — Stael Fogarty';
+    document.title = product.title + ' — Stael Gissoni';
     const fmt$ = (c) => '$' + (c / 100).toFixed((c % 100) ? 2 : 0);
     const langLabel = product.language === 'pt' ? 'Português' : product.language === 'bilingual' ? 'EN · PT' : 'English';
     const canceled = new URLSearchParams(location.search).get('canceled');
@@ -97,7 +97,7 @@ h1{font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:8
               <label for="name">Name</label>
               <input type="text" id="name" name="name" autocomplete="name">
               <button type="submit" class="buy-btn" id="buy-btn">Buy &amp; download — ${fmt$(product.price_cents)}</button>
-              <p class="fine">Secure checkout via Stripe. Instant email with your download link (valid 7 days). Questions? <a href="mailto:hello@staelfogarty.com">hello@staelfogarty.com</a>.</p>
+              <p class="fine">Secure checkout via Stripe. Instant email with your download link (valid 7 days). Questions? <a href="mailto:hello@staelgissoni.com">hello@staelgissoni.com</a>.</p>
               ${canceled ? '<div class="err">Checkout canceled — your card was not charged.</div>' : ''}
               <div id="buy-err"></div>
             </form>

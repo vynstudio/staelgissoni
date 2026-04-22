@@ -39,7 +39,7 @@ exports.handler = async (event) => {
   // 20% commission split (same as services) — goes to Stael's Connect account.
   const commission = Math.round(priceCents * 0.20);
 
-  const baseUrl = process.env.SITE_BASE_URL || 'https://staelfogarty.com';
+  const baseUrl = process.env.SITE_BASE_URL || 'https://staelgissoni.com';
 
   try {
     const session = await stripe.checkout.sessions.create({
