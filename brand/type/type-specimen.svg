@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <rect width="1200" height="900" fill="#FEFBF6"/>
+  <text x="60" y="80" font-family="Fraunces, serif" font-weight="800" font-size="56" fill="#2A2A3A">Typography</text>
+  <text x="60" y="115" font-family="Nunito, sans-serif" font-weight="600" font-size="20" fill="#7C7C96">Fraunces (serif) for headlines · Nunito (sans) for body</text>
+
+  <text x="60" y="230" font-family="Nunito" font-weight="800" font-size="14" fill="#F2A07B" letter-spacing="3">DISPLAY · FRAUNCES 800</text>
+  <text x="60" y="310" font-family="Fraunces, serif" font-weight="800" font-size="80" fill="#2A2A3A">Communication</text>
+  <text x="60" y="390" font-family="Fraunces, serif" font-style="italic" font-weight="700" font-size="80" fill="#5B8EC9">without <tspan fill="#F2A07B">barriers.</tspan></text>
+
+  <text x="60" y="480" font-family="Nunito" font-weight="800" font-size="14" fill="#F2A07B" letter-spacing="3">HEADLINE · FRAUNCES 700</text>
+  <text x="60" y="530" font-family="Fraunces, serif" font-weight="700" font-size="40" fill="#2A2A3A">Three ways I can help you connect.</text>
+
+  <text x="60" y="610" font-family="Nunito" font-weight="800" font-size="14" fill="#F2A07B" letter-spacing="3">BODY · NUNITO 400 / 600</text>
+  <text x="60" y="650" font-family="Nunito" font-weight="600" font-size="22" fill="#3D3D50">Professional English↔Portuguese interpretation, translation,</text>
+  <text x="60" y="680" font-family="Nunito" font-weight="400" font-size="22" fill="#3D3D50">and language coaching for law firms, hospitals, and corporate teams.</text>
+
+  <text x="60" y="770" font-family="Nunito" font-weight="800" font-size="14" fill="#F2A07B" letter-spacing="3">UI LABEL · NUNITO 800</text>
+  <text x="60" y="820" font-family="Nunito" font-weight="800" font-size="13" fill="#2A2A3A" letter-spacing="3">CERTIFIED INTERPRETER · ORLANDO, FL</text>
+</svg>
