@@ -18,22 +18,27 @@ h2 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.25rem; color
 p, li { line-height: 1.7; color: var(--text); font-size: 0.98rem; }
 a { color: var(--peach-deep); font-weight: 600; }
 ul { padding-left: 20px; margin: 10px 0; }
-.top-bar { position: sticky; top: 0; z-index: 40; background: rgba(254, 251, 246, 0.88); backdrop-filter: saturate(1.5) blur(10px); border-bottom: 1px solid rgba(42,42,58,0.05); }
-.top-bar-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 24px; max-width: 1160px; margin: 0 auto; }
-.logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.55rem; color: var(--dark); text-decoration: none; }
-.logo span { color: var(--peach); }
-.nav a { font-size: 0.9rem; font-weight: 700; color: var(--text); padding: 8px 14px; border-radius: 9999px; text-decoration: none; }
-.nav a:hover { background: var(--peach-wash); color: var(--peach-deep); }
 .page { padding: 48px 0 72px; }
 .page .meta { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 32px; }
 footer { border-top: 1px solid var(--border); padding: 28px 24px; text-align: center; font-size: 0.84rem; color: var(--text-muted); margin-top: 48px; }
 </style>
 </head>
 <body>
-<header class="top-bar"><div class="top-bar-row">
-  <a href="/" class="logo">stael<span>.</span></a>
-  <nav class="nav"><a href="/services">Services</a><a href="/enterprise">Enterprise</a><a href="/about">About us</a></nav>
-</div></header>
+<header class="top-bar">
+  <div class="top-bar-row">
+    <a href="/" class="logo">stael<span>.</span></a>
+    <nav class="nav" id="nav">
+      <a href="/services">Services</a>
+      <a href="/enterprise">Enterprise</a>
+      <a href="/about">About us</a>
+      <a href="/blog">Blog</a>
+      <a href="/book" class="mobile-cta">Book now →</a>
+      
+    </nav>
+    <a href="/book" class="cta">Book now →</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
 
 <main class="page">
   <div class="wrap">
