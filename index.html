@@ -54,7 +54,7 @@ h3 { font-size: 1.25rem; font-weight: 700; line-height: 1.25; }
 em { font-style: italic; color: var(--peach-deep); font-weight: 600; }
 
 .top-bar { position: sticky; top: 0; z-index: 40; background: rgba(254, 251, 246, 0.88); backdrop-filter: saturate(1.5) blur(10px); border-bottom: 1px solid rgba(42,42,58,0.05); }
-.top-bar-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 0; }
+.top-bar-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 24px; max-width: 1160px; margin: 0 auto; }
 .logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.55rem; color: var(--dark); text-decoration: none; letter-spacing: -0.02em; }
 .logo span { color: var(--peach); }
 .nav { display: flex; align-items: center; gap: 6px; }
@@ -176,13 +176,14 @@ footer a:hover { color: var(--peach-deep); }
 <body>
 
 <header class="top-bar">
-  <div class="wrap top-bar-row">
+  <div class="top-bar-row">
     <a href="/" class="logo">stael<span>.</span></a>
     <button class="menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     <nav class="nav" id="nav">
       <a href="/services">Services</a>
       <a href="/enterprise">Enterprise</a>
-      <a href="/about">About</a>
+      <a href="/about">About us</a>
+      <a href="/blog">Blog</a>
       <div class="lang" role="group" aria-label="Language">
         <button type="button" class="on" data-lang="en" aria-label="English">EN</button>
         <button type="button" data-lang="pt" aria-label="Português">PT</button>
