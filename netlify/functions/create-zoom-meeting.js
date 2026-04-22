@@ -9,7 +9,7 @@ const { preflight, jsonResponse } = require('./lib/cors');
 const { isValidEmail, sanitizeHeader, sanitizeText } = require('./lib/validation');
 
 const VIRTUAL_SERVICES = ['Remote Interpretation', 'One-on-One Private Lessons', 'Educational Interpretation', 'Legal Interpretation'];
-const STAEL_EMAIL = process.env.STAEL_EMAIL || 'hello@staelfogarty.com';
+const STAEL_EMAIL = process.env.STAEL_EMAIL || 'hello@staelgissoni.com';
 
 let cachedSaKey = null;
 function getSaKey() {
@@ -104,7 +104,7 @@ exports.handler = async (event) => {
         `Price: $${Number(price)}`,
         safeNotes ? `Notes: ${safeNotes}` : '',
         `Stripe: ${safeSessionId || 'N/A'}`,
-        'staelfogarty.com',
+        'staelgissoni.com',
       ].filter(Boolean).join('\n'),
       start: { dateTime: startISO, timeZone: 'America/New_York' },
       end: { dateTime: endISO, timeZone: 'America/New_York' },
@@ -156,11 +156,11 @@ exports.handler = async (event) => {
     ? `\nGoogle Meet link: ${meetLink}\n`
     : isVirtual ? '\nGoogle Meet link: Stael will send this before your session.\n' : '';
 
-  const staelBody = `Hi Stael,\n\nNew booking confirmed!\n\nSERVICE: ${safeService}\nCLIENT: ${clientName}\nEMAIL: ${email}\nDATE: ${safeDate}\nTIME: ${safeTime} ET\nPRICE: $${Number(price)}${meetSection}\nNOTES: ${safeNotes || 'None'}\nSTRIPE: ${safeSessionId || 'N/A'}\n${calendarEventLink ? '\nCalendar: ' + calendarEventLink : ''}\n\n— staelfogarty.com`;
+  const staelBody = `Hi Stael,\n\nNew booking confirmed!\n\nSERVICE: ${safeService}\nCLIENT: ${clientName}\nEMAIL: ${email}\nDATE: ${safeDate}\nTIME: ${safeTime} ET\nPRICE: $${Number(price)}${meetSection}\nNOTES: ${safeNotes || 'None'}\nSTRIPE: ${safeSessionId || 'N/A'}\n${calendarEventLink ? '\nCalendar: ' + calendarEventLink : ''}\n\n— staelgissoni.com`;
 
-  const clientBody = `Hi ${safeFname},\n\nYour session with Stael is confirmed!\n\nSERVICE: ${safeService}\nDATE: ${safeDate}\nTIME: ${safeTime} ET\nPRICE: $${Number(price)}${meetSection}\n${isVirtual && meetLink ? 'Click the Google Meet link above to join at the scheduled time.' : isVirtual ? 'Stael will send your Google Meet link before the session.' : 'Stael will meet you in person and confirm the location details.'}\n\nCANCELLATION: Free cancellation up to 24 hours before your session.\nContact: hello@staelfogarty.com\n\nThank you for choosing Stael Gissoni!\n\n— staelfogarty.com`;
+  const clientBody = `Hi ${safeFname},\n\nYour session with Stael is confirmed!\n\nSERVICE: ${safeService}\nDATE: ${safeDate}\nTIME: ${safeTime} ET\nPRICE: $${Number(price)}${meetSection}\n${isVirtual && meetLink ? 'Click the Google Meet link above to join at the scheduled time.' : isVirtual ? 'Stael will send your Google Meet link before the session.' : 'Stael will meet you in person and confirm the location details.'}\n\nCANCELLATION: Free cancellation up to 24 hours before your session.\nContact: hello@staelgissoni.com\n\nThank you for choosing Stael Gissoni!\n\n— staelgissoni.com`;
 
-  const vynBody = `New booking on staelfogarty.com!\n\nSERVICE: ${safeService}\nCLIENT: ${clientName}\nEMAIL: ${email}\nDATE: ${safeDate}\nTIME: ${safeTime} ET\nPRICE: $${Number(price)}\nCOMMISSION (20%): $${Math.round(Number(price) * 0.20 * 100) / 100}${meetSection}\nNOTES: ${safeNotes || 'None'}\nSTRIPE: ${safeSessionId || 'N/A'}\n${calendarEventLink ? '\nCalendar: ' + calendarEventLink : ''}\n\n— staelfogarty.com`;
+  const vynBody = `New booking on staelgissoni.com!\n\nSERVICE: ${safeService}\nCLIENT: ${clientName}\nEMAIL: ${email}\nDATE: ${safeDate}\nTIME: ${safeTime} ET\nPRICE: $${Number(price)}\nCOMMISSION (20%): $${Math.round(Number(price) * 0.20 * 100) / 100}${meetSection}\nNOTES: ${safeNotes || 'None'}\nSTRIPE: ${safeSessionId || 'N/A'}\n${calendarEventLink ? '\nCalendar: ' + calendarEventLink : ''}\n\n— staelgissoni.com`;
 
   // ── Send emails via Resend ──
   let emailsSent = false;
@@ -175,19 +175,19 @@ exports.handler = async (event) => {
 
     const results = await Promise.allSettled([
       resend.emails.send({
-        from: 'Stael Gissoni <noreply@staelfogarty.com>',
+        from: 'Stael Gissoni <noreply@staelgissoni.com>',
         to: STAEL_EMAIL,
         subject: `New Booking: ${safeService} — ${clientName}`,
         text: staelBody,
       }),
       resend.emails.send({
-        from: 'Stael Gissoni <noreply@staelfogarty.com>',
+        from: 'Stael Gissoni <noreply@staelgissoni.com>',
         to: email,
         subject: `Your session is confirmed — ${safeService} with Stael Gissoni`,
         text: clientBody,
       }),
       resend.emails.send({
-        from: 'Stael Gissoni Site <noreply@staelfogarty.com>',
+        from: 'Stael Gissoni Site <noreply@staelgissoni.com>',
         to: vynEmail,
         subject: `New Booking: ${safeService} — ${clientName} — $${Number(price)}`,
         text: vynBody,
@@ -246,7 +246,7 @@ function buildGCalLink({ service, clientName, date, time, meetLink, isVirtual, s
     const title = encodeURIComponent(`${service} — Stael Gissoni`);
     const details = encodeURIComponent([
       meetLink ? `Google Meet: ${meetLink}` : isVirtual ? 'Meet link to be sent by Stael' : 'In-person session',
-      'hello@staelfogarty.com | staelfogarty.com',
+      'hello@staelgissoni.com | staelgissoni.com',
     ].join('\n'));
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(start)}/${fmt(end)}&details=${details}`;
   } catch {

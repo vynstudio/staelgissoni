@@ -109,8 +109,8 @@ exports.handler = async (event) => {
         application_fee_amount: commissionAmount,
         transfer_data: { destination: staelAccountId },
       },
-      success_url: `${process.env.URL || 'https://staelfogarty.com'}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.URL || 'https://staelfogarty.com'}/contact.html`,
+      success_url: `${process.env.URL || 'https://staelgissoni.com'}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.URL || 'https://staelgissoni.com'}/contact.html`,
     };
 
     const session = await stripe.checkout.sessions.create(sessionParams);

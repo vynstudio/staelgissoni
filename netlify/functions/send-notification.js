@@ -44,7 +44,7 @@ exports.handler = async (event) => {
   const safeSessionId = sanitizeHeader(sessionId, 80);
 
   const clientName = `${safeFname} ${safeLname}`.trim();
-  const staelEmail = process.env.STAEL_EMAIL || 'hello@staelfogarty.com';
+  const staelEmail = process.env.STAEL_EMAIL || 'hello@staelgissoni.com';
 
   const staelSubject = `New Booking: ${safeService} — ${clientName}`;
   const clientSubject = `Booking Confirmed — ${safeService} with Stael Gissoni`;

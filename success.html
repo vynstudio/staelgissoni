@@ -99,7 +99,7 @@ setTimeout(() => { if (window.sfTrack) sfTrack.purchase('Session Booking', 0); }
         const dtEnd = new Date(dt.getTime() + 60 * 60 * 1000); // +1 hour
         const fmt = d => d.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
         const title = encodeURIComponent(`${booking.service} — Stael Gissoni`);
-        const details_cal = encodeURIComponent(`Session with Stael Gissoni\nhello@staelfogarty.com\nstaelfogarty.com`);
+        const details_cal = encodeURIComponent(`Session with Stael Gissoni\nhello@staelgissoni.com\nstaelgissoni.com`);
         const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(dt)}/${fmt(dtEnd)}&details=${details_cal}&location=Orlando%2C+FL+or+Virtual`;
         const btn = document.getElementById('gcal-btn');
         if (btn) { btn.href = gcalUrl; btn.style.display = 'inline-flex'; }
