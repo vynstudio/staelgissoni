@@ -43,6 +43,33 @@ for = "/download.html"
   [headers.values]
   X-Robots-Tag = "noindex, nofollow"
 
+# ── Canonical domain redirects ────────────────────────────────
+# Everything hitting the old domain or the Netlify subdomain funnels to
+# staelgissoni.com with the path preserved.
+[[redirects]]
+from = "https://staelfogarty.com/*"
+to = "https://staelgissoni.com/:splat"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://www.staelfogarty.com/*"
+to = "https://staelgissoni.com/:splat"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://www.staelgissoni.com/*"
+to = "https://staelgissoni.com/:splat"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://stael-fogarty.netlify.app/*"
+to = "https://staelgissoni.com/:splat"
+status = 301
+force = true
+
 # Pretty URLs for shop
 [[redirects]]
 from = "/shop"
