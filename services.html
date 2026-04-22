@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://staelgissoni.com/services">
+<title>Services — Stael Gissoni</title>
+<meta name="description" content="Complete rate card: English↔Portuguese interpretation, one-on-one English lessons, certified translation, and enterprise retainers. Orlando, FL.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://staelgissoni.com/services">
+<meta property="og:title" content="Services — Stael Gissoni">
+<meta property="og:description" content="Complete rate card for interpretation, lessons, certified translation, and enterprise retainers.">
+<meta property="og:image" content="https://staelgissoni.com/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600;1,9..144,700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css">
+
+<style>
+body { font-family: 'Nunito', system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+h1, h2, h3, h4 { font-family: 'Fraunces', Georgia, serif; color: var(--dark); letter-spacing: -0.015em; }
+h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1; }
+h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 800; }
+em { font-style: italic; color: var(--peach-deep); font-weight: 600; }
+
+/* top bar (shared) */
+.top-bar { position: sticky; top: 0; z-index: 40; background: rgba(254, 251, 246, 0.88); backdrop-filter: saturate(1.5) blur(10px); border-bottom: 1px solid rgba(42,42,58,0.05); }
+.top-bar-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 0; }
+.logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.55rem; color: var(--dark); text-decoration: none; letter-spacing: -0.02em; }
+.logo span { color: var(--peach); }
+.nav { display: flex; align-items: center; gap: 6px; }
+.nav a { font-size: 0.9rem; font-weight: 700; color: var(--text); padding: 8px 14px; border-radius: 9999px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+.nav a.active, .nav a:hover { background: var(--peach-wash); color: var(--peach-deep); }
+.nav .cta { background: var(--blue); color: #fff; padding: 10px 20px; margin-left: 8px; box-shadow: 0 8px 18px -10px rgba(91,142,201,0.7); }
+.nav .cta:hover { background: var(--blue-deep); color: #fff; }
+.menu-btn { display: none; width: 40px; height: 40px; border: 1px solid var(--border); background: #fff; border-radius: 10px; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+.menu-btn span { width: 18px; height: 2px; background: var(--dark); border-radius: 2px; }
+@media (max-width: 860px) {
+  .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 2px; padding: 12px 16px 20px; background: #fff; border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md); }
+  .nav.open { display: flex; }
+  .nav a { padding: 12px 14px; }
+  .nav .cta { margin-left: 0; text-align: center; }
+  .menu-btn { display: flex; }
+}
+
+/* page hero */
+.page-hero { padding: 56px 0 36px; }
+.eyebrow { display: inline-block; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--peach-deep); background: var(--peach-wash); padding: 6px 14px; border-radius: 9999px; margin-bottom: 14px; }
+.page-hero p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; max-width: 620px; margin-top: 14px; }
+
+/* category anchor */
+.cat { padding: 40px 0 56px; }
+.cat-hd { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+.cat-hd h2 { margin: 0; }
+.cat-hd .cat-sub { color: var(--text-muted); font-size: 0.94rem; max-width: 460px; }
+
+/* service row */
+.svc { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 24px 28px; display: grid; grid-template-columns: 1fr auto; gap: 20px 28px; align-items: start; margin-bottom: 12px; position: relative; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+.svc::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--accent); opacity: 0.35; transition: opacity 0.2s; }
+.svc:hover { transform: translateY(-2px); border-color: transparent; box-shadow: 0 14px 32px -18px rgba(42,42,58,0.22); }
+.svc:hover::before { opacity: 1; }
+.svc.blue { --accent: var(--blue); --wash: var(--blue-wash); --deep: var(--blue-deep); }
+.svc.peach { --accent: var(--peach); --wash: var(--peach-wash); --deep: var(--peach-deep); }
+.svc.mint { --accent: var(--mint); --wash: var(--mint-wash); --deep: var(--mint-deep); }
+.svc.lav { --accent: var(--lavender); --wash: var(--lavender-wash); --deep: var(--lavender); }
+
+.svc-main { display: flex; flex-direction: column; gap: 8px; }
+.svc-tag { display: inline-flex; gap: 6px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+.svc-tag span { padding: 3px 10px; background: var(--wash); color: var(--deep); border-radius: 9999px; letter-spacing: 0.08em; }
+.svc-title { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 700; color: var(--dark); margin: 0; }
+.svc-desc { font-size: 0.94rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
+.svc-feats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.svc-feats span { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); background: var(--bg-warm); border: 1px solid var(--border); padding: 4px 10px; border-radius: 9999px; }
+
+.svc-side { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; justify-content: space-between; min-width: 180px; }
+.svc-price { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.4rem; color: var(--deep); line-height: 1; }
+.svc-price small { font-family: 'Nunito', sans-serif; font-size: 0.72rem; color: var(--text-muted); margin-left: 4px; font-weight: 600; }
+.svc-min { font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.04em; text-align: right; }
+.svc-cta { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 9999px; background: var(--accent); color: #fff; font-size: 0.82rem; font-weight: 800; text-decoration: none; white-space: nowrap; transition: gap 0.2s, background 0.2s; }
+.svc-cta:hover { background: var(--deep); gap: 10px; }
+@media (max-width: 760px) {
+  .svc { grid-template-columns: 1fr; }
+  .svc-side { align-items: flex-start; flex-direction: row; flex-wrap: wrap; justify-content: space-between; width: 100%; }
+}
+
+/* final note */
+.note { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 28px; margin: 24px 0 64px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; }
+.note h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+.note p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; border-radius: 14px; font-weight: 800; font-size: 0.95rem; text-decoration: none; border: 0; cursor: pointer; transition: transform 0.2s, background 0.2s; font-family: inherit; white-space: nowrap; }
+.btn-primary { background: var(--blue); color: #fff; box-shadow: 0 10px 22px -10px rgba(91,142,201,0.55); }
+.btn-primary:hover { background: var(--blue-deep); transform: translateY(-2px); color: #fff; }
+@media (max-width: 760px) { .note { grid-template-columns: 1fr; } }
+
+footer { padding: 56px 0 36px; border-top: 1px solid var(--border); margin-top: 64px; font-size: 0.88rem; color: var(--text-muted); }
+.foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 36px; }
+@media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+footer h5 { font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark); margin-bottom: 14px; }
+footer ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+footer a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+footer a:hover { color: var(--peach-deep); }
+.foot-brand p { line-height: 1.65; margin-top: 12px; max-width: 340px; }
+.foot-legal { text-align: center; font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 22px; }
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="wrap top-bar-row">
+    <a href="/" class="logo">stael<span>.</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="/services" class="active">Services</a>
+      <a href="/enterprise">Enterprise</a>
+      <a href="/about">About</a>
+      <a href="/book" class="cta">Book a session →</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Services &amp; rate card</span>
+    <h1>Everything I do, <em>priced upfront.</em></h1>
+    <p>Every booking ships with a receipt, calendar invite, and — for organizations — a PO-ready invoice. Minimums and rush surcharges are listed next to each service so procurement doesn't have to ask twice.</p>
+  </div>
+</section>
+
+<section class="cat" id="interpretation">
+  <div class="wrap">
+    <div class="cat-hd">
+      <h2>Interpretation</h2>
+      <div class="cat-sub">Live English↔Portuguese for meetings, legal proceedings, medical visits, and conferences.</div>
+    </div>
+
+    <div class="svc blue">
+      <div class="svc-main">
+        <div class="svc-tag"><span>In-person</span> On-site interpretation</div>
+        <h3 class="svc-title">Conferences, depositions, meetings, USCIS</h3>
+        <p class="svc-desc">Real-time consecutive interpretation. Arrive prepared, confidential, on time — throughout Central Florida.</p>
+        <div class="svc-feats"><span>Consecutive</span><span>Confidential</span><span>Central FL</span></div>
+      </div>
+      <div class="svc-side">
+        <div><div class="svc-price">$125–$165<small>/ hour</small></div><div class="svc-min">2-hour minimum</div></div>
+        <a class="svc-cta" href="/book?service=on-site">Book →</a>
+      </div>
+    </div>
+
+    <div class="svc mint">
+      <div class="svc-main">
+        <div class="svc-tag"><span>Remote</span> Online interpretation</div>
+        <h3 class="svc-title">Google Meet, Zoom, phone, or your platform</h3>
+        <p class="svc-desc">Lower rate, no travel — the default for corporate meetings, remote depositions, telehealth.</p>
+        <div class="svc-feats"><span>Meet / Zoom</span><span>15-min increments</span><span>Billed hourly</span></div>
+      </div>
+      <div class="svc-side">
+        <div><div class="svc-price">$95–$125<small>/ hour</small></div><div class="svc-min">30-minute minimum</div></div>
+        <a class="svc-cta" href="/book?service=remote">Book →</a>
+      </div>
+    </div>
+
+    <div class="svc lav">
+      <div class="svc-main">
+        <div class="svc-tag"><span>Medical</span> HIPAA-aware</div>
+        <h3 class="svc-title">Doctor visits, hospital stays, mental health</h3>
+        <p class="svc-desc">CCHI-credentialed medical interpretation. Signed BAA available for healthcare organizations.</p>
+        <div class="svc-feats"><span>HIPAA</span><span>BAA on request</span><span>CCHI</span></div>
+      </div>
+      <div class="svc-side">
+        <div><div class="svc-price">$110–$135<small>/ hour</small></div><div class="svc-min">2-hour minimum</div></div>
+        <a class="svc-cta" href="/book?service=medical">Book →</a>
+      </div>
+    </div>
+
+    <div class="svc blue">
+      <div class="svc-main">
+        <div class="svc-tag"><span>Legal</span> Court &amp; immigration</div>
+        <h3 class="svc-title">Depositions, USCIS hearings, citizenship prep</h3>
+        <p class="svc-desc">Federal court "Professionally Qualified" for Portuguese. Florida OSCA registry. Mock interviews included on request.</p>
+        <div class="svc-feats"><span>USCIS</span><span>Depositions</span><span>Florida OSCA</span></div>
+      </div>
+      <div class="svc-side">
+        <div><div class="svc-price">$150–$175<small>/ hour</small></div><div class="svc-min">2-hour · $550 half-day · $950 full-day</div></div>
+        <a class="svc-cta" href="/book?service=legal">Book →</a>
+      </div>
+    </div>
+
+    <div class="svc mint">
+      <div class="svc-main">
+        <div class="svc-tag"><span>Conference</span> Simultaneous</div>
+        <h3 class="svc-title">Booth &amp; RSI (Zoom / Interprefy)</h3>
+        <p class="svc-desc">Per AIIC, simultaneous requires a two-interpreter team per language — we arrange the second chair.</p>
+        <div class="svc-feats"><span>Booth + RSI</span><span>2-interpreter team</span><span>Half-day min</span></div>
+      </div>
+      <div class="svc-side">
+        <div><div class="svc-price">$1,400–$1,800<small>/ day</small></div><div class="svc-min">Half-day $900</div></div>
+        <a class="svc-cta" href="/enterprise">Request quote →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cat" id="lessons" style="background: var(--bg-warm); border-radius: 32px 32px 0 0;">
+  <div class="wrap">
+    <div class="cat-hd">
+      <h2>Language coaching</h2>
+      <div class="cat-sub">One-on-one English lessons built around your goal — conversation, exam prep, or a specific interview.</div>
+    </div>
+
+    <div class="svc peach">
+      <div class="svc-main">
+        <div class="svc-tag"><span>1 on 1</span> Private lessons</div>
+        <h3 class="svc-title">Conversation, pronunciation, accent</h3>
+        <p class="svc-desc">Personalized sessions via Google Meet, Mon–Sat. Lessons with a Brazilian who lives English every day.</p>
+        <div class="svc-feats"><span>Google Meet</span><span>Mon–Sat</span><span>No textbook</span></div>
+      </div>
+      <div class="svc-side">
+        <div><div class="svc-price">$50<small>/ hour</small></div><div class="svc-min">No minimum</div></div>
+        <a class="svc-cta" href="/book?service=lessons">Book →</a>
+      </div>
+    </div>
+
+    <div class="svc peach">
+      <div class="svc-main">
+        <div class="svc-tag"><span>Prep</span> Citizenship &amp; green card</div>
+        <h3 class="svc-title">Mock interviews, civics test, USCIS vocabulary</h3>
+        <p class="svc-desc">Coached by someone who has interpreted real USCIS interviews. Includes written practice + audio pronunciations.</p>
+        <div class="svc-feats"><span>Mock interview</span><span>Civics drill</span><span>Audio pack</span></div>
+      </div>
+      <div class="svc-side">
+        <div><div class="svc-price">$75<small>/ hour</small></div><div class="svc-min">1-hour minimum</div></div>
+        <a class="svc-cta" href="/book?service=citizenship">Book →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cat" id="translation">
+  <div class="wrap">
+    <div class="cat-hd">
+      <h2>Certified translation</h2>
+      <div class="cat-sub">Written documents for USCIS, legal, and medical use. Certified, notarized on request.</div>
+    </div>
+
+    <div class="svc mint">
+      <div class="svc-main">
+        <div class="svc-tag"><span>USCIS</span> Immigration documents</div>
+        <h3 class="svc-title">Birth, marriage, divorce, school records</h3>
+        <p class="svc-desc">Accepted by USCIS worldwide. Returned with certification letter — notarization available on request.</p>
+        <div class="svc-feats"><span>Cert. letter</span><span>Notary optional</span><span>48-hr turnaround</span></div>
+      </div>
+      <div class="svc-side">
+        <div><div class="svc-price">from $35<small>/ page</small></div><div class="svc-min">$95 project minimum</div></div>
+        <a class="svc-cta" href="/book?service=translation">Request →</a>
+      </div>
+    </div>
+
+    <div class="svc blue">
+      <div class="svc-main">
+        <div class="svc-tag"><span>Legal</span> Contracts &amp; court exhibits</div>
+        <h3 class="svc-title">Contracts, affidavits, deposition exhibits</h3>
+        <p class="svc-desc">Per-word pricing with 50% rush option. Confidentiality NDA on every file.</p>
+        <div class="svc-feats"><span>NDA</span><span>Rush +50%</span><span>Per word</span></div>
+      </div>
+      <div class="svc-side">
+        <div><div class="svc-price">$0.22–$0.28<small>/ word</small></div><div class="svc-min">$150 project minimum</div></div>
+        <a class="svc-cta" href="/book?service=translation-legal">Request →</a>
+      </div>
+    </div>
+
+    <div class="svc lav">
+      <div class="svc-main">
+        <div class="svc-tag"><span>Medical</span> Clinical records</div>
+        <h3 class="svc-title">Clinical notes, labs, patient histories</h3>
+        <p class="svc-desc">Handled with HIPAA-aware workflow; BAA available for healthcare organizations.</p>
+        <div class="svc-feats"><span>HIPAA</span><span>BAA available</span><span>Per word</span></div>
+      </div>
+      <div class="svc-side">
+        <div><div class="svc-price">$0.24–$0.32<small>/ word</small></div><div class="svc-min">$150 project minimum</div></div>
+        <a class="svc-cta" href="/enterprise">Request quote →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <aside class="note">
+    <div>
+      <h3>Looking for a retainer or volume engagement?</h3>
+      <p>Law firms, hospitals, and corporate teams get Net-30 invoicing, named backup interpreter, and prepaid hour blocks at the enterprise rate.</p>
+    </div>
+    <a href="/enterprise" class="btn btn-primary">Enterprise tier →</a>
+  </aside>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="/" class="logo">stael<span>.</span></a>
+        <p>Professional English↔Portuguese interpretation, translation, and language coaching. Based in Orlando, serving clients across the US and Brazil.</p>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <ul>
+          <li><a href="/services#interpretation">Interpretation</a></li>
+          <li><a href="/services#lessons">English lessons</a></li>
+          <li><a href="/services#translation">Certified translation</a></li>
+          <li><a href="/enterprise">Enterprise retainer</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="/about">About Stael</a></li>
+          <li><a href="/book">Book a session</a></li>
+          <li><a href="mailto:hello@staelgissoni.com">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-legal">© <span id="yr"></span> Stael Gissoni. All rights reserved. Orlando, FL · <a href="tel:+13216752003">(321) 675-2003</a> · <a href="mailto:hello@staelgissoni.com">hello@staelgissoni.com</a></div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('nav').classList.toggle('open');
+  });
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
