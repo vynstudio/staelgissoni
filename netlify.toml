@@ -1,6 +1,40 @@
 [build]
 functions = "netlify/functions"
 
+[functions]
+node_bundler = "esbuild"
+
+# ── Pretty URLs for subpages ──────────────────────────────────
+[[redirects]]
+from = "/services"
+to = "/services.html"
+status = 200
+
+[[redirects]]
+from = "/about"
+to = "/about.html"
+status = 200
+
+[[redirects]]
+from = "/enterprise"
+to = "/enterprise.html"
+status = 200
+
+[[redirects]]
+from = "/book"
+to = "/book.html"
+status = 200
+
+[[redirects]]
+from = "/privacy"
+to = "/privacy.html"
+status = 200
+
+[[redirects]]
+from = "/terms"
+to = "/terms.html"
+status = 200
+
 # ── Security headers ──────────────────────────────────────────
 [[headers]]
 for = "/*"
