@@ -58,3 +58,9 @@ status = 200
 from = "/download"
 to = "/download.html"
 status = 200
+
+# /enterprise → /enterprise.html (B2B rate card + inquiry form)
+[[redirects]]
+from = "/enterprise"
+to = "/enterprise.html"
+status = 200
