@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://staelgissoni.com/blog">
+<title>Blog — Stael Gissoni</title>
+<meta name="description" content="Notes on interpretation, USCIS prep, and cross-cultural communication from Stael Gissoni.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;1,9..144,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css">
+<style>
+body { font-family: 'Nunito', system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+h1, h2 { font-family: 'Fraunces', Georgia, serif; color: var(--dark); letter-spacing: -0.015em; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+.top-bar { position: sticky; top: 0; z-index: 40; background: rgba(254, 251, 246, 0.88); backdrop-filter: saturate(1.5) blur(10px); border-bottom: 1px solid rgba(42,42,58,0.05); }
+.top-bar-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 24px; max-width: 1160px; margin: 0 auto; }
+.logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.55rem; color: var(--dark); text-decoration: none; letter-spacing: -0.02em; }
+.logo span { color: var(--peach); }
+.nav { display: flex; align-items: center; gap: 6px; }
+.nav a { font-size: 0.9rem; font-weight: 700; color: var(--text); padding: 8px 14px; border-radius: 9999px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+.nav a.active, .nav a:hover { background: var(--peach-wash); color: var(--peach-deep); }
+.nav .cta { background: var(--blue); color: #fff; padding: 10px 20px; margin-left: 8px; box-shadow: 0 8px 18px -10px rgba(91,142,201,0.7); }
+.nav .cta:hover { background: var(--blue-deep); color: #fff; }
+.menu-btn { display: none; width: 40px; height: 40px; border: 1px solid var(--border); background: #fff; border-radius: 10px; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+.menu-btn span { width: 18px; height: 2px; background: var(--dark); border-radius: 2px; }
+@media (max-width: 860px) {
+  .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 2px; padding: 12px 16px 20px; background: #fff; border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md); }
+  .nav.open { display: flex; } .nav a { padding: 12px 14px; } .nav .cta { margin-left: 0; text-align: center; } .menu-btn { display: flex; }
+}
+
+main { flex: 1; display: grid; place-items: center; padding: 48px 24px 72px; }
+.card { max-width: 620px; text-align: center; background: #fff; border: 1px solid var(--border); border-radius: 24px; padding: 56px 40px; box-shadow: 0 20px 48px -24px rgba(42,42,58,0.18); }
+.eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--peach-deep); background: var(--peach-wash); padding: 6px 14px; border-radius: 9999px; margin-bottom: 16px; }
+h1 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 800; line-height: 1.1; margin-bottom: 14px; }
+h1 em { font-style: italic; color: var(--peach-deep); font-weight: 700; }
+.lede { font-size: 1rem; line-height: 1.65; color: var(--text-muted); margin-bottom: 24px; }
+.sub-form { display: grid; grid-template-columns: 1fr auto; gap: 8px; max-width: 400px; margin: 0 auto; }
+@media (max-width: 520px) { .sub-form { grid-template-columns: 1fr; } }
+.sub-form input { padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-family: inherit; font-size: 0.95rem; background: #fff; outline: none; }
+.sub-form input:focus { border-color: var(--peach); box-shadow: 0 0 0 3px var(--peach-light); }
+.sub-form button { padding: 13px 22px; background: var(--blue); color: #fff; border: 0; border-radius: 12px; font-weight: 800; font-size: 0.92rem; cursor: pointer; transition: background 0.2s; font-family: inherit; }
+.sub-form button:hover { background: var(--blue-deep); }
+.fine { font-size: 0.8rem; color: var(--text-muted); margin-top: 14px; }
+.result { margin-top: 12px; font-size: 0.9rem; }
+.result.ok { color: var(--mint-deep); font-weight: 700; }
+
+footer { border-top: 1px solid var(--border); padding: 28px 24px; text-align: center; font-size: 0.84rem; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="top-bar-row">
+    <a href="/" class="logo">stael<span>.</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="/services">Services</a>
+      <a href="/enterprise">Enterprise</a>
+      <a href="/about">About us</a>
+      <a href="/blog" class="active">Blog</a>
+      <a href="/book" class="cta">Book a session →</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <span class="eyebrow">Blog</span>
+    <h1>Stories &amp; notes, <em>coming soon.</em></h1>
+    <p class="lede">I'm writing about interpretation in the wild — USCIS prep tips, cross-cultural moments, and what happens in the room when two languages meet. Leave your email and I'll send the first post when it's live.</p>
+    <form id="sub-form" class="sub-form" novalidate>
+      <input type="email" id="sub-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+      <button type="submit" id="sub-btn">Notify me</button>
+    </form>
+    <p class="fine">No spam. One email when the blog launches. Unsubscribe anytime.</p>
+    <div id="sub-result" class="result"></div>
+  </section>
+</main>
+
+<footer>© <span id="yr"></span> Stael Gissoni · Orlando, FL · <a href="mailto:hello@staelgissoni.com" style="color:var(--peach-deep)">hello@staelgissoni.com</a></footer>
+
+<script>
+  document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('nav').classList.toggle('open'));
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  document.getElementById('sub-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('sub-email').value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById('sub-result').textContent = 'Please enter a valid email.';
+      return;
+    }
+    // Until the blog subscribe backend exists, just mailto
+    location.href = 'mailto:hello@staelgissoni.com?subject=Notify%20me%20when%20the%20blog%20launches&body=' + encodeURIComponent('Please notify ' + email + ' when the blog launches.');
+  });
+</script>
+</body>
+</html>

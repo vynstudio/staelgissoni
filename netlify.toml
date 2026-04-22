@@ -26,6 +26,11 @@ to = "/book.html"
 status = 200
 
 [[redirects]]
+from = "/blog"
+to = "/blog.html"
+status = 200
+
+[[redirects]]
 from = "/privacy"
 to = "/privacy.html"
 status = 200
