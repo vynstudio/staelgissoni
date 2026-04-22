@@ -3,32 +3,32 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<link href="https://staelfogarty.com/" rel="canonical"/>
+<link href="https://staelgissoni.com/" rel="canonical"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Stael Gissoni — English &amp; Portuguese Interpreter</title>
 <meta content="Professional English–Portuguese interpreter offering personalized sessions, live interpretation, and more. Book your session today." name="description"/>
 <!-- Open Graph / Link Preview -->
 <meta content="website" property="og:type"/>
-<meta content="https://staelfogarty.com/" property="og:url"/>
+<meta content="https://staelgissoni.com/" property="og:url"/>
 <meta content="Stael Gissoni — English &amp; Portuguese Interpreter" property="og:title"/>
 <meta content="Professional interpreter, translator &amp; language teacher. Personalized English–Portuguese sessions. Book online today." property="og:description"/>
-<meta content="https://staelfogarty.com/og-image.png" property="og:image"/>
+<meta content="https://staelgissoni.com/og-image.png" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
 <!-- Twitter Card -->
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Stael Gissoni — English &amp; Portuguese Interpreter" name="twitter:title"/>
 <meta content="Professional interpreter, translator &amp; language teacher. Book your session today." name="twitter:description"/>
-<meta content="https://staelfogarty.com/og-image.png" name="twitter:image"/>
+<meta content="https://staelgissoni.com/og-image.png" name="twitter:image"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "Stael Gissoni — English & Portuguese Interpreter",
   "description": "Professional English–Portuguese interpreter, translator, and language coach based in Orlando, Florida.",
-  "url": "https://staelfogarty.com/",
-  "image": "https://staelfogarty.com/og-image.png",
-  "email": "hello@staelfogarty.com",
+  "url": "https://staelgissoni.com/",
+  "image": "https://staelgissoni.com/og-image.png",
+  "email": "hello@staelgissoni.com",
   "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
@@ -129,29 +129,48 @@
 .accent-warm { color: #C46A35; }
 .about-stat p { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
 
-/* Services */
-.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
-.sv-card { background: var(--bg); border-radius: var(--radius-lg); padding: 36px 28px 32px; border: 2px solid transparent; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer; position: relative; overflow: hidden; display: flex; flex-direction: column; }
-.sv-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 0; transition: height 0.4s; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
-.sv-card:hover { transform: translateY(-8px); border-color: var(--blue-light); box-shadow: var(--shadow-lg); }
-.sv-card:hover::before { height: 4px; }
-.sv-card:nth-child(1):hover::before, .sv-card:nth-child(4):hover::before { background: var(--blue); }
-.sv-card:nth-child(2):hover::before, .sv-card:nth-child(5):hover::before { background: var(--peach); }
-.sv-card:nth-child(3):hover::before, .sv-card:nth-child(6):hover::before { background: var(--mint); }
-.sv-icon { width: 60px; height: 60px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 22px; transition: transform 0.3s; }
-.sv-card:hover .sv-icon { transform: scale(1.08); }
-.sv-i-blue { background: var(--blue-wash); }
-.sv-i-peach { background: var(--peach-wash); }
-.sv-i-mint { background: var(--mint-wash); }
-.sv-i-lav { background: var(--lavender-wash); }
-.sv-card h3 { font-family: 'Fraunces', serif; font-size: 1.18rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
-.sv-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; flex: 1; }
-.sv-price { margin-top: auto; padding-top: 16px; border-top: 1.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.sv-price-text { font-weight: 800; font-size: 1.05rem; color: var(--blue); }
-.sv-price-link { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); display: flex; align-items: center; gap: 4px; transition: color 0.3s; }
-.sv-card:hover .sv-price-link { color: var(--blue); }
-.sv-price-link svg { transition: transform 0.3s; }
-.sv-card:hover .sv-price-link svg { transform: translateX(3px); }
+/* Services — editorial redesign (numbered rows, serif display, accent strip) */
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+.sv-card {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: 30px 28px 26px; border: 1.5px solid var(--border);
+  overflow: hidden; cursor: pointer; text-decoration: none; color: inherit;
+  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.35s, border-color 0.35s;
+}
+.sv-card::before {
+  content: ''; position: absolute; inset: 0 auto 0 0; width: 4px;
+  background: var(--accent, var(--blue));
+  transform: scaleY(0.22); transform-origin: top; transition: transform 0.4s;
+}
+.sv-card:hover { transform: translateY(-4px); border-color: transparent; box-shadow: 0 20px 40px -18px rgba(30,41,59,0.18); }
+.sv-card:hover::before { transform: scaleY(1); }
+.sv-card.sv-blue   { --accent: var(--blue);     --accent-wash: var(--blue-wash);     --accent-deep: var(--blue-deep); }
+.sv-card.sv-peach  { --accent: var(--peach);    --accent-wash: var(--peach-wash);    --accent-deep: var(--peach-deep); }
+.sv-card.sv-mint   { --accent: var(--mint);     --accent-wash: var(--mint-wash);     --accent-deep: var(--mint-deep); }
+.sv-card.sv-lav    { --accent: var(--lavender); --accent-wash: var(--lavender-wash); --accent-deep: var(--lavender-deep); }
+
+.sv-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+.sv-num { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; font-size: 0.95rem; color: var(--accent, var(--blue)); letter-spacing: 0.02em; }
+.sv-kind { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); }
+
+.sv-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.5rem; line-height: 1.15; color: var(--dark); margin: 0 0 10px; letter-spacing: -0.01em; }
+.sv-desc  { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; margin: 0 0 22px; flex: 1; }
+
+.sv-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); }
+.sv-price-block { line-height: 1; }
+.sv-price-amt { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.55rem; color: var(--accent-deep, var(--blue-deep)); }
+.sv-price-unit { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; margin-left: 2px; }
+.sv-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 18px; border-radius: 9999px;
+  background: var(--accent-wash, var(--blue-wash)); color: var(--accent-deep, var(--blue-deep));
+  font-size: 0.83rem; font-weight: 800; letter-spacing: 0.01em;
+  transition: background 0.25s, color 0.25s, gap 0.25s;
+}
+.sv-card:hover .sv-cta { background: var(--accent, var(--blue)); color: var(--white); gap: 10px; }
+.sv-cta svg { transition: transform 0.25s; }
+.sv-card:hover .sv-cta svg { transform: translateX(3px); }
 
 /* Process */
 .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; position: relative; }
@@ -258,6 +277,8 @@
 <div class="nav-menu" id="navMenu">
 <a class="nav-link" data-i18n="nav_lessons" href="lessons.html">English Lessons</a>
 <a class="nav-link" data-i18n="nav_interpretation" href="interpretation.html">Interpretation</a>
+<a class="nav-link" href="/enterprise">Enterprise</a>
+<a class="nav-link" href="/shop">Shop</a>
 <a class="nav-link" data-i18n="nav_about" href="about.html">About</a>
 <a class="nav-link" data-i18n="nav_blog" href="blog.html">Blog</a>
 <div id="langToggle" style="display:flex;align-items:center;border:1.5px solid var(--border);border-radius:var(--radius-pill);overflow:hidden;margin-right:4px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;"><button aria-label="Switch to English" id="langBtn_en" onclick="I18N.set('en')" style="padding:6px 13px;border:none;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:pointer;transition:all 0.2s;color:var(--text)">EN</button><span style="width:1px;background:var(--border);align-self:stretch;"></span><button aria-label="Mudar para Português" id="langBtn_pt" onclick="I18N.set('pt')" style="padding:6px 13px;border:none;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:pointer;transition:all 0.2s;color:var(--text)">PT</button></div>
@@ -355,65 +376,82 @@
 <p class="section-subtitle" data-i18n="svc_sub">From boardrooms to doctor's offices, I make sure your voice is heard — in both languages.</p>
 </div>
 <div class="services-grid">
-<a class="sv-card reveal" href="contact.html?service=On-Site+Interpretation" style="text-decoration:none;color:inherit;display:block">
-<div class="sv-icon sv-i-blue">🎙️</div>
-<span data-i18n="svc_badge_inperson" style="display:inline-block;padding:3px 11px;border-radius:100px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;background:var(--blue-wash);color:var(--blue-deep)">In-Person</span>
-<h3 data-i18n="svc_onsite_name">On-Site Interpretation</h3>
-<p data-i18n="svc_onsite_p">Real-time English↔Portuguese for seminars, meetings, events and conferences.</p>
-<div class="sv-price">
-<span class="sv-price-text">$95/hr</span>
-<span class="sv-price-link" data-i18n="svc_book_link">Book <svg fill="none" height="14" stroke="currentColor" stroke-width="2" width="14"><path d="M3 7h8M8 3l3 4-3 4"></path></svg></span>
-</div>
+<a class="sv-card sv-blue reveal" href="contact.html?service=On-Site+Interpretation">
+  <div class="sv-meta">
+    <span class="sv-num">01</span>
+    <span class="sv-kind" data-i18n="svc_badge_inperson">In-Person</span>
+  </div>
+  <h3 class="sv-title" data-i18n="svc_onsite_name">On-Site Interpretation</h3>
+  <p class="sv-desc" data-i18n="svc_onsite_p">Real-time English↔Portuguese for seminars, meetings, events and conferences.</p>
+  <div class="sv-foot">
+    <div class="sv-price-block"><span class="sv-price-amt">$95</span><span class="sv-price-unit">/ hour</span></div>
+    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
+  </div>
 </a>
-<a class="sv-card reveal" href="contact.html?service=Remote+Interpretation" style="text-decoration:none;color:inherit;display:block">
-<div class="sv-icon sv-i-mint">💻</div>
-<span data-i18n="svc_badge_virtual" style="display:inline-block;padding:3px 11px;border-radius:100px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;background:var(--mint-wash);color:var(--mint-deep)">Virtual</span>
-<h3 data-i18n="svc_remote_name">Remote</h3>
-<p data-i18n="svc_remote_p">Professional English↔Portuguese interpretation via Google Meet or phone.</p>
-<div class="sv-price">
-<span class="sv-price-text">$65/hr</span>
-<span class="sv-price-link" data-i18n="svc_book_link">Book <svg fill="none" height="14" stroke="currentColor" stroke-width="2" width="14"><path d="M3 7h8M8 3l3 4-3 4"></path></svg></span>
-</div>
+
+<a class="sv-card sv-mint reveal" href="contact.html?service=Remote+Interpretation">
+  <div class="sv-meta">
+    <span class="sv-num">02</span>
+    <span class="sv-kind" data-i18n="svc_badge_virtual">Virtual</span>
+  </div>
+  <h3 class="sv-title" data-i18n="svc_remote_name">Remote</h3>
+  <p class="sv-desc" data-i18n="svc_remote_p">Professional English↔Portuguese interpretation via Google Meet or phone.</p>
+  <div class="sv-foot">
+    <div class="sv-price-block"><span class="sv-price-amt">$65</span><span class="sv-price-unit">/ hour</span></div>
+    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
+  </div>
 </a>
-<a class="sv-card reveal" href="contact.html?service=Medical+Interpretation" style="text-decoration:none;color:inherit;display:block">
-<div class="sv-icon sv-i-lav">🏥</div>
-<span data-i18n="svc_badge_medical" style="display:inline-block;padding:3px 11px;border-radius:100px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;background:var(--lav-wash);color:var(--lav-deep)">Medical</span>
-<h3 data-i18n="svc_medical_name">Medical Interpretation</h3>
-<p data-i18n="svc_medical_p">HIPAA-aware interpretation for doctor visits, hospital stays and mental health.</p>
-<div class="sv-price">
-<span class="sv-price-text">$75/hr</span>
-<span class="sv-price-link" data-i18n="svc_book_link">Book <svg fill="none" height="14" stroke="currentColor" stroke-width="2" width="14"><path d="M3 7h8M8 3l3 4-3 4"></path></svg></span>
-</div>
+
+<a class="sv-card sv-lav reveal" href="contact.html?service=Medical+Interpretation">
+  <div class="sv-meta">
+    <span class="sv-num">03</span>
+    <span class="sv-kind" data-i18n="svc_badge_medical">Medical</span>
+  </div>
+  <h3 class="sv-title" data-i18n="svc_medical_name">Medical Interpretation</h3>
+  <p class="sv-desc" data-i18n="svc_medical_p">HIPAA-aware interpretation for doctor visits, hospital stays and mental health.</p>
+  <div class="sv-foot">
+    <div class="sv-price-block"><span class="sv-price-amt">$75</span><span class="sv-price-unit">/ hour</span></div>
+    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
+  </div>
 </a>
-<a class="sv-card reveal" href="contact.html?service=Legal+Interpretation" style="text-decoration:none;color:inherit;display:block">
-<div class="sv-icon sv-i-blue">⚖️</div>
-<span data-i18n="svc_badge_legal" style="display:inline-block;padding:3px 11px;border-radius:100px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;background:var(--blue-wash);color:var(--blue-deep)">Legal</span>
-<h3 data-i18n="svc_legal_name">Legal Interpretation</h3>
-<p data-i18n="svc_legal_p">Professional interpretation for immigration hearings, Green Card interviews, USCIS appointments, court depositions, and citizenship test preparation including mock interviews.</p>
-<div class="sv-price">
-<span class="sv-price-text">$85/hr</span>
-<span class="sv-price-link" data-i18n="svc_book_link">Book <svg fill="none" height="14" stroke="currentColor" stroke-width="2" width="14"><path d="M3 7h8M8 3l3 4-3 4"></path></svg></span>
-</div>
+
+<a class="sv-card sv-blue reveal" href="contact.html?service=Legal+Interpretation">
+  <div class="sv-meta">
+    <span class="sv-num">04</span>
+    <span class="sv-kind" data-i18n="svc_badge_legal">Legal</span>
+  </div>
+  <h3 class="sv-title" data-i18n="svc_legal_name">Legal Interpretation</h3>
+  <p class="sv-desc" data-i18n="svc_legal_p">Immigration hearings, Green Card interviews, USCIS appointments, court depositions, and citizenship test prep — including mock interviews.</p>
+  <div class="sv-foot">
+    <div class="sv-price-block"><span class="sv-price-amt">$85</span><span class="sv-price-unit">/ hour</span></div>
+    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
+  </div>
 </a>
-<a class="sv-card reveal" href="contact.html?service=Educational+Interpretation" style="text-decoration:none;color:inherit;display:block">
-<div class="sv-icon sv-i-mint">🎓</div>
-<span data-i18n="svc_badge_education" style="display:inline-block;padding:3px 11px;border-radius:100px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;background:var(--mint-wash);color:var(--mint-deep)">Education</span>
-<h3 data-i18n="svc_edu_name">Educational Interpretation</h3>
-<p data-i18n="svc_edu_p">Parent-Teacher conferences, student assessments, classroom support, workshops and seminars - supporting educators during training sessions and professional development events.</p>
-<div class="sv-price">
-<span class="sv-price-text">$75/hr</span>
-<span class="sv-price-link" data-i18n="svc_book_link">Book <svg fill="none" height="14" stroke="currentColor" stroke-width="2" width="14"><path d="M3 7h8M8 3l3 4-3 4"></path></svg></span>
-</div>
+
+<a class="sv-card sv-mint reveal" href="contact.html?service=Educational+Interpretation">
+  <div class="sv-meta">
+    <span class="sv-num">05</span>
+    <span class="sv-kind" data-i18n="svc_badge_education">Education</span>
+  </div>
+  <h3 class="sv-title" data-i18n="svc_edu_name">Educational Interpretation</h3>
+  <p class="sv-desc" data-i18n="svc_edu_p">Parent-teacher conferences, student assessments, classroom support, workshops and professional-development events.</p>
+  <div class="sv-foot">
+    <div class="sv-price-block"><span class="sv-price-amt">$75</span><span class="sv-price-unit">/ hour</span></div>
+    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
+  </div>
 </a>
-<a class="sv-card reveal" href="contact.html?service=One-on-One+Private+Lessons" style="text-decoration:none;color:inherit;display:block">
-<div class="sv-icon sv-i-peach">📚</div>
-<span data-i18n="svc_badge_teaching" style="display:inline-block;padding:3px 11px;border-radius:100px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;background:var(--peach-wash);color:var(--peach-deep)">Teaching</span>
-<h3 data-i18n="svc_lessons_name">One-on-One Private Lessons</h3>
-<p data-i18n="svc_lessons_p">Personalized one-on-one English lessons tailored to your goals and skill level, focusing on speaking, listening, reading, and writing.</p>
-<div class="sv-price">
-<span class="sv-price-text">$50/hr</span>
-<span class="sv-price-link" data-i18n="svc_book_link">Book <svg fill="none" height="14" stroke="currentColor" stroke-width="2" width="14"><path d="M3 7h8M8 3l3 4-3 4"></path></svg></span>
-</div>
+
+<a class="sv-card sv-peach reveal" href="contact.html?service=One-on-One+Private+Lessons">
+  <div class="sv-meta">
+    <span class="sv-num">06</span>
+    <span class="sv-kind" data-i18n="svc_badge_teaching">Teaching</span>
+  </div>
+  <h3 class="sv-title" data-i18n="svc_lessons_name">One-on-One Private Lessons</h3>
+  <p class="sv-desc" data-i18n="svc_lessons_p">Personalized English lessons tailored to your goals and level — speaking, listening, reading, writing.</p>
+  <div class="sv-foot">
+    <div class="sv-price-block"><span class="sv-price-amt">$50</span><span class="sv-price-unit">/ hour</span></div>
+    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
+  </div>
 </a>
 </div>
 </div>
@@ -469,7 +507,7 @@
 <div class="footer-col">
 <h4 data-i18n="footer_contact">Contact</h4>
 <ul class="footer-links">
-<li><a href="mailto:hello@staelfogarty.com">hello@staelfogarty.com</a></li>
+<li><a href="mailto:hello@staelgissoni.com">hello@staelgissoni.com</a></li>
 <li><a href="#">Orlando, FL</a></li>
 </ul>
 </div>

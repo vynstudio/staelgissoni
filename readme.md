@@ -1,11 +1,11 @@
-# staelfogarty.com
+# staelgissoni.com
 
 Professional English–Portuguese interpreter website for Stael Gissoni.
 
 ## Stack
-- **Hosting:** Netlify (staelfogarty.com)
+- **Hosting:** Netlify (staelgissoni.com)
 - **Payments:** Stripe Connect (Vyn Studio account → 20% split to Stael)
-- **Email:** Resend (hello@staelfogarty.com)
+- **Email:** Resend (hello@staelgissoni.com)
 - **Calendar:** Google Calendar API (stgissoni@gmail.com project)
 - **Meetings:** Google Meet (auto-created for virtual services)
 
@@ -42,12 +42,12 @@ Professional English–Portuguese interpreter website for Stael Gissoni.
 - `STRIPE_WEBHOOK_SECRET` — Webhook signing secret
 - `RESEND_API_KEY` — Resend API key
 - `GOOGLE_SERVICE_ACCOUNT_JSON` — Service account key (stgissoni@gmail.com project)
-- `GOOGLE_IMPERSONATE` — hello@staelfogarty.com
-- `STAEL_EMAIL` — hello@staelfogarty.com
+- `GOOGLE_IMPERSONATE` — hello@staelgissoni.com
+- `STAEL_EMAIL` — hello@staelgissoni.com
 - `VYN_EMAIL` — hello@vyn.studio
 
 ## Change Requests
-Stael submits changes via staelfogarty.com/changes → emails hello@vyn.studio
+Stael submits changes via staelgissoni.com/changes → emails hello@vyn.studio
 
 ## Managed by
 Vyn Studio — hello@vyn.studio

@@ -590,7 +590,7 @@ const sfChat = (() => {
   // ── Free Chat fallback ──
   async function handleAIQuestion(text) {
     showTyping();
-    const system = `You are Stael Gissoni's friendly booking assistant. Stael is a professional English-Portuguese interpreter based in Orlando, FL. Services: Live Interpretation ($65/hr), Virtual Sessions ($55/hr), Medical Interpretation ($75/hr), Legal Interpretation ($85/hr), Language Coaching ($50/session). Keep answers to 2 sentences max. Always guide toward booking. For anything complex, direct to hello@staelfogarty.com.`;
+    const system = `You are Stael Gissoni's friendly booking assistant. Stael is a professional English-Portuguese interpreter based in Orlando, FL. Services: Live Interpretation ($65/hr), Virtual Sessions ($55/hr), Medical Interpretation ($75/hr), Legal Interpretation ($85/hr), Language Coaching ($50/session). Keep answers to 2 sentences max. Always guide toward booking. For anything complex, direct to hello@staelgissoni.com.`;
     try {
       const res = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
@@ -604,10 +604,10 @@ const sfChat = (() => {
       });
       const data = await res.json();
       hideTyping();
-      addMsg(data.content?.[0]?.text || "Let me connect you with Stael directly — email her at <strong>hello@staelfogarty.com</strong>");
+      addMsg(data.content?.[0]?.text || "Let me connect you with Stael directly — email her at <strong>hello@staelgissoni.com</strong>");
     } catch(e) {
       hideTyping();
-      addMsg("Reach Stael directly at <strong>hello@staelfogarty.com</strong> — she typically replies within a few hours!");
+      addMsg("Reach Stael directly at <strong>hello@staelgissoni.com</strong> — she typically replies within a few hours!");
     }
     setQR([
       { label: '📅 Book a Session', primary: true, action: () => stepService() },

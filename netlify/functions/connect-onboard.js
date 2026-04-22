@@ -60,7 +60,7 @@ exports.handler = async (event) => {
       const account = await stripe.accounts.create({
         type: 'express',
         country: 'US',
-        email: 'hello@staelfogarty.com',
+        email: 'hello@staelgissoni.com',
         capabilities: {
           card_payments: { requested: true },
           transfers: { requested: true },
@@ -69,7 +69,7 @@ exports.handler = async (event) => {
         business_profile: {
           name: 'Stael Gissoni',
           mcc: '7299',
-          url: 'https://staelfogarty.com',
+          url: 'https://staelgissoni.com',
         },
       });
       accountId = account.id;
@@ -78,8 +78,8 @@ exports.handler = async (event) => {
 
     const accountLink = await stripe.accountLinks.create({
       account: accountId,
-      refresh_url: `${process.env.URL || 'https://staelfogarty.com'}/.netlify/functions/connect-onboard?existing=true`,
-      return_url: `${process.env.URL || 'https://staelfogarty.com'}/connect-success.html`,
+      refresh_url: `${process.env.URL || 'https://staelgissoni.com'}/.netlify/functions/connect-onboard?existing=true`,
+      return_url: `${process.env.URL || 'https://staelgissoni.com'}/connect-success.html`,
       type: 'account_onboarding',
     });
 

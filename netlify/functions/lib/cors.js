@@ -1,4 +1,4 @@
-const ALLOWED_ORIGIN = 'https://staelfogarty.com';
+const ALLOWED_ORIGIN = 'https://staelgissoni.com';
 
 function corsHeaders(extra = {}) {
   return {

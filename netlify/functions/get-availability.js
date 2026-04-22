@@ -32,7 +32,7 @@ exports.handler = async (event) => {
       return jsonResponse(200, { availability: getMock(), source: 'mock' });
     }
 
-    const calendarId = process.env.GOOGLE_IMPERSONATE || 'hello@staelfogarty.com';
+    const calendarId = process.env.GOOGLE_IMPERSONATE || 'hello@staelgissoni.com';
 
     const auth = new google.auth.JWT({
       email: saKey.client_email,

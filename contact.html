@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="canonical" href="https://staelfogarty.com/contact">
+<link rel="canonical" href="https://staelgissoni.com/contact">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Book a Session — Stael Gissoni | English & Portuguese Interpreter</title>
 <meta name="description" content="Book a session with Stael Gissoni. Professional English-Portuguese interpretation and language coaching. Secure online booking.">
 <meta property="og:title" content="Book a Session — Stael Gissoni">
-<meta property="og:image" content="https://staelfogarty.com/og-image.png">
+<meta property="og:image" content="https://staelgissoni.com/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;1,9..144,400&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -47,21 +47,58 @@
 .form-title{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:800;color:var(--dark);margin-bottom:4px}
 .form-subtitle{font-size:0.88rem;color:var(--text-muted);margin-bottom:24px;line-height:1.5}
 
-/* Service cards */
-.service-options{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;align-items:stretch}
-.service-opt{padding:22px 20px;border-radius:var(--radius-lg);border:2px solid var(--border);background:var(--bg);cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;display:flex;flex-direction:column}
-.service-opt:hover{border-color:var(--blue-light);background:var(--blue-wash);transform:translateY(-2px)}
-.service-opt.selected{border-color:var(--blue);background:var(--blue-wash);box-shadow:0 0 0 3px rgba(91,142,201,0.15)}
-.service-opt.selected::after{content:'\2713';position:absolute;top:10px;right:12px;width:22px;height:22px;background:var(--blue);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;line-height:22px;text-align:center}
-.so-emoji{font-size:1.8rem;margin-bottom:10px;display:block}
-.so-name{font-size:0.9rem;font-weight:800;color:var(--dark);margin-bottom:3px}
-.so-summary{font-size:0.76rem;color:var(--text-muted);line-height:1.45;margin-bottom:8px;flex:1}
-.so-price{font-size:0.8rem;color:var(--text-muted);font-weight:600}
-.so-badge{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:var(--radius-pill);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em}
-.so-badge.blue{background:var(--blue-wash);color:var(--blue-deep)}
-.so-badge.mint{background:var(--mint-wash);color:var(--mint-deep)}
-.so-badge.lav{background:var(--lavender-wash);color:var(--lavender)}
-.so-badge.peach{background:var(--peach-wash);color:var(--peach-deep)}
+/* Service cards — editorial rows matching the homepage redesign */
+.service-options{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;align-items:stretch}
+.service-opt{
+  position:relative;display:flex;flex-direction:column;gap:8px;
+  background:var(--white);border-radius:var(--radius-lg);
+  padding:24px 24px 22px;border:1.5px solid var(--border);
+  cursor:pointer;overflow:hidden;
+  transition:transform .3s cubic-bezier(.25,.46,.45,.94),box-shadow .3s,border-color .3s;
+}
+.service-opt::before{content:'';position:absolute;inset:0 auto 0 0;width:4px;background:var(--accent,var(--blue));transform:scaleY(.22);transform-origin:top;transition:transform .35s}
+.service-opt:hover{transform:translateY(-2px);border-color:transparent;box-shadow:0 16px 32px -18px rgba(30,41,59,.2)}
+.service-opt:hover::before{transform:scaleY(1)}
+.service-opt.selected{border-color:var(--accent,var(--blue));background:var(--accent-wash,var(--blue-wash))}
+.service-opt.selected::before{transform:scaleY(1)}
+.service-opt.selected::after{content:'✓';position:absolute;top:14px;right:14px;width:24px;height:24px;border-radius:50%;background:var(--accent,var(--blue));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;box-shadow:0 4px 12px -4px rgba(0,0,0,.2)}
+
+.service-opt.so-blue  { --accent:var(--blue);     --accent-wash:var(--blue-wash);     --accent-deep:var(--blue-deep); }
+.service-opt.so-peach { --accent:var(--peach);    --accent-wash:var(--peach-wash);    --accent-deep:var(--peach-deep); }
+.service-opt.so-mint  { --accent:var(--mint);     --accent-wash:var(--mint-wash);     --accent-deep:var(--mint-deep); }
+.service-opt.so-lav   { --accent:var(--lavender); --accent-wash:var(--lavender-wash); --accent-deep:var(--lavender-deep); }
+
+.so-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.so-num{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:.9rem;color:var(--accent,var(--blue))}
+.so-kind{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted)}
+.so-name{font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;line-height:1.2;color:var(--dark);margin:2px 0 0;letter-spacing:-.01em}
+.so-summary{font-size:.85rem;color:var(--text-muted);line-height:1.55;margin:0;flex:1}
+.so-foot{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:6px;padding-top:12px;border-top:1px solid var(--border)}
+.service-opt.selected .so-foot{border-top-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.so-price{font-family:'Fraunces',serif;font-weight:800;font-size:1.25rem;color:var(--accent-deep,var(--blue-deep));line-height:1}
+.so-price-unit{font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:600;color:var(--text-muted);margin-left:2px}
+.so-min{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted)}
+
+/* Hour picker (shown after service selection) */
+.hrs-picker{margin-top:20px;padding:22px 24px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-lg);animation:fadeIn .25s ease}
+.hrs-title{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:var(--dark);margin-bottom:4px}
+.hrs-dot{width:8px;height:8px;border-radius:50%;background:var(--peach);box-shadow:0 0 0 4px var(--peach-wash)}
+.hrs-lede{font-size:.85rem;color:var(--text-muted);margin:0 0 16px;line-height:1.5}
+.hrs-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hrs-stepper{display:flex;align-items:center;border:1.5px solid var(--border);border-radius:12px;background:var(--white);overflow:hidden}
+.hrs-stepper button{width:42px;height:44px;border:0;background:transparent;font-size:1.4rem;font-weight:700;color:var(--blue);cursor:pointer;transition:background .15s}
+.hrs-stepper button:hover{background:var(--blue-wash)}
+.hrs-stepper span{min-width:44px;text-align:center;font-family:'Fraunces',serif;font-weight:800;font-size:1.1rem;color:var(--dark);border-inline:1px solid var(--border);padding:0 4px;line-height:44px}
+.hrs-total{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:8px 16px;min-width:150px}
+.hrs-break{font-size:.75rem;color:var(--text-muted);margin-bottom:2px}
+.hrs-amt{font-family:'Fraunces',serif;font-weight:800;font-size:1.15rem;color:var(--blue-deep)}
+.hrs-saving{background:var(--mint-wash);border:1.5px solid var(--mint-light);border-radius:12px;padding:8px 14px}
+.hrs-saving-k{font-size:.72rem;color:var(--mint-deep);font-weight:700}
+.hrs-saving-v{font-size:.9rem;color:var(--mint-deep);font-weight:800}
+.hrs-hint{font-size:.78rem;color:var(--text-muted);margin:12px 0 0;line-height:1.5}
+
+/* Mobile: single-col service grid */
+@media(max-width:640px){.service-options{grid-template-columns:1fr;gap:10px}.service-opt{padding:18px 18px}}
 
 /* Calendar */
 .cal-wrap{margin-bottom:24px;max-width:420px}
@@ -145,8 +182,7 @@ textarea.form-input{resize:vertical;min-height:72px}
   .nav{padding:0 16px;height:60px}
   .nav-menu{top:60px;padding:12px 16px 20px;gap:4px}
   .nav-cta{margin-top:4px}
-  .service-options{grid-template-columns:1fr 1fr;gap:8px}
-  .service-opt{padding:14px 12px}
+  .service-options{grid-template-columns:1fr}
   .so-emoji{font-size:1.4rem;margin-bottom:6px}
   .time-grid{grid-template-columns:repeat(3,1fr);gap:6px}
   .time-chip{padding:10px 6px;font-size:.78rem}
@@ -217,77 +253,86 @@ textarea.form-input{resize:vertical;min-height:72px}
           <div class="form-title" data-i18n="step1_title">Choose a service</div>
           <div class="form-subtitle" data-i18n="step1_sub">What do you need help with?</div>
           <div class="service-options" id="serviceOptions">
-            <div class="service-opt" data-service="On-Site Interpretation" data-service-key="on-site" data-price="95" data-unit="hr" data-min="2" onclick="selectService(this)">
-              <span class="so-emoji">🎙️</span>
-              <div class="so-name">On-Site Interpretation</div>
-              <div style="display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:100px;background:#EBF2FA;color:#4A78B0;letter-spacing:.04em;margin-bottom:6px">2-HR MINIMUM</div>
-              <div class="so-summary">Real-time English↔Portuguese for seminars, meetings, events and conferences.</div>
-              <div class="so-price">$95 / hr · 2-hr min</div>
-              <span class="so-badge blue">In-Person</span>
+            <div class="service-opt so-blue" data-service="On-Site Interpretation" data-service-key="on-site" data-price="95" data-unit="hr" data-min="2" onclick="selectService(this)">
+              <div class="so-head"><span class="so-num">01</span><span class="so-kind">In-Person</span></div>
+              <h4 class="so-name">On-Site Interpretation</h4>
+              <p class="so-summary">Real-time English↔Portuguese for seminars, meetings, events and conferences.</p>
+              <div class="so-foot">
+                <span><span class="so-price">$95</span><span class="so-price-unit">/ hour</span></span>
+                <span class="so-min">2-hr min</span>
+              </div>
             </div>
-            <div class="service-opt" data-service="Remote Interpretation" data-service-key="remote" data-price="65" data-unit="hr" data-min="2" onclick="selectService(this)">
-              <span class="so-emoji">💻</span>
-              <div class="so-name">Remote</div>
-              <div class="so-summary">Professional English↔Portuguese interpretation via Google Meet or phone.</div>
-              <div class="so-price">$65 / hr · 2-hr min</div>
-              <span class="so-badge mint">Virtual</span>
+
+            <div class="service-opt so-mint" data-service="Remote Interpretation" data-service-key="remote" data-price="65" data-unit="hr" data-min="2" onclick="selectService(this)">
+              <div class="so-head"><span class="so-num">02</span><span class="so-kind">Virtual</span></div>
+              <h4 class="so-name">Remote</h4>
+              <p class="so-summary">Professional English↔Portuguese interpretation via Google Meet or phone.</p>
+              <div class="so-foot">
+                <span><span class="so-price">$65</span><span class="so-price-unit">/ hour</span></span>
+                <span class="so-min">2-hr min</span>
+              </div>
             </div>
-            <div class="service-opt" data-service="Medical Interpretation" data-service-key="medical" data-price="75" data-unit="hr" data-min="2" onclick="selectService(this)">
-              <span class="so-emoji">🏥</span>
-              <div class="so-name">Medical Interpretation</div>
-              <div style="display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:100px;background:#EBF2FA;color:#4A78B0;letter-spacing:.04em;margin-bottom:6px">2-HR MINIMUM</div>
-              <div class="so-summary">HIPAA-aware interpretation for doctor visits, hospital stays and mental health.</div>
-              <div class="so-price">$75 / hr · 2-hr min</div>
-              <span class="so-badge lav">Medical</span>
+
+            <div class="service-opt so-lav" data-service="Medical Interpretation" data-service-key="medical" data-price="75" data-unit="hr" data-min="2" onclick="selectService(this)">
+              <div class="so-head"><span class="so-num">03</span><span class="so-kind">Medical</span></div>
+              <h4 class="so-name">Medical Interpretation</h4>
+              <p class="so-summary">HIPAA-aware interpretation for doctor visits, hospital stays and mental health.</p>
+              <div class="so-foot">
+                <span><span class="so-price">$75</span><span class="so-price-unit">/ hour</span></span>
+                <span class="so-min">2-hr min</span>
+              </div>
             </div>
-            <div class="service-opt" data-service="Legal Interpretation" data-service-key="legal" data-price="85" data-unit="hr" data-min="2" onclick="selectService(this)">
-              <span class="so-emoji">⚖️</span>
-              <div class="so-name">Legal Interpretation</div>
-              <div style="display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:100px;background:#EBF2FA;color:#4A78B0;letter-spacing:.04em;margin-bottom:6px">2-HR MINIMUM</div>
-              <div class="so-summary">Professional interpretation for immigration hearings, Green Card interviews, USCIS appointments, court depositions, and citizenship test preparation including mock interviews.</div>
-              <div class="so-price">$85 / hr · 2-hr min</div>
-              <span class="so-badge blue">Legal</span>
+
+            <div class="service-opt so-blue" data-service="Legal Interpretation" data-service-key="legal" data-price="85" data-unit="hr" data-min="2" onclick="selectService(this)">
+              <div class="so-head"><span class="so-num">04</span><span class="so-kind">Legal</span></div>
+              <h4 class="so-name">Legal Interpretation</h4>
+              <p class="so-summary">Immigration hearings, Green Card interviews, USCIS appointments, court depositions, and citizenship test prep.</p>
+              <div class="so-foot">
+                <span><span class="so-price">$85</span><span class="so-price-unit">/ hour</span></span>
+                <span class="so-min">2-hr min</span>
+              </div>
             </div>
-            <div class="service-opt" data-service="Educational Interpretation" data-service-key="educational" data-price="75" data-unit="hr" data-min="2" onclick="selectService(this)">
-              <span class="so-emoji">🎓</span>
-              <div class="so-name">Educational Interpretation</div>
-              <div style="display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:100px;background:#EBF2FA;color:#4A78B0;letter-spacing:.04em;margin-bottom:6px">2-HR MINIMUM</div>
-              <div class="so-summary">Parent-Teacher conferences, student assessments, classroom support, workshops and seminars - supporting educators during training sessions and professional development events.</div>
-              <div class="so-price">$75 / hr · 2-hr min</div>
-              <span class="so-badge mint">Education</span>
+
+            <div class="service-opt so-mint" data-service="Educational Interpretation" data-service-key="educational" data-price="75" data-unit="hr" data-min="2" onclick="selectService(this)">
+              <div class="so-head"><span class="so-num">05</span><span class="so-kind">Education</span></div>
+              <h4 class="so-name">Educational Interpretation</h4>
+              <p class="so-summary">Parent-teacher conferences, student assessments, classroom support, workshops and professional development.</p>
+              <div class="so-foot">
+                <span><span class="so-price">$75</span><span class="so-price-unit">/ hour</span></span>
+                <span class="so-min">2-hr min</span>
+              </div>
             </div>
-            <div class="service-opt" data-service="One-on-One Private Lessons" data-service-key="lessons" data-price="50" data-unit="hr" data-min="1" onclick="selectService(this)">
-              <span class="so-emoji">📚</span>
-              <div class="so-name">One-on-One Private Lessons</div>
-              <div class="so-summary">Personalized one-on-one English lessons tailored to your goals and skill level, focusing on speaking, listening, reading, and writing.</div>
-              <div class="so-price">$50 / hr</div>
-              <span class="so-badge peach">Teaching</span>
+
+            <div class="service-opt so-peach" data-service="One-on-One Private Lessons" data-service-key="lessons" data-price="50" data-unit="hr" data-min="1" onclick="selectService(this)">
+              <div class="so-head"><span class="so-num">06</span><span class="so-kind">Teaching</span></div>
+              <h4 class="so-name">One-on-One Private Lessons</h4>
+              <p class="so-summary">Personalized English lessons tailored to your goals and skill level — speaking, listening, reading, writing.</p>
+              <div class="so-foot">
+                <span><span class="so-price">$50</span><span class="so-price-unit">/ hour</span></span>
+                <span class="so-min">No minimum</span>
+              </div>
             </div>
           </div>
 
-          <div id="interpDisclaimer" style="display:none;margin-top:16px;padding:18px 20px;background:#EBF2FA;border-radius:14px;border:2px solid #B5D4F4">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-              <span style="font-size:1rem">⏱️</span>
-              <p style="font-size:.9rem;color:#2A2A3A;font-weight:700;margin:0">2-hour minimum required</p>
-            </div>
-            <p style="font-size:.82rem;color:#4A78B0;margin:0 0 16px;line-height:1.5">This service requires a minimum of 2 hours. How many hours do you need?</p>
-
-            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-              <div style="display:flex;align-items:center;gap:0;border:2px solid #5B8EC9;border-radius:10px;overflow:hidden;background:#fff">
-                <button onclick="changeHours(-1)" style="width:40px;height:40px;border:none;background:none;font-size:1.3rem;cursor:pointer;color:#5B8EC9;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseover="this.style.background='#EBF2FA'" onmouseout="this.style.background='none'" type="button">−</button>
-                <span id="hoursDisplay" style="min-width:40px;text-align:center;font-size:1.1rem;font-weight:800;color:#2A2A3A;padding:0 4px;border-left:1.5px solid #B5D4F4;border-right:1.5px solid #B5D4F4;line-height:40px">2</span>
-                <button onclick="changeHours(1)" style="width:40px;height:40px;border:none;background:none;font-size:1.3rem;cursor:pointer;color:#5B8EC9;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseover="this.style.background='#EBF2FA'" onmouseout="this.style.background='none'" type="button">+</button>
+          <div id="interpDisclaimer" class="hrs-picker" style="display:none">
+            <div class="hrs-title"><span class="hrs-dot"></span><span>How many hours?</span></div>
+            <p class="hrs-lede">Tell us how long you'll need Stael. You can always add more time later.</p>
+            <div class="hrs-row">
+              <div class="hrs-stepper">
+                <button onclick="changeHours(-1)" type="button" aria-label="Decrease hours">−</button>
+                <span id="hoursDisplay">2</span>
+                <button onclick="changeHours(1)" type="button" aria-label="Increase hours">+</button>
               </div>
-              <div style="background:#fff;border-radius:10px;border:1.5px solid #B5D4F4;padding:8px 16px;min-width:160px">
-                <div id="hoursBreakdown" style="font-size:.78rem;color:#7C7C96;margin-bottom:2px">2 hrs × $0/hr</div>
-                <div id="hoursTotalDisplay" style="font-size:1.1rem;font-weight:800;color:#185FA5">$0</div>
+              <div class="hrs-total">
+                <div id="hoursBreakdown" class="hrs-break">2 hrs × $0/hr</div>
+                <div id="hoursTotalDisplay" class="hrs-amt">$0</div>
               </div>
-              <div id="hoursSaving" style="display:none;background:#EFF9F5;border-radius:10px;border:1.5px solid #9FE1CB;padding:8px 14px">
-                <div style="font-size:.75rem;color:#0F6E56;font-weight:700">vs. 2 hours</div>
-                <div id="hoursSavingAmt" style="font-size:.85rem;color:#0F6E56;font-weight:800">+$0</div>
+              <div id="hoursSaving" class="hrs-saving" style="display:none">
+                <div class="hrs-saving-k">vs. 2 hours</div>
+                <div id="hoursSavingAmt" class="hrs-saving-v">+$0</div>
               </div>
             </div>
-            <p style="font-size:.78rem;color:#7C7C96;margin-top:10px;margin-bottom:0">💡 Booking more hours upfront saves coordination time and guarantees Stael's availability.</p>
+            <p class="hrs-hint">Booking more hours upfront saves coordination time and guarantees Stael's availability.</p>
           </div>
 
           <div class="form-btns">
@@ -443,7 +488,7 @@ textarea.form-input{resize:vertical;min-height:72px}
         <li><a href="contact.html">Contact</a></li>
       </ul></div>
       <div class="footer-col"><h4>Contact</h4><ul class="footer-links">
-        <li><a href="mailto:hello@staelfogarty.com">hello@staelfogarty.com</a></li>
+        <li><a href="mailto:hello@staelgissoni.com">hello@staelgissoni.com</a></li>
         <li><a href="#">Orlando, FL</a></li>
       </ul></div>
     </div>
@@ -564,7 +609,7 @@ async function loadAvailability(){
   }catch(e){
     console.error('Availability error:',e);
     const title=document.getElementById('calTitle');
-    if(title)title.textContent='Could not load — contact hello@staelfogarty.com';
+    if(title)title.textContent='Could not load — contact hello@staelgissoni.com';
   }
 }
 loadAvailability();
@@ -738,7 +783,7 @@ async function submitBooking(){
   }catch(err){
     console.error(err);
     btn.disabled=false;btn.innerHTML='Confirm & Pay →';
-    alert('Something went wrong. Please try again or contact hello@staelfogarty.com for help.');
+    alert('Something went wrong. Please try again or contact hello@staelgissoni.com for help.');
   }
 }
 

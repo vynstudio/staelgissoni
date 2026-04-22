@@ -3,7 +3,7 @@
 //
 // Setup in Stripe Dashboard:
 //   Developers → Webhooks → Add endpoint
-//   URL: https://staelfogarty.com/.netlify/functions/stripe-webhook
+//   URL: https://staelgissoni.com/.netlify/functions/stripe-webhook
 //   Events: checkout.session.completed
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -65,6 +65,22 @@ exports.handler = async (event) => {
   const session = stripeEvent.data.object;
   const meta = session.metadata || {};
 
+  // ── Shop (digital download) dispatch ──────────────────────────
+  // When the checkout was created by shop-checkout.js we stamp
+  // metadata.purpose = 'shop_digital'. Route those to the shop
+  // fulfillment handler instead of the booking/Zoom flow.
+  if (meta.purpose === 'shop_digital') {
+    try {
+      const { fulfillShopOrder } = require('./lib/shop-fulfill');
+      const result = await fulfillShopOrder(session);
+      if (stripeEvent.id) rememberEvent(stripeEvent.id);
+      return { statusCode: 200, body: JSON.stringify({ received: true, shop: true, ...result }) };
+    } catch (e) {
+      console.error('shop fulfillment failed:', e);
+      return { statusCode: 500, body: JSON.stringify({ error: 'Shop fulfillment failed' }) };
+    }
+  }
+
   const bookingData = {
     service:   meta.service    || 'Session',
     price:     meta.price      || '0',
@@ -84,7 +100,7 @@ exports.handler = async (event) => {
   // Trigger Zoom + notification function. On downstream failure we return 500
   // so Stripe retries the webhook — do NOT mark the event as seen in that case.
   try {
-    const baseUrl = process.env.URL || 'https://staelfogarty.com';
+    const baseUrl = process.env.URL || 'https://staelgissoni.com';
     const res = await fetch(`${baseUrl}/.netlify/functions/create-zoom-meeting`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
