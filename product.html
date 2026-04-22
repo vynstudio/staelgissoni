@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Stael Fogarty</title>
+<meta name="description" content="Digital product by Stael Gissoni.">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css">
+<style>
+.nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:rgba(255,248,243,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,0.04)}
+.nav .logo{font-family:'Fraunces',serif;font-weight:800;font-size:1.35rem;color:var(--text);text-decoration:none}
+.nav .logo span{color:var(--peach)}
+.nav-right{display:flex;gap:12px;align-items:center}
+.nav-link{font-size:.88rem;font-weight:600;color:var(--muted);padding:8px 16px;border-radius:var(--r-pill)}
+.nav-link:hover{color:var(--text);background:var(--peach-wash)}
+.nav-link.active{color:var(--peach-deep);background:var(--peach-wash)}
+
+.wrap{max-width:960px;margin:0 auto;padding:60px 24px 96px;display:grid;grid-template-columns:minmax(280px,1fr) minmax(280px,1.2fr);gap:48px}
+@media(max-width:760px){.wrap{grid-template-columns:1fr;gap:28px;padding:32px 20px 64px}}
+.cover{background:linear-gradient(135deg,var(--peach-light),var(--peach));aspect-ratio:1/1.2;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces',serif;font-weight:800;font-size:1.8rem;padding:24px;text-align:center;overflow:hidden}
+.cover img{width:100%;height:100%;object-fit:cover}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted);text-decoration:none;margin-bottom:12px}
+.back:hover{color:var(--peach-deep)}
+.lang-chip{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--peach-deep);background:var(--peach-wash);padding:5px 10px;border-radius:var(--r-pill);margin-bottom:14px}
+h1{font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin:0 0 10px;line-height:1.15}
+.sub{color:var(--muted);font-size:1.05rem;line-height:1.6;margin:0 0 20px}
+.price{font-family:'Fraunces',serif;font-size:2rem;font-weight:800;color:var(--peach-deep);margin:8px 0 18px}
+.desc{font-size:.98rem;line-height:1.7;color:var(--text);margin:0 0 24px;white-space:pre-wrap}
+
+.buy-box{background:#fff;border:1px solid var(--peach-wash);border-radius:var(--r-md);padding:22px;margin-top:8px}
+.buy-box label{display:block;font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 6px}
+.buy-box input{width:100%;padding:10px 12px;border:1px solid var(--peach-wash);border-radius:var(--r-sm);font-size:.95rem;font-family:inherit;background:#FFF8F3}
+.buy-box input:focus{outline:none;border-color:var(--peach);box-shadow:0 0 0 3px var(--peach-light)}
+.buy-btn{display:block;width:100%;padding:14px;margin-top:18px;background:var(--peach);color:#fff;border:0;border-radius:var(--r-sm);font-weight:800;font-size:1rem;cursor:pointer;transition:background .2s}
+.buy-btn:hover{background:var(--peach-deep)}
+.buy-btn:disabled{opacity:.6;cursor:wait}
+.fine{font-size:.78rem;color:var(--muted);margin-top:10px;line-height:1.55}
+.err{background:#FEE2E2;color:#9B2C2C;padding:10px 12px;border-radius:var(--r-sm);font-size:.85rem;margin-top:12px}
+.skeleton{max-width:960px;margin:0 auto;padding:60px 24px;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<header><nav class="nav">
+  <a href="/" class="logo">stael<span>.</span></a>
+  <div class="nav-right">
+    <a href="/lessons" class="nav-link">English Lessons</a>
+    <a href="/interpretation" class="nav-link">Interpretation</a>
+    <a href="/shop" class="nav-link active">Shop</a>
+    <a href="/contact" class="nav-link">Book →</a>
+  </div>
+</nav></header>
+
+<main id="root">
+<div class="skeleton">Loading…</div>
+</main>
+
+<script>
+(async () => {
+  const root = document.getElementById('root');
+  // Support both /shop/:slug (from netlify rewrite) and /product?slug=:slug fallback.
+  const pathSlug = location.pathname.replace(/^\/shop\//, '').replace(/\/$/, '');
+  const slug = pathSlug && pathSlug !== 'shop' ? pathSlug : new URLSearchParams(location.search).get('slug');
+  if (!slug) { location.href = '/shop'; return; }
+
+  try {
+    const r = await fetch('/.netlify/functions/shop-list?slug=' + encodeURIComponent(slug));
+    if (!r.ok) throw new Error((await r.json()).error || 'HTTP ' + r.status);
+    const { product } = await r.json();
+
+    document.title = product.title + ' — Stael Fogarty';
+    const fmt$ = (c) => '$' + (c / 100).toFixed((c % 100) ? 2 : 0);
+    const langLabel = product.language === 'pt' ? 'Português' : product.language === 'bilingual' ? 'EN · PT' : 'English';
+    const canceled = new URLSearchParams(location.search).get('canceled');
+
+    root.innerHTML = `
+      <div class="wrap">
+        <div>
+          <div class="cover">
+            ${product.cover_image_url ? `<img src="${product.cover_image_url}" alt="${product.title}">` : product.title}
+          </div>
+        </div>
+        <div>
+          <a class="back" href="/shop">← All products</a>
+          <span class="lang-chip">${langLabel}</span>
+          <h1>${product.title}</h1>
+          ${product.subtitle ? `<p class="sub">${product.subtitle}</p>` : ''}
+          <div class="price">${fmt$(product.price_cents)}</div>
+          ${product.description ? `<p class="desc">${product.description}</p>` : ''}
+
+          <div class="buy-box">
+            <form id="buy-form">
+              <label for="email">Email (where we send your download)</label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" autocomplete="name">
+              <button type="submit" class="buy-btn" id="buy-btn">Buy &amp; download — ${fmt$(product.price_cents)}</button>
+              <p class="fine">Secure checkout via Stripe. Instant email with your download link (valid 7 days). Questions? <a href="mailto:hello@staelfogarty.com">hello@staelfogarty.com</a>.</p>
+              ${canceled ? '<div class="err">Checkout canceled — your card was not charged.</div>' : ''}
+              <div id="buy-err"></div>
+            </form>
+          </div>
+        </div>
+      </div>`;
+
+    document.getElementById('buy-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('buy-btn');
+      const errBox = document.getElementById('buy-err');
+      errBox.innerHTML = '';
+      btn.disabled = true; btn.textContent = 'Redirecting to secure checkout…';
+      try {
+        const res = await fetch('/.netlify/functions/shop-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            slug,
+            email: document.getElementById('email').value.trim(),
+            name: document.getElementById('name').value.trim(),
+          }),
+        });
+        const out = await res.json();
+        if (!res.ok || !out.checkout_url) throw new Error(out.error || 'Checkout failed');
+        location.href = out.checkout_url;
+      } catch (err) {
+        errBox.innerHTML = `<div class="err">${err.message || err}</div>`;
+        btn.disabled = false; btn.textContent = `Buy & download — ${fmt$(product.price_cents)}`;
+      }
+    });
+  } catch (e) {
+    root.innerHTML = `<div class="skeleton">Product not found. <a href="/shop">Back to shop →</a></div>`;
+  }
+})();
+</script>
+</body>
+</html>

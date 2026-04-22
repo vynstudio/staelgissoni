@@ -65,6 +65,22 @@ exports.handler = async (event) => {
   const session = stripeEvent.data.object;
   const meta = session.metadata || {};
 
+  // ── Shop (digital download) dispatch ──────────────────────────
+  // When the checkout was created by shop-checkout.js we stamp
+  // metadata.purpose = 'shop_digital'. Route those to the shop
+  // fulfillment handler instead of the booking/Zoom flow.
+  if (meta.purpose === 'shop_digital') {
+    try {
+      const { fulfillShopOrder } = require('./lib/shop-fulfill');
+      const result = await fulfillShopOrder(session);
+      if (stripeEvent.id) rememberEvent(stripeEvent.id);
+      return { statusCode: 200, body: JSON.stringify({ received: true, shop: true, ...result }) };
+    } catch (e) {
+      console.error('shop fulfillment failed:', e);
+      return { statusCode: 500, body: JSON.stringify({ error: 'Shop fulfillment failed' }) };
+    }
+  }
+
   const bookingData = {
     service:   meta.service    || 'Session',
     price:     meta.price      || '0',

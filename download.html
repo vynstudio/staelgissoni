@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Your download — Stael Fogarty</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css">
+<style>
+.nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:rgba(255,248,243,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,0.04)}
+.nav .logo{font-family:'Fraunces',serif;font-weight:800;font-size:1.35rem;color:var(--text);text-decoration:none}
+.nav .logo span{color:var(--peach)}
+
+.card{max-width:540px;margin:60px auto;padding:48px 32px;background:#fff;border:1px solid var(--peach-wash);border-radius:var(--r-md);text-align:center}
+h1{font-family:'Fraunces',serif;font-size:2rem;font-weight:800;margin:0 0 10px}
+p{color:var(--muted);font-size:1rem;line-height:1.6}
+.big-btn{display:inline-block;margin-top:24px;padding:16px 36px;background:var(--peach);color:#fff;text-decoration:none;border-radius:var(--r-sm);font-weight:800;font-size:1rem}
+.big-btn:hover{background:var(--peach-deep)}
+.fine{font-size:.82rem;color:var(--muted);margin-top:16px}
+.err{color:#9B2C2C;background:#FEE2E2;padding:14px;border-radius:var(--r-sm);font-size:.9rem;margin-top:16px}
+.checkmark{font-size:3rem;display:block;margin-bottom:12px}
+</style>
+</head>
+<body>
+<header><nav class="nav">
+  <a href="/" class="logo">stael<span>.</span></a>
+</nav></header>
+
+<main>
+<section class="card" id="root">
+  <span class="checkmark">✨</span>
+  <h1>Loading your download…</h1>
+  <p>One second while we verify your order.</p>
+</section>
+</main>
+
+<script>
+(async () => {
+  const root = document.getElementById('root');
+  const params = new URLSearchParams(location.search);
+  const token = params.get('token');
+  const session = params.get('session');
+
+  // Just-paid flow — session param lands here directly from Stripe success_url.
+  if (session && !token) {
+    root.innerHTML = `
+      <span class="checkmark">✨</span>
+      <h1>Thanks — your order is confirmed.</h1>
+      <p>We just emailed you a download link. Check your inbox (and spam folder just in case). The link works for 7 days.</p>
+      <p class="fine">Didn't receive anything? Email <a href="mailto:hello@staelfogarty.com">hello@staelfogarty.com</a> and we'll sort it out.</p>`;
+    return;
+  }
+
+  if (!token) {
+    root.innerHTML = `<h1>Missing link</h1><p>This page needs a valid download link. Check the email we sent you.</p>`;
+    return;
+  }
+
+  // Token flow — GET the function, let it 302 to the signed Storage URL.
+  // We render a styled "click to download" card for a better UX than auto-redirect.
+  root.innerHTML = `
+    <span class="checkmark">🎉</span>
+    <h1>Your download is ready</h1>
+    <p>Tap the button below to save your file.</p>
+    <a class="big-btn" href="/.netlify/functions/shop-download?token=${encodeURIComponent(token)}">Download now</a>
+    <p class="fine">Link valid for 7 days from purchase. Save a copy on your device once downloaded.</p>`;
+})();
+</script>
+</body>
+</html>
