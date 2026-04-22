@@ -3,34 +3,88 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://staelgissoni.com/book">
 <title>Book a session — Stael Gissoni</title>
-<meta name="description" content="Secure checkout for English↔Portuguese interpretation and English lessons.">
-
+<meta name="description" content="Secure checkout for English↔Portuguese interpretation, translation, and language coaching. Stripe-secured, instant confirmation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600;1,9..144,700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,800;1,9..144,600;1,9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/global.css">
-
 <style>
-body { font-family: 'Nunito', system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
-h1, h2 { font-family: 'Fraunces', Georgia, serif; color: var(--dark); letter-spacing: -0.015em; }
+body { font-family: 'Nunito', system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; color: var(--dark); letter-spacing: -0.015em; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+em { font-style: italic; color: var(--peach-deep); font-weight: 600; }
 
-main { flex: 1; display: grid; place-items: center; padding: 40px 24px 64px; }
-.card { max-width: 560px; background: #fff; border: 1px solid var(--border); border-radius: 24px; padding: 48px 40px; text-align: center; box-shadow: 0 20px 48px -24px rgba(42,42,58,0.18); }
-.eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--peach-deep); background: var(--peach-wash); padding: 6px 14px; border-radius: 9999px; margin-bottom: 16px; }
-h1 { font-size: clamp(1.8rem, 3.6vw, 2.4rem); font-weight: 800; line-height: 1.1; margin-bottom: 14px; }
-h1 em { font-style: italic; color: var(--peach-deep); font-weight: 700; }
-.lede { font-size: 1rem; line-height: 1.65; color: var(--text-muted); margin-bottom: 28px; }
-.opts { display: grid; gap: 10px; text-align: left; margin-bottom: 22px; }
-.opt { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: var(--bg-warm); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--dark); font-weight: 700; font-size: 0.92rem; transition: border-color 0.2s, transform 0.2s, background 0.2s; }
-.opt:hover { border-color: var(--peach); transform: translateX(3px); background: #fff; }
-.opt .arrow { color: var(--peach-deep); font-weight: 800; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; border-radius: 14px; font-weight: 800; font-size: 0.95rem; text-decoration: none; border: 0; cursor: pointer; font-family: inherit; }
-.btn-primary { background: var(--blue); color: #fff; box-shadow: 0 10px 22px -10px rgba(91,142,201,0.55); transition: background 0.2s, transform 0.2s; }
-.btn-primary:hover { background: var(--blue-deep); transform: translateY(-2px); color: #fff; }
-.fine { font-size: 0.8rem; color: var(--text-muted); margin-top: 18px; }
+.page-hero { padding: 48px 0 20px; }
+.eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--peach-deep); background: var(--peach-wash); padding: 6px 14px; border-radius: 9999px; margin-bottom: 14px; }
+.page-hero h1 { font-size: clamp(1.9rem, 3.8vw, 2.6rem); font-weight: 800; line-height: 1.12; margin-bottom: 10px; }
+.page-hero p { font-size: 1rem; line-height: 1.65; color: var(--text-muted); max-width: 580px; }
+
+.alert { padding: 12px 16px; border-radius: 12px; font-size: 0.9rem; margin: 14px 0 0; }
+.alert.warn { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+.alert.err { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
+
+.section { padding: 28px 0 20px; }
+.label-h { display: block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+
+.svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.svc-opt { background: #fff; border: 1.5px solid var(--border); border-radius: 16px; padding: 18px 20px; cursor: pointer; position: relative; overflow: hidden; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; display: flex; flex-direction: column; gap: 8px; }
+.svc-opt::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--accent, var(--blue)); opacity: 0.25; transition: opacity 0.15s; }
+.svc-opt:hover { border-color: var(--accent, var(--blue)); transform: translateY(-2px); box-shadow: 0 12px 24px -16px rgba(42,42,58,0.2); }
+.svc-opt:hover::before { opacity: 1; }
+.svc-opt.selected { border-color: var(--accent); background: var(--accent-wash, var(--blue-wash)); }
+.svc-opt.selected::before { opacity: 1; }
+.svc-opt.selected::after { content: '✓'; position: absolute; top: 12px; right: 14px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; }
+.svc-opt.blue  { --accent: var(--blue);     --accent-wash: var(--blue-wash);     --accent-deep: var(--blue-deep); }
+.svc-opt.peach { --accent: var(--peach);    --accent-wash: var(--peach-wash);    --accent-deep: var(--peach-deep); }
+.svc-opt.mint  { --accent: var(--mint);     --accent-wash: var(--mint-wash);     --accent-deep: var(--mint-deep); }
+.svc-opt.lav   { --accent: var(--lavender); --accent-wash: var(--lavender-wash); --accent-deep: var(--lavender); }
+.svc-opt .kind { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.svc-opt .name { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.12rem; color: var(--dark); line-height: 1.2; margin: 0; }
+.svc-opt .desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.5; margin: 0; flex: 1; }
+.svc-opt .foot { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-top: 6px; padding-top: 10px; border-top: 1px solid var(--border); }
+.svc-opt .price { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.1rem; color: var(--accent-deep); line-height: 1; }
+.svc-opt .price small { font-family: 'Nunito', sans-serif; font-size: 0.7rem; color: var(--text-muted); margin-left: 3px; font-weight: 700; }
+.svc-opt .min { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; color: var(--text-muted); text-transform: uppercase; }
+
+.hours-row { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; }
+@media (max-width: 640px) { .hours-row { grid-template-columns: 1fr; gap: 14px; } }
+.stepper { display: inline-flex; align-items: center; border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--bg); }
+.stepper button { width: 40px; height: 44px; border: 0; background: transparent; font-size: 1.4rem; font-weight: 700; color: var(--blue); cursor: pointer; line-height: 1; }
+.stepper button:hover:not(:disabled) { background: var(--blue-wash); }
+.stepper button:disabled { opacity: 0.3; cursor: not-allowed; }
+.stepper span { min-width: 48px; text-align: center; font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.15rem; color: var(--dark); padding: 0 6px; border-inline: 1px solid var(--border); line-height: 44px; }
+.hours-break { font-size: 0.86rem; color: var(--text-muted); line-height: 1.4; }
+.hours-total { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.6rem; color: var(--blue-deep); line-height: 1; text-align: right; }
+.hours-total small { font-family: 'Nunito', sans-serif; font-size: 0.72rem; color: var(--text-muted); margin-left: 4px; font-weight: 700; display: block; margin-top: 4px; }
+
+.mode-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.mode-chip { padding: 10px 16px; border: 1.5px solid var(--border); background: #fff; border-radius: 9999px; cursor: pointer; font-weight: 700; font-size: 0.86rem; color: var(--text); transition: all 0.15s; }
+.mode-chip:hover { border-color: var(--blue); color: var(--blue); }
+.mode-chip.selected { border-color: var(--blue); background: var(--blue); color: #fff; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
+@media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+.fg { display: flex; flex-direction: column; gap: 6px; }
+.fg.full { grid-column: 1 / -1; }
+.fg label { font-size: 0.76rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); }
+.fg input, .fg textarea { padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 0.95rem; color: var(--text); background: #fff; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+.fg input:focus, .fg textarea:focus { border-color: var(--peach); box-shadow: 0 0 0 3px var(--peach-light); }
+.fg textarea { min-height: 96px; resize: vertical; }
+
+.pay-box { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 22px; margin-top: 24px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; }
+@media (max-width: 640px) { .pay-box { grid-template-columns: 1fr; } }
+.pay-summary { font-size: 0.95rem; color: var(--text); line-height: 1.5; }
+.pay-summary strong { color: var(--dark); }
+.pay-btn { padding: 15px 28px; background: var(--blue); color: #fff; border: 0; border-radius: 12px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: background 0.15s, transform 0.15s; font-family: inherit; }
+.pay-btn:hover:not(:disabled) { background: var(--blue-deep); transform: translateY(-1px); }
+.pay-btn:disabled { opacity: 0.6; cursor: wait; }
+.fine { text-align: center; font-size: 0.78rem; color: var(--text-muted); margin: 14px 0 64px; }
+
+.loading, .empty { padding: 40px; text-align: center; color: var(--text-muted); font-size: 0.95rem; }
+
+footer { padding: 40px 0 32px; border-top: 1px solid var(--border); margin-top: 48px; font-size: 0.84rem; color: var(--text-muted); text-align: center; }
 </style>
 </head>
 <body>
@@ -50,56 +104,225 @@ h1 em { font-style: italic; color: var(--peach-deep); font-weight: 700; }
 </header>
 
 <main>
-  <section class="card">
-    <span class="eyebrow">Checkout</span>
-    <h1>Secure booking <em>arriving soon.</em></h1>
-    <p class="lede">The new Stripe Connect checkout is being rebuilt. In the meantime, tell us what you need and we'll send a direct payment link within a few business hours.</p>
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Book a session</span>
+    <h1>One form. <em>Pay now,</em> schedule right after.</h1>
+    <p>Pick a service, tell me how long you need, and pay securely via Stripe. I'll email within a few business hours to lock in your time — Google Meet link included for remote sessions.</p>
+    <div id="canceled-alert" class="alert warn" style="display:none">Payment canceled — no charge was made. Pick up where you left off whenever you're ready.</div>
+  </div>
+</section>
 
-    <div class="opts">
-      <a href="mailto:hello@staelgissoni.com?subject=Book%20a%20session%20%E2%80%94%20on-site%20interpretation" class="opt">
-        <span>On-site interpretation</span><span class="arrow">→</span>
-      </a>
-      <a href="mailto:hello@staelgissoni.com?subject=Book%20a%20session%20%E2%80%94%20remote%20interpretation" class="opt">
-        <span>Remote interpretation (Google Meet / phone)</span><span class="arrow">→</span>
-      </a>
-      <a href="mailto:hello@staelgissoni.com?subject=Book%20a%20session%20%E2%80%94%20English%20lesson" class="opt">
-        <span>One-on-one English lesson</span><span class="arrow">→</span>
-      </a>
-      <a href="mailto:hello@staelgissoni.com?subject=Certified%20translation%20request" class="opt">
-        <span>Certified translation</span><span class="arrow">→</span>
-      </a>
+<form id="book-form" class="wrap" novalidate>
+
+  <section class="section">
+    <span class="label-h">1 · Choose a service</span>
+    <div class="svc-grid" id="svc-grid">
+      <div class="loading">Loading services…</div>
     </div>
-
-    <a href="/enterprise" class="btn btn-primary">Organization? Request scoping call →</a>
-    <p class="fine">Or call <a href="tel:+13216752003" style="color:var(--peach-deep);font-weight:700;text-decoration:underline">(321) 675-2003</a> · reply within 4 business hours.</p>
   </section>
+
+  <section class="section" id="sec-hours" style="display:none">
+    <span class="label-h">2 · How many hours?</span>
+    <div class="hours-row">
+      <div class="stepper" role="group" aria-label="Hours">
+        <button type="button" id="hours-down" aria-label="Decrease hours">−</button>
+        <span id="hours-display" aria-live="polite">1</span>
+        <button type="button" id="hours-up" aria-label="Increase hours">+</button>
+      </div>
+      <div class="hours-break" id="hours-break">1 hour × $95/hr</div>
+      <div class="hours-total" id="hours-total">$95<small>total today</small></div>
+    </div>
+  </section>
+
+  <section class="section" id="sec-mode" style="display:none">
+    <span class="label-h">3 · Where?</span>
+    <div class="mode-row" id="mode-row"></div>
+  </section>
+
+  <section class="section" id="sec-contact" style="display:none">
+    <span class="label-h">4 · Your details</span>
+    <div class="form-row">
+      <div class="fg"><label for="f-name">Name</label><input type="text" id="f-name" name="name" autocomplete="name" required></div>
+      <div class="fg"><label for="f-email">Email</label><input type="email" id="f-email" name="email" autocomplete="email" required></div>
+    </div>
+    <div class="form-row">
+      <div class="fg"><label for="f-phone">Phone (optional)</label><input type="tel" id="f-phone" name="phone" autocomplete="tel"></div>
+      <div class="fg"><label for="f-when">Preferred time windows (optional)</label><input type="text" id="f-when" name="when" placeholder="e.g. weekdays 6–8pm ET, or next Tue/Wed"></div>
+    </div>
+    <div class="form-row">
+      <div class="fg full"><label for="f-notes">Anything I should know? (optional)</label><textarea id="f-notes" name="notes" maxlength="800" placeholder="Appointment type, dialect preference, sensitive context, venue address…"></textarea></div>
+    </div>
+  </section>
+
+  <div class="pay-box" id="pay-box" style="display:none">
+    <div class="pay-summary">
+      <div><strong id="sum-service">—</strong></div>
+      <div id="sum-hours">—</div>
+    </div>
+    <button type="submit" class="pay-btn" id="pay-btn" disabled>Pay & book →</button>
+  </div>
+  <div id="pay-err"></div>
+  <p class="fine">Secure checkout by Stripe. A receipt + next-step email arrives the moment payment clears.</p>
+</form>
 </main>
 
+<footer class="wrap">© <span id="yr"></span> Stael Gissoni · <a href="/privacy" style="color:var(--peach-deep)">Privacy</a> · <a href="/terms" style="color:var(--peach-deep)">Terms</a></footer>
+
 <script>
-  // Pre-select the service if arriving from /services with ?service=xxx
-  const svc = new URLSearchParams(location.search).get('service');
-  if (svc) {
-    const map = {
-      'on-site': 'On-site interpretation',
-      'remote': 'Remote interpretation (Google Meet / phone)',
-      'medical': 'On-site interpretation',
-      'legal': 'On-site interpretation',
-      'lessons': 'One-on-one English lesson',
-      'citizenship': 'One-on-one English lesson',
-      'translation': 'Certified translation',
-      'translation-legal': 'Certified translation',
-    };
-    const target = map[svc];
-    if (target) {
-      document.querySelectorAll('.opt').forEach(el => {
-        if (el.textContent.includes(target)) {
-          el.style.borderColor = 'var(--peach)';
-          el.style.background = '#fff';
-          el.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        }
-      });
+document.getElementById('navToggle').addEventListener('click', () => document.getElementById('siteNav').classList.toggle('open'));
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+const state = { services: [], selected: null, hours: 1, mode: '' };
+const MODE_LABELS = { 'remote': 'Online (Google Meet / Zoom)', 'in-person': 'In-person (Central Florida)' };
+
+const params = new URLSearchParams(location.search);
+if (params.get('canceled')) document.getElementById('canceled-alert').style.display = '';
+
+async function loadServices() {
+  const grid = document.getElementById('svc-grid');
+  try {
+    const r = await fetch('/.netlify/functions/services-list');
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const { services } = await r.json();
+    state.services = services || [];
+    if (!state.services.length) {
+      grid.innerHTML = '<div class="empty">Booking is temporarily unavailable. Email <a href="mailto:hello@staelgissoni.com" style="color:var(--peach-deep);font-weight:700">hello@staelgissoni.com</a> and we\'ll set it up manually.</div>';
+      return;
     }
+    renderServices();
+    const pre = params.get('service');
+    if (pre && state.services.find(s => s.slug === pre)) selectService(pre);
+  } catch (e) {
+    grid.innerHTML = '<div class="empty">Could not load services. Refresh in a moment or email hello@staelgissoni.com.</div>';
   }
+}
+
+function renderServices() {
+  const grid = document.getElementById('svc-grid');
+  const fmt$ = (n) => '$' + Number(n).toFixed(Number(n) % 1 ? 2 : 0);
+  grid.innerHTML = state.services.map(s => `
+    <div class="svc-opt ${s.color_accent || 'blue'}" data-slug="${s.slug}">
+      <div class="kind">${s.mode === 'in-person' ? 'In-person' : s.mode === 'either' ? 'Online or in-person' : 'Online'}</div>
+      <h3 class="name">${s.label}</h3>
+      <p class="desc">${s.description || ''}</p>
+      <div class="foot">
+        <span class="price">${fmt$(s.hourly_usd)}<small>/ hour</small></span>
+        <span class="min">${s.min_hours}h min</span>
+      </div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.svc-opt').forEach(el => el.addEventListener('click', () => selectService(el.dataset.slug)));
+}
+
+function selectService(slug) {
+  const svc = state.services.find(s => s.slug === slug);
+  if (!svc) return;
+  state.selected = svc;
+  state.hours = Number(svc.default_hours ?? svc.min_hours ?? 1);
+  state.mode = svc.mode === 'either' ? '' : svc.mode;
+
+  document.querySelectorAll('.svc-opt').forEach(el => el.classList.toggle('selected', el.dataset.slug === slug));
+
+  document.getElementById('sec-hours').style.display = '';
+  document.getElementById('sec-contact').style.display = '';
+  document.getElementById('pay-box').style.display = '';
+
+  const modeRow = document.getElementById('mode-row');
+  if (svc.mode === 'either') {
+    document.getElementById('sec-mode').style.display = '';
+    modeRow.innerHTML = `
+      <div class="mode-chip" data-mode="remote">Online</div>
+      <div class="mode-chip" data-mode="in-person">In-person (Central FL)</div>`;
+    modeRow.querySelectorAll('.mode-chip').forEach(chip => chip.addEventListener('click', () => {
+      state.mode = chip.dataset.mode;
+      modeRow.querySelectorAll('.mode-chip').forEach(c => c.classList.toggle('selected', c === chip));
+      updateSummary();
+    }));
+  } else {
+    document.getElementById('sec-mode').style.display = 'none';
+  }
+
+  updateSummary();
+  document.getElementById('sec-hours').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function updateSummary() {
+  if (!state.selected) return;
+  const s = state.selected;
+  const total = (Number(s.hourly_usd) * state.hours);
+  document.getElementById('hours-display').textContent = state.hours;
+  document.getElementById('hours-break').textContent = `${state.hours} hour${state.hours !== 1 ? 's' : ''} × $${Number(s.hourly_usd)}/hr`;
+  document.getElementById('hours-total').innerHTML = `$${total.toFixed(total % 1 ? 2 : 0)}<small>total today</small>`;
+  document.getElementById('sum-service').textContent = s.label;
+  document.getElementById('sum-hours').textContent = `${state.hours} h × $${s.hourly_usd}/hr${state.mode ? ' · ' + (MODE_LABELS[state.mode] || state.mode) : ''}`;
+  document.getElementById('pay-btn').textContent = `Pay $${total.toFixed(total % 1 ? 2 : 0)} & book →`;
+  checkReady();
+  document.getElementById('hours-down').disabled = state.hours <= Number(s.min_hours);
+}
+function checkReady() {
+  const s = state.selected; if (!s) return;
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const modeOk = s.mode !== 'either' || state.mode;
+  const ready = name && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && modeOk;
+  document.getElementById('pay-btn').disabled = !ready;
+}
+
+document.getElementById('hours-up').addEventListener('click', () => {
+  if (!state.selected) return;
+  const step = Number(state.selected.step_hours ?? 0.5);
+  state.hours = Math.round((state.hours + step) * 10) / 10;
+  updateSummary();
+});
+document.getElementById('hours-down').addEventListener('click', () => {
+  if (!state.selected) return;
+  const step = Number(state.selected.step_hours ?? 0.5);
+  const min = Number(state.selected.min_hours ?? 1);
+  state.hours = Math.max(min, Math.round((state.hours - step) * 10) / 10);
+  updateSummary();
+});
+
+['f-name','f-email','f-phone','f-notes','f-when'].forEach(id => {
+  document.getElementById(id).addEventListener('input', checkReady);
+});
+
+document.getElementById('book-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('pay-btn');
+  const errBox = document.getElementById('pay-err');
+  errBox.innerHTML = '';
+  if (!state.selected) return;
+
+  btn.disabled = true; btn.textContent = 'Redirecting to secure checkout…';
+  try {
+    const body = {
+      service: state.selected.slug,
+      hours: state.hours,
+      mode: state.mode || state.selected.mode,
+      name: document.getElementById('f-name').value.trim(),
+      email: document.getElementById('f-email').value.trim(),
+      phone: document.getElementById('f-phone').value.trim(),
+      notes: [
+        document.getElementById('f-when').value.trim() ? 'Preferred: ' + document.getElementById('f-when').value.trim() : '',
+        document.getElementById('f-notes').value.trim(),
+      ].filter(Boolean).join('\n'),
+    };
+    const r = await fetch('/.netlify/functions/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const out = await r.json();
+    if (!r.ok || !out.checkout_url) throw new Error(out.error || 'Checkout failed');
+    location.href = out.checkout_url;
+  } catch (err) {
+    errBox.innerHTML = '<div class="alert err">' + (err.message || err) + '</div>';
+    btn.disabled = false; updateSummary();
+  }
+});
+
+loadServices();
 </script>
 </body>
 </html>

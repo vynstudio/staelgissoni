@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://staelgissoni.com/confirmed">
+<title>Payment confirmed — Stael Gissoni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/global.css">
+<style>
+body { font-family: 'Nunito', system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+h1 { font-family: 'Fraunces', serif; color: var(--dark); letter-spacing: -0.015em; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+main { flex: 1; display: grid; place-items: center; padding: 48px 24px 72px; }
+.card { max-width: 560px; background: #fff; border: 1px solid var(--border); border-radius: 24px; padding: 48px 40px; text-align: center; box-shadow: 0 20px 48px -24px rgba(42,42,58,0.18); }
+.checkmark { font-size: 3rem; display: block; margin-bottom: 16px; }
+.eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mint-deep); background: var(--mint-wash); padding: 6px 14px; border-radius: 9999px; margin-bottom: 16px; }
+h1 { font-size: clamp(1.8rem, 3.6vw, 2.4rem); font-weight: 800; line-height: 1.12; margin-bottom: 14px; }
+h1 em { font-style: italic; color: var(--peach-deep); font-weight: 700; }
+.lede { font-size: 1rem; line-height: 1.65; color: var(--text-muted); margin-bottom: 24px; }
+.next { text-align: left; background: var(--peach-wash); border: 1px solid var(--peach-light); border-radius: 14px; padding: 18px 20px; margin-top: 20px; }
+.next h3 { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 800; margin: 0 0 6px; color: var(--dark); }
+.next p { font-size: 0.92rem; line-height: 1.6; color: var(--text); margin: 0; }
+.btn { display: inline-block; margin-top: 22px; padding: 14px 28px; background: var(--blue); color: #fff; text-decoration: none; border-radius: 12px; font-weight: 800; font-size: 0.95rem; transition: background 0.15s, transform 0.15s; }
+.btn:hover { background: var(--blue-deep); transform: translateY(-1px); color: #fff; }
+.fine { font-size: 0.82rem; color: var(--text-muted); margin-top: 18px; }
+
+footer { text-align: center; font-size: 0.82rem; color: var(--text-muted); padding: 28px 24px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-container">
+    <a href="/" class="site-logo">stael<span>.</span></a>
+    <nav class="site-nav" id="siteNav" aria-label="Primary">
+        <a href="/services">Services</a>
+        <a href="/enterprise">Enterprise</a>
+        <a href="/about">About us</a>
+        <a href="/blog">Blog</a>
+    </nav>
+    <a href="/book" class="nav-cta">Book now</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <span class="checkmark">✨</span>
+    <span class="eyebrow">Payment confirmed</span>
+    <h1>Thank you — your session is <em>reserved.</em></h1>
+    <p class="lede">A receipt is on its way to your inbox, along with next-step details for scheduling your session.</p>
+
+    <div class="next">
+      <h3>What happens next</h3>
+      <p>Reply to the confirmation email with 2–3 time windows that work for you. I'll lock it in with a calendar invite and a Google Meet link (for remote sessions) within a few business hours.</p>
+    </div>
+
+    <a href="mailto:hello@staelgissoni.com?subject=Scheduling%20my%20session" class="btn">Send my time windows →</a>
+    <p class="fine">Didn't receive the email? Check spam or write to <a href="mailto:hello@staelgissoni.com" style="color:var(--peach-deep);font-weight:700">hello@staelgissoni.com</a>.</p>
+  </section>
+</main>
+
+<footer>© <span id="yr"></span> Stael Gissoni · Orlando, FL</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', () => document.getElementById('siteNav').classList.toggle('open'));
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
