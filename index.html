@@ -1,601 +1,408 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<link href="https://staelgissoni.com/" rel="canonical"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Stael Gissoni — English &amp; Portuguese Interpreter</title>
-<meta content="Professional English–Portuguese interpreter offering personalized sessions, live interpretation, and more. Book your session today." name="description"/>
-<!-- Open Graph / Link Preview -->
-<meta content="website" property="og:type"/>
-<meta content="https://staelgissoni.com/" property="og:url"/>
-<meta content="Stael Gissoni — English &amp; Portuguese Interpreter" property="og:title"/>
-<meta content="Professional interpreter, translator &amp; language teacher. Personalized English–Portuguese sessions. Book online today." property="og:description"/>
-<meta content="https://staelgissoni.com/og-image.png" property="og:image"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
-<!-- Twitter Card -->
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Stael Gissoni — English &amp; Portuguese Interpreter" name="twitter:title"/>
-<meta content="Professional interpreter, translator &amp; language teacher. Book your session today." name="twitter:description"/>
-<meta content="https://staelgissoni.com/og-image.png" name="twitter:image"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://staelgissoni.com/">
+<title>Stael Gissoni — Professional English↔Portuguese Interpretation & Language Services</title>
+<meta name="description" content="Professional English–Portuguese interpretation and language services for law firms, hospitals, corporate teams, and individuals. Online &amp; in-person sessions with secure Stripe checkout.">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://staelgissoni.com/">
+<meta property="og:title" content="Stael Gissoni — Professional English↔Portuguese Interpretation & Language Services">
+<meta property="og:description" content="Interpretation, translation, and coaching for professionals — online and on-site in Central Florida.">
+<meta property="og:image" content="https://staelgissoni.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Stael Gissoni — Professional Interpretation & Language Services">
+<meta name="twitter:description" content="Interpretation, translation, and coaching for professionals — online and on-site in Central Florida.">
+<meta name="twitter:image" content="https://staelgissoni.com/og-image.png">
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "Stael Gissoni — English & Portuguese Interpreter",
-  "description": "Professional English–Portuguese interpreter, translator, and language coach based in Orlando, Florida.",
+  "name": "Stael Gissoni — English↔Portuguese Interpretation & Language Services",
+  "description": "Professional English–Portuguese interpreter and language coach based in Orlando, Florida. Online and in-person sessions.",
   "url": "https://staelgissoni.com/",
   "image": "https://staelgissoni.com/og-image.png",
   "email": "hello@staelgissoni.com",
+  "telephone": "+1-321-675-2003",
   "priceRange": "$$",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Orlando",
-    "addressRegion": "FL",
-    "addressCountry": "US"
-  },
+  "address": { "@type": "PostalAddress", "addressLocality": "Orlando", "addressRegion": "FL", "addressCountry": "US" },
   "areaServed": "United States",
-  "provider": {
-    "@type": "Person",
-    "name": "Stael Gissoni",
-    "jobTitle": "Professional Interpreter & Translator"
-  },
   "serviceType": ["Interpretation", "Translation", "Language Coaching"],
-  "availableLanguage": ["English", "Portuguese"]
+  "availableLanguage": ["English", "Portuguese"],
+  "provider": { "@type": "Person", "name": "Stael Gissoni", "jobTitle": "Professional Interpreter & Translator" }
 }
 </script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600&amp;family=Nunito:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600;1,9..144,700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/global.css">
+
 <style>
-/* Page-specific: hero */
-.hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; position: relative; overflow: hidden; }
-.hero-shape { position: absolute; border-radius: 50%; pointer-events: none; will-change: transform; }
-.hs-1 { width: 580px; height: 580px; top: -140px; right: -120px; background: radial-gradient(circle, var(--peach-light) 0%, transparent 70%); opacity: 0.55; animation: drift 20s ease-in-out infinite; }
-.hs-2 { width: 450px; height: 450px; bottom: -100px; left: -100px; background: radial-gradient(circle, var(--lavender-light) 0%, transparent 70%); opacity: 0.45; animation: drift 24s ease-in-out infinite reverse; }
-.hs-3 { width: 350px; height: 350px; top: 35%; left: 55%; background: radial-gradient(circle, var(--mint-light) 0%, transparent 70%); opacity: 0.35; animation: drift 18s ease-in-out infinite 2s; }
-.hs-4 { width: 200px; height: 200px; top: 20%; left: 8%; background: radial-gradient(circle, var(--blue-wash) 0%, transparent 70%); opacity: 0.5; animation: drift 22s ease-in-out infinite 4s; }
-.hero-inner { position: relative; z-index: 2; max-width: 740px; }
-.hero-chips { display: flex; gap: 10px; justify-content: center; margin-bottom: 32px; opacity: 0; animation: popUp 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards 0.3s; }
-.chip { display: inline-flex; align-items: center; gap: 7px; padding: 8px 20px; border-radius: var(--radius-pill); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.01em; border: 1.5px solid transparent; }
-.chip-en { background: var(--blue-wash); color: var(--blue); border-color: rgba(91,142,201,0.15); }
-.chip-pt { background: var(--mint-wash); color: var(--mint-deep); border-color: rgba(143,197,181,0.2); }
-.chip-flag { font-size: 1rem; }
-.hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2.6rem, 5.5vw, 4.2rem); font-weight: 800; line-height: 1.12; color: var(--dark); margin-bottom: 24px; letter-spacing: -0.02em; opacity: 0; animation: slideUp 0.8s ease forwards 0.45s; }
-.hero h1 .accent { color: var(--blue); }
-.hero h1 .accent-warm { color: var(--peach); }
-.hero-desc { font-size: 1.12rem; line-height: 1.8; color: var(--text-muted); max-width: 520px; margin: 0 auto 44px; opacity: 0; animation: slideUp 0.8s ease forwards 0.6s; }
-.hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; opacity: 0; animation: slideUp 0.8s ease forwards 0.75s; }
+body { font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 
-/* Page-specific btn overrides (adds deeper hover shadow + white variant) */
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(91,142,201,0.38); }
-.btn-secondary { background: var(--white); color: var(--text); box-shadow: var(--shadow-md); border: none; }
-.btn-secondary:hover { border-color: transparent; color: var(--text); background: var(--white); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-.btn-white { background: var(--white); color: var(--blue); box-shadow: 0 8px 24px rgba(0,0,0,0.1); padding: 16px 36px; border-radius: var(--radius-md); font-family: 'Nunito',sans-serif; font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; transition: all 0.3s; }
-.btn-white:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(0,0,0,0.15); }
-.btn-icon { font-size: 1.15rem; }
+h1, h2, h3, h4 { font-family: 'Fraunces', Georgia, serif; color: var(--dark); letter-spacing: -0.015em; }
+h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.08; }
+h2 { font-size: clamp(1.8rem, 3.4vw, 2.4rem); font-weight: 700; line-height: 1.15; }
+h3 { font-size: 1.25rem; font-weight: 700; line-height: 1.25; }
+em { font-style: italic; color: var(--peach-deep); font-weight: 600; }
 
-.hero-trust { margin-top: 60px; display: flex; align-items: center; justify-content: center; gap: 14px; opacity: 0; animation: slideUp 0.8s ease forwards 0.9s; }
-.trust-faces { display: flex; }
-.trust-face { width: 38px; height: 38px; border-radius: 50%; border: 3px solid var(--bg); margin-left: -10px; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 800; color: var(--white); }
-.trust-face:first-child { margin-left: 0; }
-.tf-1 { background: var(--blue); }
-.tf-2 { background: var(--peach); }
-.tf-3 { background: var(--mint); }
-.tf-4 { background: var(--lavender); }
-.tf-5 { background: var(--blue-deep); }
-.hero-trust p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.4; }
-.hero-trust strong { color: var(--text); }
+.top-bar { position: sticky; top: 0; z-index: 40; background: rgba(254, 251, 246, 0.88); backdrop-filter: saturate(1.5) blur(10px); border-bottom: 1px solid rgba(42,42,58,0.05); }
+.top-bar-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 0; }
+.logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.55rem; color: var(--dark); text-decoration: none; letter-spacing: -0.02em; }
+.logo span { color: var(--peach); }
+.nav { display: flex; align-items: center; gap: 6px; }
+.nav a { font-size: 0.9rem; font-weight: 700; color: var(--text); padding: 8px 14px; border-radius: 9999px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+.nav a:hover { background: var(--peach-wash); color: var(--peach-deep); }
+.nav .cta { background: var(--blue); color: #fff; padding: 10px 20px; margin-left: 8px; box-shadow: 0 8px 18px -10px rgba(91,142,201,0.7); }
+.nav .cta:hover { background: var(--blue-deep); color: #fff; }
+.lang { display: inline-flex; border: 1px solid var(--border); border-radius: 9999px; overflow: hidden; font-weight: 700; font-size: 0.78rem; background: #fff; margin-left: 8px; }
+.lang button { border: 0; background: transparent; padding: 7px 12px; cursor: pointer; color: var(--text); font-family: inherit; font-weight: inherit; font-size: inherit; }
+.lang button.on { background: var(--mint); color: #fff; }
 
-/* Section utilities */
-.section { padding: 110px 0; }
-.section-white { background: var(--white); }
-.section-warm { background: var(--bg-warm); }
-.section-header { text-align: center; max-width: 560px; margin: 0 auto 64px; }
-.section-tag { display: inline-block; padding: 6px 18px; border-radius: var(--radius-pill); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
-.tag-blue { background: var(--blue-wash); color: var(--blue); }
-.tag-peach { background: var(--peach-wash); color: var(--peach-deep); }
-.tag-mint { background: var(--mint-wash); color: var(--mint-deep); }
-.tag-lav { background: var(--lavender-wash); color: var(--lavender); }
-.section-title { font-family: 'Fraunces', serif; font-size: clamp(2rem, 3.5vw, 2.6rem); font-weight: 800; color: var(--dark); margin-bottom: 14px; letter-spacing: -0.02em; }
-.section-subtitle { font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; }
-
-/* About */
-.about { padding: 110px 0; }
-.about-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 64px; align-items: center; }
-.about-visual { position: relative; }
-.about-img-wrapper { width: 100%; aspect-ratio: 4/5; border-radius: var(--radius-xl); overflow: hidden; background: linear-gradient(135deg, var(--blue-wash) 0%, var(--peach-wash) 50%, var(--mint-wash) 100%); display: flex; align-items: center; justify-content: center; position: relative; }
-.about-placeholder { font-family: 'Fraunces', serif; font-size: 1.2rem; color: var(--text-light); text-align: center; padding: 40px; line-height: 1.6; }
-.about-placeholder span { display: block; font-size: 3rem; margin-bottom: 12px; }
-.about-float-card { position: absolute; background: var(--white); border-radius: var(--radius-md); padding: 16px 22px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; animation: floatSoft 5s ease-in-out infinite; }
-.afc-1 { bottom: -20px; right: -20px; }
-.afc-2 { top: 40px; left: -24px; animation-delay: 2s; }
-.afc-icon { width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-.afc-icon-blue { background: var(--blue-wash); }
-.afc-icon-mint { background: var(--mint-wash); }
-.afc-text { font-size: 0.85rem; }
-.afc-text strong { display: block; color: var(--dark); font-weight: 700; }
-.afc-text span { color: var(--text-muted); font-size: 0.8rem; }
-.about-content .section-tag { margin-bottom: 16px; }
-.about-content h2 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; color: var(--dark); margin-bottom: 20px; letter-spacing: -0.02em; line-height: 1.2; }
-.about-content h2 em { font-style: italic; color: var(--blue); }
-.about-text { font-size: 1.02rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 32px; }
-.about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 36px; }
-.about-stat { padding: 20px; background: var(--bg); border-radius: var(--radius-md); text-align: center; }
-.about-stat h3, .about-stat .stat-value { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 800; color: var(--blue); margin-bottom: 4px; }
-.accent-warm { color: #C46A35; }
-.about-stat p { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
-
-/* Services — editorial redesign (numbered rows, serif display, accent strip) */
-.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
-.sv-card {
-  position: relative; display: flex; flex-direction: column;
-  background: var(--white); border-radius: var(--radius-lg);
-  padding: 30px 28px 26px; border: 1.5px solid var(--border);
-  overflow: hidden; cursor: pointer; text-decoration: none; color: inherit;
-  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.35s, border-color 0.35s;
+.menu-btn { display: none; width: 40px; height: 40px; border: 1px solid var(--border); background: #fff; border-radius: 10px; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+.menu-btn span { width: 18px; height: 2px; background: var(--dark); display: block; border-radius: 2px; }
+@media (max-width: 860px) {
+  .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 2px; padding: 12px 16px 20px; background: #fff; border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md); }
+  .nav.open { display: flex; }
+  .nav a { padding: 12px 14px; }
+  .nav .cta { margin-left: 0; text-align: center; }
+  .menu-btn { display: flex; }
+  .lang { margin-left: 0; align-self: flex-start; }
 }
-.sv-card::before {
-  content: ''; position: absolute; inset: 0 auto 0 0; width: 4px;
-  background: var(--accent, var(--blue));
-  transform: scaleY(0.22); transform-origin: top; transition: transform 0.4s;
-}
-.sv-card:hover { transform: translateY(-4px); border-color: transparent; box-shadow: 0 20px 40px -18px rgba(30,41,59,0.18); }
-.sv-card:hover::before { transform: scaleY(1); }
-.sv-card.sv-blue   { --accent: var(--blue);     --accent-wash: var(--blue-wash);     --accent-deep: var(--blue-deep); }
-.sv-card.sv-peach  { --accent: var(--peach);    --accent-wash: var(--peach-wash);    --accent-deep: var(--peach-deep); }
-.sv-card.sv-mint   { --accent: var(--mint);     --accent-wash: var(--mint-wash);     --accent-deep: var(--mint-deep); }
-.sv-card.sv-lav    { --accent: var(--lavender); --accent-wash: var(--lavender-wash); --accent-deep: var(--lavender-deep); }
 
-.sv-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
-.sv-num { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; font-size: 0.95rem; color: var(--accent, var(--blue)); letter-spacing: 0.02em; }
-.sv-kind { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); }
+.hero { position: relative; padding: 72px 0 96px; overflow: hidden; }
+.hero::before, .hero::after { content: ''; position: absolute; border-radius: 50%; pointer-events: none; }
+.hero::before { width: 520px; height: 520px; top: -180px; right: -160px; background: radial-gradient(circle, var(--peach-light) 0%, transparent 70%); opacity: 0.5; }
+.hero::after { width: 420px; height: 420px; bottom: -180px; left: -160px; background: radial-gradient(circle, var(--blue-wash) 0%, transparent 70%); opacity: 0.7; }
+.hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; text-align: center; }
+.eyebrow { display: inline-block; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--peach-deep); background: var(--peach-wash); padding: 7px 16px; border-radius: 9999px; margin-bottom: 22px; }
+.hero h1 .b { color: var(--blue); font-style: italic; font-weight: 700; }
+.hero h1 .p { color: var(--peach); font-style: italic; font-weight: 700; }
+.hero p.lede { font-size: 1.1rem; line-height: 1.7; color: var(--text-muted); max-width: 580px; margin: 26px auto 34px; }
+.hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 28px; border-radius: 14px; font-weight: 800; font-size: 0.98rem; text-decoration: none; border: 0; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; font-family: inherit; }
+.btn-primary { background: var(--blue); color: #fff; box-shadow: 0 10px 24px -10px rgba(91,142,201,0.6); }
+.btn-primary:hover { background: var(--blue-deep); transform: translateY(-2px); }
+.btn-ghost { background: #fff; color: var(--dark); border: 1.5px solid var(--border); }
+.btn-ghost:hover { border-color: var(--peach); color: var(--peach-deep); background: var(--peach-wash); }
+.hero-mode { display: flex; gap: 8px; justify-content: center; margin-top: 28px; flex-wrap: wrap; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
+.hero-mode span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: #fff; border: 1px solid var(--border); border-radius: 9999px; }
+.hero-mode .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mint); }
 
-.sv-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.5rem; line-height: 1.15; color: var(--dark); margin: 0 0 10px; letter-spacing: -0.01em; }
-.sv-desc  { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; margin: 0 0 22px; flex: 1; }
+section.block { padding: 84px 0; }
+.block-hd { text-align: center; max-width: 620px; margin: 0 auto 44px; }
+.block-hd h2 em { display: inline; }
+.block-hd p { color: var(--text-muted); font-size: 1.02rem; line-height: 1.65; margin-top: 12px; }
 
-.sv-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); }
-.sv-price-block { line-height: 1; }
-.sv-price-amt { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.55rem; color: var(--accent-deep, var(--blue-deep)); }
-.sv-price-unit { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; margin-left: 2px; }
-.sv-cta {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 10px 18px; border-radius: 9999px;
-  background: var(--accent-wash, var(--blue-wash)); color: var(--accent-deep, var(--blue-deep));
-  font-size: 0.83rem; font-weight: 800; letter-spacing: 0.01em;
-  transition: background 0.25s, color 0.25s, gap 0.25s;
-}
-.sv-card:hover .sv-cta { background: var(--accent, var(--blue)); color: var(--white); gap: 10px; }
-.sv-cta svg { transition: transform 0.25s; }
-.sv-card:hover .sv-cta svg { transform: translateX(3px); }
+.pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 860px) { .pillars { grid-template-columns: 1fr; } }
+.pillar { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 32px 28px; position: relative; display: flex; flex-direction: column; gap: 14px; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; }
+.pillar::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--accent); transform: scaleY(0.22); transform-origin: top; transition: transform 0.35s; border-radius: 20px 0 0 20px; }
+.pillar:hover { transform: translateY(-4px); border-color: transparent; box-shadow: 0 22px 42px -22px rgba(42,42,58,0.2); }
+.pillar:hover::before { transform: scaleY(1); }
+.pillar.p-blue { --accent: var(--blue); --accent-wash: var(--blue-wash); --accent-deep: var(--blue-deep); }
+.pillar.p-peach { --accent: var(--peach); --accent-wash: var(--peach-wash); --accent-deep: var(--peach-deep); }
+.pillar.p-mint { --accent: var(--mint); --accent-wash: var(--mint-wash); --accent-deep: var(--mint-deep); }
+.pillar .kind { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+.pillar h3 { font-size: 1.5rem; font-weight: 800; }
+.pillar ul { list-style: none; padding: 0; margin: 4px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.pillar li { font-size: 0.92rem; color: var(--text); padding-left: 18px; position: relative; }
+.pillar li::before { content: ''; position: absolute; left: 0; top: 9px; width: 8px; height: 2px; background: var(--accent); border-radius: 2px; }
+.pillar .foot { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding-top: 18px; border-top: 1px solid var(--border); }
+.pillar .price { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.25rem; color: var(--accent-deep); line-height: 1; }
+.pillar .price small { font-family: 'Nunito', sans-serif; font-size: 0.72rem; color: var(--text-muted); margin-left: 4px; font-weight: 600; }
+.pillar .link { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 9999px; background: var(--accent-wash); color: var(--accent-deep); font-size: 0.82rem; font-weight: 800; text-decoration: none; transition: background 0.2s, color 0.2s, gap 0.2s; }
+.pillar:hover .link { background: var(--accent); color: #fff; gap: 10px; }
 
-/* Process */
-.process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; position: relative; }
-.process-grid::before { content: ''; position: absolute; top: 44px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, var(--blue-wash), var(--peach-wash), var(--mint-wash), var(--lavender-wash)); border-radius: 2px; z-index: 0; }
-.process-step { text-align: center; position: relative; z-index: 1; }
-.step-num { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 800; color: var(--white); transition: transform 0.3s; }
-.process-step:hover .step-num { transform: scale(1.1); }
-.sn-1 { background: var(--blue); box-shadow: 0 6px 20px rgba(91,142,201,0.3); }
-.sn-2 { background: var(--peach); box-shadow: 0 6px 20px rgba(242,160,123,0.3); }
-.sn-3 { background: var(--mint); box-shadow: 0 6px 20px rgba(143,197,181,0.3); }
-.sn-4 { background: var(--lavender); box-shadow: 0 6px 20px rgba(184,169,212,0.3); }
-.process-step h3 { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
-.process-step p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; max-width: 200px; margin: 0 auto; }
+.creds { background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 28px 0; }
+.creds-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: center; }
+@media (max-width: 760px) { .creds-row { grid-template-columns: repeat(2, 1fr); } }
+.cred { text-align: center; }
+.cred-k { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.02rem; color: var(--dark); line-height: 1.2; }
+.cred-d { font-size: 0.75rem; color: var(--text-muted); margin-top: 3px; }
 
-/* Testimonials */
-.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.test-card { background: var(--white); border-radius: var(--radius-lg); padding: 36px 30px; box-shadow: var(--shadow-sm); border: 1.5px solid var(--border); transition: all 0.35s; }
-.test-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--blue-light); }
-.test-stars { display: flex; gap: 3px; margin-bottom: 18px; color: #F5C462; font-size: 1rem; }
-.test-quote { font-size: 0.95rem; color: var(--text); line-height: 1.7; font-style: italic; margin-bottom: 24px; }
-.test-author { display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1.5px solid var(--border); }
-.test-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 800; color: var(--white); }
-.test-author-info h4 { font-size: 0.9rem; font-weight: 700; color: var(--dark); }
-.test-author-info p { font-size: 0.8rem; color: var(--text-muted); }
+.process { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; counter-reset: step; }
+@media (max-width: 760px) { .process { grid-template-columns: 1fr; } }
+.step { padding: 28px 24px; background: var(--bg-warm); border-radius: 18px; position: relative; }
+.step::before { counter-increment: step; content: counter(step, decimal-leading-zero); position: absolute; top: 22px; right: 24px; font-family: 'Fraunces', serif; font-style: italic; font-weight: 700; color: var(--peach); font-size: 1.25rem; }
+.step h4 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+.step p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
 
-/* FAQ */
-.faq-list { max-width: 720px; margin: 0 auto; }
-.faq-item { border-bottom: 1.5px solid var(--border); overflow: hidden; }
-.faq-item:first-child { border-top: 1.5px solid var(--border); }
-.faq-question { width: 100%; padding: 24px 0; background: none; border: none; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 1.02rem; font-weight: 700; color: var(--dark); text-align: left; transition: color 0.3s; }
-.faq-question:hover { color: var(--blue); }
-.faq-chevron { width: 28px; height: 28px; border-radius: 50%; background: var(--blue-wash); display: flex; align-items: center; justify-content: center; transition: all 0.35s; flex-shrink: 0; }
-.faq-item.active .faq-chevron { background: var(--blue); transform: rotate(180deg); }
-.faq-item.active .faq-chevron svg { stroke: white; }
-.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; }
-.faq-item.active .faq-answer { max-height: 200px; padding-bottom: 24px; }
-.faq-answer p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.75; }
+.testimonials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+@media (max-width: 760px) { .testimonials { grid-template-columns: 1fr; } }
+.t { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 28px 28px 24px; }
+.t blockquote { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem; line-height: 1.55; color: var(--dark); margin: 0 0 18px; }
+.t .who { display: flex; align-items: center; gap: 12px; }
+.t .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--blue); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; }
+.t .avatar.peach { background: var(--peach); }
+.t .name { font-size: 0.9rem; font-weight: 800; color: var(--dark); line-height: 1.2; }
+.t .role { font-size: 0.8rem; color: var(--text-muted); }
 
-/* CTA banner */
-.cta-section { padding: 0 24px 110px; }
-.cta-card { max-width: 1140px; margin: 0 auto; background: linear-gradient(135deg, var(--blue) 0%, #7BA4D4 40%, var(--lavender) 100%); border-radius: var(--radius-xl); padding: 80px 72px; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden; }
-.cta-card::before { content: ''; position: absolute; top: -60%; right: -5%; width: 400px; height: 400px; border-radius: 50%; background: rgba(255,255,255,0.07); }
-.cta-card::after { content: ''; position: absolute; bottom: -40%; left: 20%; width: 250px; height: 250px; border-radius: 50%; background: rgba(255,255,255,0.05); }
-.cta-content { position: relative; z-index: 1; max-width: 480px; }
-.cta-content h2 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; color: var(--white); margin-bottom: 14px; line-height: 1.2; }
-.cta-content p { font-size: 1.02rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 32px; }
-.cta-actions { position: relative; z-index: 1; }
-.cta-actions .btn { padding: 20px 44px; font-size: 1.05rem; border-radius: var(--radius-md); }
+.final { background: linear-gradient(135deg, var(--blue) 0%, #7BA4D4 55%, var(--lavender) 100%); color: #fff; border-radius: 28px; padding: 56px 48px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; align-items: center; position: relative; overflow: hidden; }
+.final::before { content: ''; position: absolute; inset: auto -100px -200px auto; width: 420px; height: 420px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+.final h2 { color: #fff; font-size: clamp(1.8rem, 3vw, 2.3rem); margin-bottom: 8px; }
+.final p { color: rgba(255,255,255,0.88); font-size: 1rem; line-height: 1.6; max-width: 460px; }
+.final-ctas { display: flex; flex-direction: column; gap: 10px; align-items: stretch; position: relative; z-index: 2; }
+.btn-white { background: #fff; color: var(--blue-deep); }
+.btn-white:hover { background: #fff; color: var(--blue); transform: translateY(-2px); box-shadow: 0 10px 24px -10px rgba(0,0,0,0.2); }
+.btn-clear { background: rgba(255,255,255,0.12); color: #fff; border: 1.5px solid rgba(255,255,255,0.35); }
+.btn-clear:hover { background: rgba(255,255,255,0.22); }
+@media (max-width: 760px) { .final { grid-template-columns: 1fr; padding: 40px 28px; text-align: center; } .final-ctas { align-items: center; } .final p { margin-left: auto; margin-right: auto; } }
 
-/* Keyframes (page-specific: popUp, drift, floatSoft — slideUp is in global) */
-@keyframes popUp { from { opacity: 0; transform: scale(0.88) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-@keyframes drift { 0%, 100% { transform: translate(0, 0); } 33% { transform: translate(12px, -18px); } 66% { transform: translate(-8px, 12px); } }
-@keyframes floatSoft { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+footer { padding: 56px 0 36px; border-top: 1px solid var(--border); margin-top: 64px; font-size: 0.88rem; color: var(--text-muted); }
+.foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 36px; }
+@media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+footer h5 { font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark); margin-bottom: 14px; }
+footer ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+footer a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+footer a:hover { color: var(--peach-deep); }
+.foot-brand p { line-height: 1.65; margin-top: 12px; max-width: 340px; }
+.foot-social { display: flex; gap: 10px; margin-top: 14px; }
+.foot-social a { width: 34px; height: 34px; border-radius: 50%; background: var(--bg-warm); display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.76rem; color: var(--text); border: 1px solid var(--border); }
+.foot-social a:hover { background: var(--peach); color: #fff; border-color: var(--peach); }
+.foot-legal { text-align: center; font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 22px; }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
-  .testimonials-grid .test-card:last-child { grid-column: span 2; max-width: 480px; justify-self: center; }
-  .process-grid { grid-template-columns: repeat(2, 1fr); }
-  .process-grid::before { display: none; }
-  .footer-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 768px) {
-  .hero { padding: 100px 20px 60px; min-height: auto; }
-  .hero h1 { font-size: 2.4rem; }
-  .hero-desc { font-size: 1rem; }
-  .about-grid { grid-template-columns: 1fr; gap: 40px; }
-  .about-visual { order: -1; }
-  .about-float-card { display: none; }
-  .services-grid { grid-template-columns: 1fr; }
-  .process-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-  .testimonials-grid { grid-template-columns: 1fr; }
-  .testimonials-grid .test-card:last-child { grid-column: span 1; max-width: none; }
-  .cta-card { flex-direction: column; text-align: center; padding: 52px 28px; gap: 32px; }
-  .section { padding: 80px 0; }
-}
-@media (max-width: 480px) {
-  .hero { padding: 90px 16px 48px; }
-  .hero h1 { font-size: 1.9rem; }
-  .hero-desc { font-size: .95rem; }
-  .hero-btns { flex-direction: column; align-items: stretch; }
-  .btn { justify-content: center; }
-  .about-stats { grid-template-columns: 1fr 1fr; }
-  .process-grid { grid-template-columns: 1fr; }
-  .section { padding: 60px 0; }
-  .section-title { font-size: 1.6rem; }
-  .sv-card { padding: 24px 20px; }
-  .cta-card { padding: 40px 20px; }
-  .footer-grid { gap: 24px; }
-}
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
 </style>
-<!-- Tracking -->
-<script>fetch("/tracking.html").then(r=>r.text()).then(h=>{const d=document.createElement("div");d.innerHTML=h;document.head.append(...d.querySelectorAll("script,noscript"));});</script>
 </head>
 <body>
-<a href="#main-content" class="skip-link">Skip to main content</a>
-<!-- ═══════════ NAVIGATION ═══════════ -->
-<header><nav class="nav" id="nav">
-<a class="nav-logo" href="index.html">stael<span>.</span></a>
-<button aria-label="Toggle menu" class="nav-toggle" id="navToggle">
-<span></span><span></span><span></span>
-</button>
-<div class="nav-menu" id="navMenu">
-<a class="nav-link" data-i18n="nav_lessons" href="lessons.html">English Lessons</a>
-<a class="nav-link" data-i18n="nav_interpretation" href="interpretation.html">Interpretation</a>
-<a class="nav-link" href="/enterprise">Enterprise</a>
-<a class="nav-link" href="/shop">Shop</a>
-<a class="nav-link" data-i18n="nav_about" href="about.html">About</a>
-<a class="nav-link" data-i18n="nav_blog" href="blog.html">Blog</a>
-<div id="langToggle" style="display:flex;align-items:center;border:1.5px solid var(--border);border-radius:var(--radius-pill);overflow:hidden;margin-right:4px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;"><button aria-label="Switch to English" id="langBtn_en" onclick="I18N.set('en')" style="padding:6px 13px;border:none;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:pointer;transition:all 0.2s;color:var(--text)">EN</button><span style="width:1px;background:var(--border);align-self:stretch;"></span><button aria-label="Mudar para Português" id="langBtn_pt" onclick="I18N.set('pt')" style="padding:6px 13px;border:none;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;cursor:pointer;transition:all 0.2s;color:var(--text)">PT</button></div>
-<a class="nav-link nav-cta" data-i18n="nav_book" href="contact.html">Book a Session</a>
-</div>
-</nav></header>
-<!-- ═══════════ HERO ═══════════ -->
-<main id="main-content">
-<section class="hero" id="home">
-<div class="hero-shape hs-1"></div>
-<div class="hero-shape hs-2"></div>
-<div class="hero-shape hs-3"></div>
-<div class="hero-shape hs-4"></div>
-<div class="hero-inner">
-<div class="hero-chips">
-<span class="chip chip-en"><span class="chip-flag">🇺🇸</span> English</span>
-<span class="chip chip-pt"><span class="chip-flag">🇧🇷</span> Português</span>
-</div>
-<h1 data-i18n-html="hero_h1">Communication<br/><span class="accent">without</span> <span class="accent-warm">barriers.</span></h1>
-<p class="hero-desc" data-i18n="hero_p">Hi, I'm Stael — a professional interpreter offering personalized English–Portuguese sessions and interpretation services. Let me be the bridge between you and the world.</p>
-<div class="hero-btns">
-<a class="btn btn-primary" data-i18n="hero_btn_book" href="contact.html">Book a Session<span class="btn-icon">→</span></a>
-<a class="btn btn-secondary" data-i18n="hero_btn_services" href="services.html">
-        Explore Services
-      </a>
-</div>
-<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px;opacity:0;animation:slideUp 0.8s ease forwards 0.75s">
-<a data-i18n="hero_link_lessons" href="lessons.html" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--white)'" onmouseover="this.style.borderColor='var(--peach)';this.style.background='var(--peach-wash)'" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:100px;border:1.5px solid var(--border);background:var(--white);font-size:0.83rem;font-weight:700;color:var(--text);text-decoration:none;transition:all 0.2s;font-family:'Nunito',sans-serif">🎓 English Lessons</a>
-<a data-i18n="hero_link_interp" href="interpretation.html" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--white)'" onmouseover="this.style.borderColor='var(--blue)';this.style.background='var(--blue-wash)'" style="display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:100px;border:1.5px solid var(--border);background:var(--white);font-size:0.83rem;font-weight:700;color:var(--text);text-decoration:none;transition:all 0.2s;font-family:'Nunito',sans-serif">🌐 Interpretation Services</a>
-</div>
-<div class="hero-trust">
-<div class="trust-faces">
-<div class="trust-face tf-1">A</div>
-<div class="trust-face tf-2">M</div>
-<div class="trust-face tf-3">R</div>
-<div class="trust-face tf-4">J</div>
-<div class="trust-face tf-5">S</div>
-</div>
-<p data-i18n-html="hero_trust"><strong>Trusted</strong> by clients across<br/>the US &amp; Brazil</p>
-</div>
-</div>
+
+<header class="top-bar">
+  <div class="wrap top-bar-row">
+    <a href="/" class="logo">stael<span>.</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="/services">Services</a>
+      <a href="/enterprise">Enterprise</a>
+      <a href="/about">About</a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" class="on" data-lang="en" aria-label="English">EN</button>
+        <button type="button" data-lang="pt" aria-label="Português">PT</button>
+      </div>
+      <a href="/book" class="cta">Book a session →</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <span class="eyebrow">Certified interpreter · Orlando, FL</span>
+    <h1>Communication<br><span class="b">without</span> <span class="p">barriers.</span></h1>
+    <p class="lede">Professional English↔Portuguese interpretation, translation, and language coaching for law firms, hospitals, corporate teams, and individuals. Book online or in-person — secure checkout in under two minutes.</p>
+    <div class="hero-ctas">
+      <a href="/book" class="btn btn-primary">Book a session →</a>
+      <a href="#services" class="btn btn-ghost">Explore services</a>
+    </div>
+    <div class="hero-mode">
+      <span><span class="dot"></span> Online via Google Meet</span>
+      <span><span class="dot"></span> In-person in Central Florida</span>
+      <span><span class="dot"></span> Net-30 for organizations</span>
+    </div>
+  </div>
 </section>
-<!-- ═══════════ ABOUT ═══════════ -->
-<section class="about section-white" id="about">
-<div class="container">
-<div class="about-grid">
-<div class="about-visual reveal">
-<div class="about-img-wrapper">
-<img alt="Stael Gissoni" src="/stael-photo.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
-</div>
-<div class="about-float-card afc-1">
-<div class="afc-icon afc-icon-blue">🌎</div>
-<div class="afc-text">
-<strong data-i18n="about_float1">Bilingual Expert</strong>
-<span data-i18n="about_float1_sub">English &amp; Portuguese</span>
-</div>
-</div>
-<div class="about-float-card afc-2">
-<div class="afc-icon afc-icon-mint">✓</div>
-<div class="afc-text">
-<strong data-i18n="about_float2">Certified</strong>
-<span data-i18n="about_float2_sub">Professional Interpreter</span>
-</div>
-</div>
-</div>
-<div class="about-content reveal reveal-delay-2">
-<span class="section-tag tag-peach" data-i18n="about_tag">About Me</span>
-<h2 data-i18n-html="about_h2">Your trusted partner in <em>bridging languages</em></h2>
-<p class="about-text" data-i18n="about_p">I'm Stael Gissoni, a professional bilingual interpreter specializing in English and Portuguese. With years of experience across medical, legal, business, and personal settings, I bring clarity and confidence to every conversation. My personalized approach means every session is tailored to your unique needs.</p>
-<div class="about-stats">
-<div class="about-stat">
-<p class="stat-value" data-i18n="about_stat1_n">500+</p>
-<p data-i18n="about_stat1_l">Sessions</p>
-</div>
-<div class="about-stat">
-<p class="stat-value" data-i18n="about_stat2_n">100%</p>
-<p data-i18n="about_stat2_l">Satisfaction</p>
-</div>
-<div class="about-stat">
-<p class="stat-value" data-i18n="about_stat3_n">Inglês↔Português</p>
-<p data-i18n="about_stat3_l">Bilingual</p>
-</div>
-</div>
-<a class="btn btn-primary" data-i18n="about_cta" href="contact.html">Work With Me →</a>
-</div>
-</div>
-</div>
+
+<section class="block" id="services">
+  <div class="wrap">
+    <div class="block-hd">
+      <h2>Three ways I can <em>help you connect.</em></h2>
+      <p>Every engagement starts with a short scoping call so you know exactly what you're booking — no surprises, no hidden fees.</p>
+    </div>
+    <div class="pillars">
+      <article class="pillar p-blue reveal">
+        <div class="kind">Interpretation</div>
+        <h3>Live English↔Portuguese</h3>
+        <ul>
+          <li>On-site for depositions, USCIS, hospitals</li>
+          <li>Remote via Google Meet or phone</li>
+          <li>2-hour minimum on location</li>
+        </ul>
+        <div class="foot">
+          <div class="price">from $95<small>/ hour</small></div>
+          <a href="/services#interpretation" class="link">Learn more →</a>
+        </div>
+      </article>
+
+      <article class="pillar p-peach reveal">
+        <div class="kind">Language coaching</div>
+        <h3>One-on-one English lessons</h3>
+        <ul>
+          <li>Conversation, pronunciation, accent</li>
+          <li>Citizenship prep &amp; green-card interview</li>
+          <li>Flexible scheduling, Mon–Sat</li>
+        </ul>
+        <div class="foot">
+          <div class="price">from $50<small>/ hour</small></div>
+          <a href="/services#lessons" class="link">Learn more →</a>
+        </div>
+      </article>
+
+      <article class="pillar p-mint reveal">
+        <div class="kind">Enterprise &amp; legal</div>
+        <h3>Retainers &amp; certified translation</h3>
+        <ul>
+          <li>Net-30 invoicing with PO</li>
+          <li>Prepaid hour blocks · SLAs · COI</li>
+          <li>HIPAA-aware, confidentiality-first</li>
+        </ul>
+        <div class="foot">
+          <div class="price">Custom quote</div>
+          <a href="/enterprise" class="link">Enterprise →</a>
+        </div>
+      </article>
+    </div>
+  </div>
 </section>
-<!-- ═══════════ SERVICES ═══════════ -->
-<section class="section" id="services">
-<div class="container">
-<div class="section-header reveal">
-<span class="section-tag tag-blue" data-i18n="svc_tag">Services</span>
-<h2 class="section-title" data-i18n="svc_h2">Here to help you connect</h2>
-<p class="section-subtitle" data-i18n="svc_sub">From boardrooms to doctor's offices, I make sure your voice is heard — in both languages.</p>
-</div>
-<div class="services-grid">
-<a class="sv-card sv-blue reveal" href="contact.html?service=On-Site+Interpretation">
-  <div class="sv-meta">
-    <span class="sv-num">01</span>
-    <span class="sv-kind" data-i18n="svc_badge_inperson">In-Person</span>
-  </div>
-  <h3 class="sv-title" data-i18n="svc_onsite_name">On-Site Interpretation</h3>
-  <p class="sv-desc" data-i18n="svc_onsite_p">Real-time English↔Portuguese for seminars, meetings, events and conferences.</p>
-  <div class="sv-foot">
-    <div class="sv-price-block"><span class="sv-price-amt">$95</span><span class="sv-price-unit">/ hour</span></div>
-    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
-  </div>
-</a>
 
-<a class="sv-card sv-mint reveal" href="contact.html?service=Remote+Interpretation">
-  <div class="sv-meta">
-    <span class="sv-num">02</span>
-    <span class="sv-kind" data-i18n="svc_badge_virtual">Virtual</span>
+<section class="creds">
+  <div class="wrap creds-row">
+    <div class="cred"><div class="cred-k">Florida OSCA</div><div class="cred-d">Court interpreter registry (PT)</div></div>
+    <div class="cred"><div class="cred-k">ATA member</div><div class="cred-d">American Translators Association</div></div>
+    <div class="cred"><div class="cred-k">CCHI CoreCHI</div><div class="cred-d">Medical interpretation</div></div>
+    <div class="cred"><div class="cred-k">E&amp;O $1M / GL $1M</div><div class="cred-d">COI available on request</div></div>
   </div>
-  <h3 class="sv-title" data-i18n="svc_remote_name">Remote</h3>
-  <p class="sv-desc" data-i18n="svc_remote_p">Professional English↔Portuguese interpretation via Google Meet or phone.</p>
-  <div class="sv-foot">
-    <div class="sv-price-block"><span class="sv-price-amt">$65</span><span class="sv-price-unit">/ hour</span></div>
-    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
-  </div>
-</a>
-
-<a class="sv-card sv-lav reveal" href="contact.html?service=Medical+Interpretation">
-  <div class="sv-meta">
-    <span class="sv-num">03</span>
-    <span class="sv-kind" data-i18n="svc_badge_medical">Medical</span>
-  </div>
-  <h3 class="sv-title" data-i18n="svc_medical_name">Medical Interpretation</h3>
-  <p class="sv-desc" data-i18n="svc_medical_p">HIPAA-aware interpretation for doctor visits, hospital stays and mental health.</p>
-  <div class="sv-foot">
-    <div class="sv-price-block"><span class="sv-price-amt">$75</span><span class="sv-price-unit">/ hour</span></div>
-    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
-  </div>
-</a>
-
-<a class="sv-card sv-blue reveal" href="contact.html?service=Legal+Interpretation">
-  <div class="sv-meta">
-    <span class="sv-num">04</span>
-    <span class="sv-kind" data-i18n="svc_badge_legal">Legal</span>
-  </div>
-  <h3 class="sv-title" data-i18n="svc_legal_name">Legal Interpretation</h3>
-  <p class="sv-desc" data-i18n="svc_legal_p">Immigration hearings, Green Card interviews, USCIS appointments, court depositions, and citizenship test prep — including mock interviews.</p>
-  <div class="sv-foot">
-    <div class="sv-price-block"><span class="sv-price-amt">$85</span><span class="sv-price-unit">/ hour</span></div>
-    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
-  </div>
-</a>
-
-<a class="sv-card sv-mint reveal" href="contact.html?service=Educational+Interpretation">
-  <div class="sv-meta">
-    <span class="sv-num">05</span>
-    <span class="sv-kind" data-i18n="svc_badge_education">Education</span>
-  </div>
-  <h3 class="sv-title" data-i18n="svc_edu_name">Educational Interpretation</h3>
-  <p class="sv-desc" data-i18n="svc_edu_p">Parent-teacher conferences, student assessments, classroom support, workshops and professional-development events.</p>
-  <div class="sv-foot">
-    <div class="sv-price-block"><span class="sv-price-amt">$75</span><span class="sv-price-unit">/ hour</span></div>
-    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
-  </div>
-</a>
-
-<a class="sv-card sv-peach reveal" href="contact.html?service=One-on-One+Private+Lessons">
-  <div class="sv-meta">
-    <span class="sv-num">06</span>
-    <span class="sv-kind" data-i18n="svc_badge_teaching">Teaching</span>
-  </div>
-  <h3 class="sv-title" data-i18n="svc_lessons_name">One-on-One Private Lessons</h3>
-  <p class="sv-desc" data-i18n="svc_lessons_p">Personalized English lessons tailored to your goals and level — speaking, listening, reading, writing.</p>
-  <div class="sv-foot">
-    <div class="sv-price-block"><span class="sv-price-amt">$50</span><span class="sv-price-unit">/ hour</span></div>
-    <span class="sv-cta" data-i18n="svc_book_link">Book<svg fill="none" height="12" stroke="currentColor" stroke-width="2.2" width="14" aria-hidden="true"><path d="M3 6h9M8 2l4 4-4 4"></path></svg></span>
-  </div>
-</a>
-</div>
-</div>
 </section>
-<!-- ═══════════ CTA ═══════════ -->
-<section class="cta-section" id="contact">
-<div class="cta-card reveal">
-<div class="cta-content">
-<h2 data-i18n="cta_h2">Ready to speak with confidence?</h2>
-<p data-i18n="cta_p">Book your first session today and experience seamless bilingual communication — personalized just for you.</p>
-</div>
-<div class="cta-actions">
-<a class="btn btn-white" data-i18n="cta_btn" href="contact.html">
-        Book Your Session <span class="btn-icon">→</span>
-</a>
-</div>
-</div>
+
+<section class="block">
+  <div class="wrap">
+    <div class="block-hd">
+      <h2>From first message to <em>confirmed session</em> in one afternoon.</h2>
+    </div>
+    <div class="process">
+      <div class="step reveal">
+        <h4>Pick a service</h4>
+        <p>Choose interpretation, a lesson, or a certified translation. Every option shows the rate and minimum upfront.</p>
+      </div>
+      <div class="step reveal">
+        <h4>Secure checkout</h4>
+        <p>Stripe Connect handles payment; you get an instant receipt and calendar invite. No accounts to create.</p>
+      </div>
+      <div class="step reveal">
+        <h4>Connect</h4>
+        <p>Online via Google Meet, or I arrive on-site in Central Florida — prepared, confidential, on time.</p>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- ═══════════ FOOTER ═══════════ -->
+
+<section class="block" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="block-hd">
+      <h2>What clients say.</h2>
+    </div>
+    <div class="testimonials">
+      <div class="t reveal">
+        <blockquote>"Stael interpreted our immigration hearing flawlessly. Calm, professional, and accurate in both languages."</blockquote>
+        <div class="who">
+          <span class="avatar">M</span>
+          <div><div class="name">Maria R.</div><div class="role">Green-card applicant · Orlando</div></div>
+        </div>
+      </div>
+      <div class="t reveal">
+        <blockquote>"We book Stael for every Brazilian client meeting. She's the reason communication feels effortless on both sides."</blockquote>
+        <div class="who">
+          <span class="avatar peach">J</span>
+          <div><div class="name">James O.</div><div class="role">Managing partner · Law firm</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="final">
+      <div>
+        <h2>Ready to speak with confidence?</h2>
+        <p>Book a single session or request an enterprise engagement letter — either way, you'll hear back the same business day.</p>
+      </div>
+      <div class="final-ctas">
+        <a href="/book" class="btn btn-white">Book a session →</a>
+        <a href="/enterprise" class="btn btn-clear">Request enterprise quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
-<footer class="footer">
-<div class="container">
-<div class="footer-grid">
-<div class="footer-brand">
-<a class="nav-logo" href="index.html">stael<span>.</span></a>
-<p data-i18n="footer_tagline">Professional English–Portuguese interpretation and personalized language services. Connecting people, one conversation at a time.</p>
-<div class="footer-social">
-<a aria-label="Facebook" class="social-link" href="https://www.facebook.com/StaelFlorida/" target="_blank" rel="noopener noreferrer">f</a>
-<a aria-label="Instagram" class="social-link" href="https://www.instagram.com/staelfogarty/" target="_blank" rel="noopener noreferrer">ig</a>
-<a aria-label="LinkedIn" class="social-link" href="https://www.linkedin.com/in/staelgissonifogarty" target="_blank" rel="noopener noreferrer">in</a>
-</div>
-</div>
-<div class="footer-col">
-<h4 data-i18n="footer_services">Services</h4>
-<ul class="footer-links">
-<li><a data-i18n="footer_about" href="interpretation.html">On-Site Interpretation</a></li>
-<li><a data-i18n="footer_how" href="interpretation.html">Remotes</a></li>
-<li><a data-i18n="footer_testimonials" href="interpretation.html">Medical Interpretation</a></li>
-<li><a data-i18n="footer_faq" href="interpretation.html">Legal Interpretation</a></li>
-<li><a href="lessons.html">One-on-One Private Lessons</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h4 data-i18n="footer_company">Company</h4>
-<ul class="footer-links">
-<li><a href="about.html">About</a></li>
-<li><a href="#process">How It Works</a></li>
-<li><a href="#testimonials">Testimonials</a></li>
-<li><a href="#faq">FAQ</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-</div>
-<div class="footer-col">
-<h4 data-i18n="footer_contact">Contact</h4>
-<ul class="footer-links">
-<li><a href="mailto:hello@staelgissoni.com">hello@staelgissoni.com</a></li>
-<li><a href="#">Orlando, FL</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom">
-<p data-i18n="footer_rights">© 2026 Stael Gissoni. All rights reserved.</p>
-<p>
-<a href="/privacy" style="color: var(--text-light); margin-right: 16px;">Privacy Policy</a>
-<a href="/terms" style="color: var(--text-light);">Terms of Service</a>
-</p>
-</div>
-</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="/" class="logo">stael<span>.</span></a>
+        <p>Professional English↔Portuguese interpretation, translation, and language coaching. Based in Orlando, serving clients across the US and Brazil.</p>
+        <div class="foot-social">
+          <a href="https://www.instagram.com/staelgissoni/" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+          <a href="https://www.facebook.com/StaelFlorida/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+          <a href="https://www.linkedin.com/in/staelgissonifogarty" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+        </div>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <ul>
+          <li><a href="/services#interpretation">Interpretation</a></li>
+          <li><a href="/services#lessons">English lessons</a></li>
+          <li><a href="/services#translation">Certified translation</a></li>
+          <li><a href="/enterprise">Enterprise retainer</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="/about">About Stael</a></li>
+          <li><a href="/book">Book a session</a></li>
+          <li><a href="mailto:hello@staelgissoni.com">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-legal">© <span id="yr"></span> Stael Gissoni. All rights reserved. Orlando, FL · <a href="tel:+13216752003">(321) 675-2003</a> · <a href="mailto:hello@staelgissoni.com">hello@staelgissoni.com</a></div>
+  </div>
 </footer>
-<!-- ═══════════ SCRIPTS ═══════════ -->
+
 <script>
-// ── Nav scroll effect ──
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
-});
-
-// ── Mobile menu toggle ──
-const toggle = document.getElementById('navToggle');
-const menu = document.getElementById('navMenu');
-toggle.addEventListener('click', () => {
-  menu.classList.toggle('open');
-  const spans = toggle.querySelectorAll('span');
-  if (menu.classList.contains('open')) {
-    spans[0].style.transform = 'rotate(45deg) translate(4px, 4px)';
-    spans[1].style.opacity = '0';
-    spans[2].style.transform = 'rotate(-45deg) translate(4px, -4px)';
-  } else {
-    spans[0].style.transform = 'none';
-    spans[1].style.opacity = '1';
-    spans[2].style.transform = 'none';
-  }
-});
-
-// Close mobile menu on link click
-document.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', () => {
-    menu.classList.remove('open');
-    const spans = toggle.querySelectorAll('span');
-    spans[0].style.transform = 'none';
-    spans[1].style.opacity = '1';
-    spans[2].style.transform = 'none';
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('nav').classList.toggle('open');
   });
-});
+  document.getElementById('yr').textContent = new Date().getFullYear();
 
-// ── Smooth scroll for anchor links ──
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      const offset = 80;
-      const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
+  document.querySelectorAll('.lang button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.lang button').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      document.documentElement.lang = btn.dataset.lang;
+    });
   });
-});
 
-// ── Scroll reveal ──
-const revealEls = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-revealEls.forEach(el => revealObserver.observe(el));
-
-// ── FAQ toggle ──
-function toggleFaq(btn) {
-  const item = btn.parentElement;
-  const wasActive = item.classList.contains('active');
-  // Close all
-  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-  // Open clicked if not already open
-  if (!wasActive) item.classList.add('active');
-}
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
-<!-- Chatbot Widget -->
+
 <script>
-fetch("chatbot.html").then(r=>r.text()).then(html=>{const d=document.createElement("div");d.innerHTML=html;document.body.appendChild(d);const scripts=d.querySelectorAll("script");scripts.forEach(s=>{const ns=document.createElement("script");ns.textContent=s.textContent;document.body.appendChild(ns);});});
+  fetch('/tracking.html').then(r => r.ok ? r.text() : '').then(h => {
+    if (!h) return;
+    const d = document.createElement('div'); d.innerHTML = h;
+    document.head.append(...d.querySelectorAll('script,noscript'));
+  }).catch(() => {});
 </script>
-<script src="/lang.js" defer></script>
+
 </body>
 </html>
