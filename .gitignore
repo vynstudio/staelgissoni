@@ -5,3 +5,7 @@ node_modules/
 .netlify/
 .DS_Store
 *.log
+
+# Local-only brand kit
+brand/
+brand-kit.zip
