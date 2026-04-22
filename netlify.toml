@@ -1,16 +1,9 @@
-[[notifications]]
-event = "submission_created"
-form = "stael-checklist"
-type = "email"
-address = "hello@vyn.studio"
-subject = "✅ Stael Gissoni — Onboarding Checklist Submitted"
-
 [build]
 functions = "netlify/functions"
 
+# ── Security headers ──────────────────────────────────────────
 [[headers]]
 for = "/*"
-
   [headers.values]
   X-Content-Type-Options = "nosniff"
   X-Frame-Options = "DENY"
@@ -20,32 +13,16 @@ for = "/*"
 
 [[headers]]
 for = "/lang.js"
-
   [headers.values]
   Cache-Control = "no-cache, must-revalidate"
 
 [[headers]]
 for = "/*.html"
-
   [headers.values]
   Cache-Control = "no-cache, must-revalidate"
 
-# ── Shop ──────────────────────────────────────────────────────
-# Download landing page should never be indexed — it's a
-# transactional endpoint reached from the order email.
-[[headers]]
-for = "/download"
-  [headers.values]
-  X-Robots-Tag = "noindex, nofollow"
-
-[[headers]]
-for = "/download.html"
-  [headers.values]
-  X-Robots-Tag = "noindex, nofollow"
-
 # ── Canonical domain redirects ────────────────────────────────
-# Everything hitting the old domain or the Netlify subdomain funnels to
-# staelgissoni.com with the path preserved.
+# staelgissoni.com is canonical. Legacy + Netlify subdomain all 301.
 [[redirects]]
 from = "https://staelfogarty.com/*"
 to = "https://staelgissoni.com/:splat"
@@ -69,25 +46,3 @@ from = "https://stael-fogarty.netlify.app/*"
 to = "https://staelgissoni.com/:splat"
 status = 301
 force = true
-
-# Pretty URLs for shop
-[[redirects]]
-from = "/shop"
-to = "/shop.html"
-status = 200
-
-[[redirects]]
-from = "/shop/:slug"
-to = "/product.html?slug=:slug"
-status = 200
-
-[[redirects]]
-from = "/download"
-to = "/download.html"
-status = 200
-
-# /enterprise → /enterprise.html (B2B rate card + inquiry form)
-[[redirects]]
-from = "/enterprise"
-to = "/enterprise.html"
-status = 200
