@@ -409,3 +409,25 @@ a { text-decoration: none; color: inherit; }
   .nav-toggle { display: flex; }
 }
 
+/* ───────── MOBILE POLISH PASS (≤640px) ─────────
+   Tightens section padding, prevents horizontal scroll bugs, fixes
+   iOS text inflation, and caps image width. Safe global rules — do
+   not replace per-page layout overrides. */
+html, body {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+img, video, iframe { max-width: 100%; height: auto; }
+
+@media (max-width: 640px) {
+  section.block { padding: 56px 0; }
+  .hero { padding: 48px 0 64px; }
+  .hero p.lede { font-size: 1rem; margin: 18px auto 26px; }
+  .hero-ctas { flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .btn { padding: 13px 22px; font-size: 0.95rem; }
+  .wrap { padding-left: 20px; padding-right: 20px; }
+  .final { padding: 36px 24px; grid-template-columns: 1fr; gap: 20px; border-radius: 22px; }
+  .final h2 { font-size: clamp(1.5rem, 6vw, 1.9rem); }
+}
+
