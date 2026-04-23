@@ -13,11 +13,13 @@ const CATALOG = [
   { slug: 'legal',       label: 'Legal / deposition',             description: 'Depositions, USCIS hearings, citizenship interviews.',                    hourly_usd: 150, min_hours: 2,   step_hours: 0.5, default_hours: 2, mode: 'either',    active: true, color_accent: 'blue',  sort_order: 40 },
   { slug: 'lessons',     label: 'One-on-one English lesson',      description: 'Conversation, pronunciation, accent — personalized sessions.',             hourly_usd: 50,  min_hours: 1,   step_hours: 0.5, default_hours: 1, mode: 'remote',    active: true, color_accent: 'peach', sort_order: 50 },
   { slug: 'citizenship', label: 'Citizenship / green-card prep',  description: 'Mock interviews, civics test, USCIS vocabulary.',                          hourly_usd: 75,  min_hours: 1,   step_hours: 0.5, default_hours: 1, mode: 'remote',    active: true, color_accent: 'peach', sort_order: 60 },
-  { slug: 'test-1usd',   label: '$1 test (do not book)',          description: 'End-to-end checkout test — $1 total. Remove after verification.',          hourly_usd: 1,   min_hours: 1,   step_hours: 1,   default_hours: 1, mode: 'remote',    active: true, color_accent: 'blue',  sort_order: 999 },
+  { slug: 'test-1usd',   label: '$1 test (do not book)',          description: 'End-to-end checkout test — $1 total. Remove after verification.',          hourly_usd: 1,   min_hours: 1,   step_hours: 1,   default_hours: 1, mode: 'remote',    active: true, hidden: true, color_accent: 'blue',  sort_order: 999 },
 ];
 
+// Public listing hides internal-only services (e.g. the $1 end-to-end test).
+// findBySlug does NOT filter by `hidden`, so direct checkouts still work.
 function listActive() {
-  return CATALOG.filter(s => s.active).sort((a, b) => a.sort_order - b.sort_order);
+  return CATALOG.filter(s => s.active && !s.hidden).sort((a, b) => a.sort_order - b.sort_order);
 }
 
 function findBySlug(slug) {
