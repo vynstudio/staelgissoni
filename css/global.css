@@ -402,7 +402,10 @@ a { text-decoration: none; color: inherit; }
   .site-nav a { padding: 12px 14px; font-size: 0.95rem; border-radius: 10px; }
   .site-nav a.active::after { display: none; }
   .site-nav a.active { background: var(--peach-wash); color: var(--peach-deep); }
-  .nav-cta { padding: 8px 16px; font-size: 0.85rem; }
+  /* Hide the header CTA on mobile — the hero already has a prominent
+     Book now button. Keeping both duplicates the action and crowds the
+     bar between logo and hamburger. */
+  .nav-cta { display: none; }
   .nav-toggle { display: flex; }
 }
 
