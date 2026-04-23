@@ -63,6 +63,12 @@ exports.handler = async (event) => {
   const baseUrl = process.env.SITE_BASE_URL || 'https://staelgissoni.com';
 
   try {
+    // Direct charge on Stael's connected account. With Stripe Organization
+    // API keys every request needs a target account context — passing
+    // { stripeAccount } does that via the Stripe-Account header. The 20%
+    // platform fee still routes to Vyn via application_fee_amount, but
+    // the charge itself lives on Stael's balance (cleaner statement
+    // descriptor, simpler reconciliation than destination charges).
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
@@ -79,12 +85,7 @@ exports.handler = async (event) => {
         quantity: 1,
       }],
       payment_intent_data: {
-        // Platform fee = 20% of gross. Rest transfers to Stael's account.
         application_fee_amount: pricing.platform_fee_cents,
-        transfer_data: { destination: process.env.STAEL_STRIPE_ACCOUNT_ID },
-        // on_behalf_of makes the charge settle as if on Stael's account —
-        // card statements show Stael's descriptor, not the platform's.
-        on_behalf_of: process.env.STAEL_STRIPE_ACCOUNT_ID,
         statement_descriptor_suffix: 'STAEL GISSONI',
       },
       metadata: {
@@ -102,6 +103,8 @@ exports.handler = async (event) => {
       },
       success_url: `${baseUrl}/confirmed?session={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/book?canceled=1&service=${encodeURIComponent(slug)}`,
+    }, {
+      stripeAccount: process.env.STAEL_STRIPE_ACCOUNT_ID,
     });
 
     return json(200, { checkout_url: session.url });
