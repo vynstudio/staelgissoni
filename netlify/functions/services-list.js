@@ -1,7 +1,8 @@
 // GET /.netlify/functions/services-list
 // Public read — returns the active services catalogue for the /book page.
+// Emergency mode: reads from lib/catalog.js (in-memory, no DB round-trip).
 
-const { getAdminClient } = require('./lib/supabase');
+const { listActive } = require('./lib/catalog');
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -14,14 +15,19 @@ exports.handler = async (event) => {
   if (event.httpMethod !== 'GET') return json(405, { error: 'Method not allowed' });
 
   try {
-    const admin = getAdminClient();
-    const { data, error } = await admin
-      .from('services')
-      .select('slug, label, description, hourly_usd, min_hours, step_hours, default_hours, mode, color_accent, sort_order')
-      .eq('active', true)
-      .order('sort_order', { ascending: true });
-    if (error) throw error;
-    return json(200, { services: data || [] });
+    const services = listActive().map(s => ({
+      slug: s.slug,
+      label: s.label,
+      description: s.description,
+      hourly_usd: s.hourly_usd,
+      min_hours: s.min_hours,
+      step_hours: s.step_hours,
+      default_hours: s.default_hours,
+      mode: s.mode,
+      color_accent: s.color_accent,
+      sort_order: s.sort_order,
+    }));
+    return json(200, { services });
   } catch (e) {
     console.error('services-list error:', e);
     return json(500, { error: e.message || 'Unknown error' });

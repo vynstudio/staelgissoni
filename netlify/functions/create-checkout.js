@@ -5,7 +5,7 @@
 // transfers to Stael's connected account.
 
 const Stripe = require('stripe');
-const { getAdminClient } = require('./lib/supabase');
+const { findBySlug } = require('./lib/catalog');
 const { priceFromService } = require('./lib/prices');
 const { isValidEmail, sanitize, sanitizeText, cleanPhone } = require('./lib/validation');
 
@@ -33,19 +33,24 @@ exports.handler = async (event) => {
   const mode = sanitize(data.mode, 20) || '';
   const notes = sanitizeText(data.notes, 800);
   const hoursInput = data.hours;
+  const startIso = sanitize(data.start_at, 40);
+  const timezone = sanitize(data.timezone, 60) || 'America/New_York';
 
   if (!slug) return json(400, { error: 'Service required' });
   if (!name) return json(400, { error: 'Name required' });
   if (!isValidEmail(email)) return json(400, { error: 'Valid email required' });
 
-  const admin = getAdminClient();
-  const { data: svc, error: svcErr } = await admin
-    .from('services')
-    .select('*')
-    .eq('slug', slug)
-    .eq('active', true)
-    .maybeSingle();
-  if (svcErr) return json(500, { error: 'DB lookup failed: ' + svcErr.message });
+  // Validate start_at: must be a real future datetime at least 2h out so
+  // Stael has time to react. 90-day cap keeps people from booking years away.
+  if (!startIso) return json(400, { error: 'Start time required' });
+  const startDate = new Date(startIso);
+  if (isNaN(startDate.getTime())) return json(400, { error: 'Invalid start time' });
+  const now = Date.now();
+  const leadMs = startDate.getTime() - now;
+  if (leadMs < 2 * 60 * 60 * 1000) return json(400, { error: 'Pick a time at least 2 hours from now' });
+  if (leadMs > 90 * 24 * 60 * 60 * 1000) return json(400, { error: 'Pick a time within the next 90 days' });
+
+  const svc = findBySlug(slug);
   if (!svc) return json(404, { error: 'Service not found' });
 
   let pricing;
@@ -77,6 +82,10 @@ exports.handler = async (event) => {
         // Platform fee = 20% of gross. Rest transfers to Stael's account.
         application_fee_amount: pricing.platform_fee_cents,
         transfer_data: { destination: process.env.STAEL_STRIPE_ACCOUNT_ID },
+        // on_behalf_of makes the charge settle as if on Stael's account —
+        // card statements show Stael's descriptor, not the platform's.
+        on_behalf_of: process.env.STAEL_STRIPE_ACCOUNT_ID,
+        statement_descriptor_suffix: 'STAEL GISSONI',
       },
       metadata: {
         purpose: 'booking',
@@ -87,7 +96,9 @@ exports.handler = async (event) => {
         customer_name: name,
         customer_phone: phone,
         customer_mode: mode,
-        notes: notes.slice(0, 450),
+        start_at: startDate.toISOString(),
+        timezone,
+        notes: notes.slice(0, 380),
       },
       success_url: `${baseUrl}/confirmed?session={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/book?canceled=1&service=${encodeURIComponent(slug)}`,
