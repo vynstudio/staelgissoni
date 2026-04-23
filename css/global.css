@@ -269,7 +269,9 @@ a { text-decoration: none; color: inherit; }
   }
   .nav-menu.open { display: flex; }
   .nav-toggle { display: block; }
-  .nav-cta { margin-left: 0; width: 100%; text-align: center; justify-content: center; }
+  /* .nav-cta mobile stretch rule removed — conflicted with the compact
+     header layout where the CTA sits next to the hamburger and must stay
+     sized to its content. Width + alignment now come from the 860px block. */
 
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
