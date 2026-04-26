@@ -97,14 +97,14 @@ const SERVICES = [
 const params = new URLSearchParams(location.search);
 const TOKEN = params.get('k') || '';
 
+let nextId = 0;
+
 if (!TOKEN) {
   document.getElementById('gate').style.display = 'block';
 } else {
   document.getElementById('form-wrap').style.display = 'block';
   renderServices();
 }
-
-let nextId = 0;
 
 function svcRowHTML(s, opts = {}) {
   const { isNew = false, origName = s.name, origPrice = s.price, origMin = s.min } = opts;
