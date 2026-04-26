@@ -14,15 +14,26 @@
     h1{font-family:'Fraunces',serif;font-weight:800;font-size:32px;letter-spacing:-1px;margin-bottom:8px;line-height:1.1}
     h1 .dot{color:#F2A07B}
     .lede{color:#5a5a6a;font-size:15px;line-height:1.5;margin-bottom:32px}
-    .cat{font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#2A2A3A;margin:32px 0 12px;border-bottom:2px solid #F2A07B;padding-bottom:6px}
-    .svc{background:#fff;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(42,42,58,0.06)}
-    .svc-name{font-weight:600;font-size:15px;color:#2A2A3A;margin-bottom:4px;line-height:1.3}
-    .svc-desc{font-size:12.5px;color:#7a7a8a;margin-bottom:14px;line-height:1.4}
+    .cat{font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#2A2A3A;margin:32px 0 12px;border-bottom:2px solid #F2A07B;padding-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .cat-name{flex:1}
+    .svc{background:#fff;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(42,42,58,0.06);position:relative;transition:opacity .2s}
+    .svc.removed{opacity:0.45;background:#f3e7df}
+    .svc.removed input{text-decoration:line-through;color:#9a9aa8}
+    .svc.added{border-left:3px solid #F2A07B}
+    .svc-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+    .svc-name-input{flex:1;font-weight:600;font-size:15px;color:#2A2A3A;line-height:1.3;border:1.5px solid transparent;border-radius:6px;padding:6px 8px;margin:-6px -8px;background:transparent;font-family:'Inter',sans-serif;width:calc(100% + 16px)}
+    .svc-name-input:focus{outline:none;border-color:#F2A07B;background:#FFF8F2}
+    .svc-name-input.changed{border-color:#F2A07B;background:#FFF8F2}
+    .icon-btn{flex-shrink:0;width:30px;height:30px;border:none;background:transparent;color:#9a9aa8;cursor:pointer;border-radius:6px;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s}
+    .icon-btn:hover{background:#FFE4E4;color:#B71C1C}
+    .icon-btn.restore:hover{background:#E0F4E5;color:#1B5E20}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .field label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:#7a7a8a;margin-bottom:5px}
     .field input{width:100%;padding:10px 12px;border:1.5px solid #e8d8cc;border-radius:8px;font-size:15px;font-family:'Inter',sans-serif;color:#2A2A3A;background:#fff;transition:border-color .15s}
     .field input:focus{outline:none;border-color:#F2A07B}
     .field input.changed{border-color:#F2A07B;background:#FFF8F2}
+    .add-svc{width:100%;background:transparent;border:1.5px dashed #c9b8ac;color:#7a5a48;padding:12px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;margin-bottom:14px;transition:border-color .15s,color .15s,background .15s;font-family:'Inter',sans-serif}
+    .add-svc:hover{border-color:#F2A07B;color:#2A2A3A;background:#FFF8F2}
     textarea{width:100%;min-height:90px;padding:14px;border:1.5px solid #e8d8cc;border-radius:10px;font-size:15px;font-family:'Inter',sans-serif;color:#2A2A3A;background:#fff;resize:vertical;line-height:1.5}
     textarea:focus{outline:none;border-color:#F2A07B}
     .submit{width:100%;background:#5B8EC9;color:#fff;border:none;padding:18px;border-radius:12px;font-size:17px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;margin-top:24px;transition:background .15s}
@@ -34,6 +45,9 @@
     .gate{background:#fff;border-radius:14px;padding:32px;text-align:center;margin-top:40px}
     .gate h2{font-family:'Fraunces',serif;font-size:22px;margin-bottom:12px}
     .gate p{color:#7a7a8a;font-size:14px;line-height:1.5}
+    .badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;padding:3px 8px;border-radius:99px;margin-left:8px;vertical-align:middle}
+    .badge.new{background:#F2A07B;color:#fff}
+    .badge.removed{background:#9a9aa8;color:#fff}
     @media (max-width:420px){
       .row{grid-template-columns:1fr}
     }
@@ -49,15 +63,15 @@
 
   <div id="form-wrap" style="display:none">
     <h1>Update your prices<span class="dot">.</span></h1>
-    <p class="lede">Edit only what's wrong — leave the rest alone. When you hit Save at the bottom, Diler gets the new prices on Telegram and updates the website.</p>
+    <p class="lede">Edit prices, rename services, remove what's gone, or add anything new. When you hit Save, Diler gets it on Telegram and updates the website.</p>
 
     <form id="form">
       <div id="services"></div>
 
       <div class="cat" style="margin-top:36px">Anything else?</div>
       <div class="svc">
-        <div class="svc-name" style="margin-bottom:10px">Notes for Diler</div>
-        <textarea id="notes" placeholder="Optional. e.g. 'New service: subtitling, $0.15/word' or 'Conference rates went up because of demand.'"></textarea>
+        <div class="svc-name" style="font-weight:600;font-size:15px;margin-bottom:10px">Notes for Diler</div>
+        <textarea id="notes" placeholder="Optional. e.g. 'Add a new category for subtitling' or 'Conference rates went up because of demand.'"></textarea>
       </div>
 
       <button type="submit" class="submit" id="submit-btn">Save and send to Diler</button>
@@ -90,39 +104,117 @@ if (!TOKEN) {
   renderServices();
 }
 
+let nextId = 0;
+
+function svcRowHTML(s, opts = {}) {
+  const { isNew = false, origName = s.name, origPrice = s.price, origMin = s.min } = opts;
+  const id = nextId++;
+  return `
+    <div class="svc ${isNew ? 'added' : ''}" data-id="${id}" data-orig-name="${escapeAttr(origName)}" data-orig-price="${escapeAttr(origPrice)}" data-orig-min="${escapeAttr(origMin)}" data-is-new="${isNew ? '1' : '0'}" data-category="${escapeAttr(s.category)}">
+      <div class="svc-head">
+        <input type="text" class="svc-name-input" data-field="name" value="${escapeAttr(s.name)}" placeholder="Service name">
+        <button type="button" class="icon-btn" data-action="toggle-remove" title="${isNew ? 'Discard' : 'Remove'}">${isNew ? '✕' : '🗑'}</button>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Price</label>
+          <input type="text" data-field="price" value="${escapeAttr(s.price)}" placeholder="$0">
+        </div>
+        <div class="field">
+          <label>Unit / minimum</label>
+          <input type="text" data-field="min" value="${escapeAttr(s.min)}" placeholder="per hour">
+        </div>
+      </div>
+    </div>`;
+}
+
+function escapeAttr(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+}
+
 function renderServices() {
   const container = document.getElementById('services');
   let html = '';
-  let lastCat = null;
-  SERVICES.forEach((s, i) => {
-    if (s.category !== lastCat) {
-      html += `<div class="cat">${s.category}</div>`;
-      lastCat = s.category;
-    }
-    html += `
-      <div class="svc">
-        <div class="svc-name">${s.name}</div>
-        <div class="svc-desc">${s.desc}</div>
-        <div class="row">
-          <div class="field">
-            <label>Price</label>
-            <input type="text" data-idx="${i}" data-field="price" value="${s.price}">
-          </div>
-          <div class="field">
-            <label>Unit / minimum</label>
-            <input type="text" data-idx="${i}" data-field="min" value="${s.min}">
-          </div>
-        </div>
-      </div>`;
-  });
-  container.innerHTML = html;
 
-  // Mark fields that have been changed (for submission diff + visual cue)
-  document.querySelectorAll('input[data-idx]').forEach(input => {
-    const orig = input.value;
+  // Group by category
+  const byCat = {};
+  SERVICES.forEach(s => {
+    if (!byCat[s.category]) byCat[s.category] = [];
+    byCat[s.category].push(s);
+  });
+
+  Object.keys(byCat).forEach(cat => {
+    html += `<div class="cat" data-cat="${escapeAttr(cat)}"><span class="cat-name">${cat}</span></div>`;
+    html += `<div class="cat-services" data-cat-services="${escapeAttr(cat)}">`;
+    byCat[cat].forEach(s => { html += svcRowHTML(s); });
+    html += `</div>`;
+    html += `<button type="button" class="add-svc" data-add-cat="${escapeAttr(cat)}">+ Add service to ${cat}</button>`;
+  });
+
+  container.innerHTML = html;
+  attachListeners();
+}
+
+function attachListeners() {
+  // Track changes on existing inputs
+  document.querySelectorAll('.svc input').forEach(input => {
+    const svc = input.closest('.svc');
     input.addEventListener('input', () => {
-      input.classList.toggle('changed', input.value !== orig);
+      const field = input.dataset.field;
+      const orig = svc.dataset['orig' + field.charAt(0).toUpperCase() + field.slice(1)];
+      input.classList.toggle('changed', input.value !== orig && svc.dataset.isNew === '0');
     });
+  });
+
+  // Remove / restore buttons
+  document.querySelectorAll('[data-action="toggle-remove"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const svc = btn.closest('.svc');
+      if (svc.dataset.isNew === '1') {
+        svc.remove();
+        return;
+      }
+      const isRemoved = svc.classList.toggle('removed');
+      btn.textContent = isRemoved ? '↺' : '🗑';
+      btn.title = isRemoved ? 'Restore' : 'Remove';
+      btn.classList.toggle('restore', isRemoved);
+      svc.querySelectorAll('input').forEach(i => i.disabled = isRemoved);
+    });
+  });
+
+  // Add service buttons
+  document.querySelectorAll('[data-add-cat]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.addCat;
+      const list = document.querySelector(`[data-cat-services="${cat.replace(/"/g, '\\"')}"]`);
+      const tmp = document.createElement('div');
+      tmp.innerHTML = svcRowHTML({ category: cat, name: '', price: '', min: '' }, { isNew: true });
+      const newRow = tmp.firstElementChild;
+      list.appendChild(newRow);
+      attachRowListeners(newRow);
+      newRow.querySelector('.svc-name-input').focus();
+    });
+  });
+}
+
+function attachRowListeners(svc) {
+  svc.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', () => {
+      const field = input.dataset.field;
+      const orig = svc.dataset['orig' + field.charAt(0).toUpperCase() + field.slice(1)];
+      input.classList.toggle('changed', input.value !== orig && svc.dataset.isNew === '0');
+    });
+  });
+  const btn = svc.querySelector('[data-action="toggle-remove"]');
+  btn.addEventListener('click', () => {
+    if (svc.dataset.isNew === '1') {
+      svc.remove();
+      return;
+    }
+    const isRemoved = svc.classList.toggle('removed');
+    btn.textContent = isRemoved ? '↺' : '🗑';
+    btn.classList.toggle('restore', isRemoved);
+    svc.querySelectorAll('input').forEach(i => i.disabled = isRemoved);
   });
 }
 
@@ -135,20 +227,35 @@ document.getElementById('form').addEventListener('submit', async (e) => {
   status.className = '';
   status.textContent = '';
 
-  // Snapshot current form values
-  const services = SERVICES.map((orig, i) => {
-    const priceInput = document.querySelector(`input[data-idx="${i}"][data-field="price"]`);
-    const minInput   = document.querySelector(`input[data-idx="${i}"][data-field="min"]`);
-    const newPrice = priceInput ? priceInput.value.trim() : orig.price;
-    const newMin   = minInput   ? minInput.value.trim()   : orig.min;
-    const changed = newPrice !== orig.price || newMin !== orig.min;
-    return {
-      category: orig.category,
-      name: orig.name,
-      price: newPrice,
-      min: newMin,
-      changed,
-    };
+  const services = [];
+  document.querySelectorAll('.svc[data-id]').forEach(svc => {
+    const isNew = svc.dataset.isNew === '1';
+    const isRemoved = svc.classList.contains('removed');
+    const category = svc.dataset.category;
+    const name = svc.querySelector('[data-field="name"]').value.trim();
+    const price = svc.querySelector('[data-field="price"]').value.trim();
+    const min = svc.querySelector('[data-field="min"]').value.trim();
+    const origName = svc.dataset.origName;
+    const origPrice = svc.dataset.origPrice;
+    const origMin = svc.dataset.origMin;
+
+    let status_;
+    if (isNew) {
+      if (!name && !price && !min) return; // skip empty new rows
+      status_ = 'added';
+    } else if (isRemoved) {
+      status_ = 'removed';
+    } else if (name !== origName || price !== origPrice || min !== origMin) {
+      status_ = 'changed';
+    } else {
+      status_ = 'unchanged';
+    }
+
+    services.push({
+      category, name, price, min,
+      origName: isNew ? null : origName,
+      status: status_,
+    });
   });
 
   const body = {

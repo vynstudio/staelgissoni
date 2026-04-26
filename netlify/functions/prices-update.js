@@ -32,6 +32,13 @@ async function sendTelegram(token, chatId, text) {
   return body.result;
 }
 
+const STATUS_MARKER = {
+  added: '➕',
+  removed: '❌',
+  changed: '🔸',
+  unchanged: '·',
+};
+
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers: CORS, body: '' };
   if (event.httpMethod !== 'POST') {
@@ -56,8 +63,18 @@ exports.handler = async (event) => {
   const services = Array.isArray(payload.services) ? payload.services : [];
   const notes = (payload.notes || '').trim();
 
+  // Summary counts
+  const counts = { added: 0, removed: 0, changed: 0, unchanged: 0 };
+  services.forEach(s => { if (counts[s.status] !== undefined) counts[s.status]++; });
+
   const lines = [];
   lines.push('💰 *Stael — Price update*');
+  const summaryBits = [];
+  if (counts.changed) summaryBits.push(`${counts.changed} changed`);
+  if (counts.added) summaryBits.push(`${counts.added} added`);
+  if (counts.removed) summaryBits.push(`${counts.removed} removed`);
+  if (summaryBits.length === 0) summaryBits.push('no changes');
+  lines.push(`_${escapeMd(summaryBits.join(' · '))}_`);
   lines.push('');
 
   let currentCategory = null;
@@ -66,12 +83,18 @@ exports.handler = async (event) => {
       currentCategory = s.category;
       lines.push(`\n*${escapeMd(currentCategory)}*`);
     }
-    const changed = s.changed === true;
-    const marker = changed ? '🔸' : '·';
-    const name = escapeMd(s.name || '');
+    const marker = STATUS_MARKER[s.status] || '·';
+    const name = escapeMd(s.name || '(unnamed)');
     const price = escapeMd(s.price || '—');
     const min = s.min ? ` _\\(${escapeMd(s.min)}\\)_` : '';
-    lines.push(`${marker} ${name}: *${price}*${min}`);
+
+    if (s.status === 'removed') {
+      lines.push(`${marker} ~${name}~`);
+    } else if (s.status === 'changed' && s.origName && s.origName !== s.name) {
+      lines.push(`${marker} ${escapeMd(s.origName)} → *${name}*: *${price}*${min}`);
+    } else {
+      lines.push(`${marker} ${name}: *${price}*${min}`);
+    }
   }
 
   if (notes) {
