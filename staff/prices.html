@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Update prices — Stael Gissoni</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#FFF2EB;color:#2A2A3A;padding:24px 16px 80px;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:560px;margin:0 auto}
+    h1{font-family:'Fraunces',serif;font-weight:800;font-size:32px;letter-spacing:-1px;margin-bottom:8px;line-height:1.1}
+    h1 .dot{color:#F2A07B}
+    .lede{color:#5a5a6a;font-size:15px;line-height:1.5;margin-bottom:32px}
+    .cat{font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#2A2A3A;margin:32px 0 12px;border-bottom:2px solid #F2A07B;padding-bottom:6px}
+    .svc{background:#fff;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(42,42,58,0.06)}
+    .svc-name{font-weight:600;font-size:15px;color:#2A2A3A;margin-bottom:4px;line-height:1.3}
+    .svc-desc{font-size:12.5px;color:#7a7a8a;margin-bottom:14px;line-height:1.4}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .field label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:#7a7a8a;margin-bottom:5px}
+    .field input{width:100%;padding:10px 12px;border:1.5px solid #e8d8cc;border-radius:8px;font-size:15px;font-family:'Inter',sans-serif;color:#2A2A3A;background:#fff;transition:border-color .15s}
+    .field input:focus{outline:none;border-color:#F2A07B}
+    .field input.changed{border-color:#F2A07B;background:#FFF8F2}
+    textarea{width:100%;min-height:90px;padding:14px;border:1.5px solid #e8d8cc;border-radius:10px;font-size:15px;font-family:'Inter',sans-serif;color:#2A2A3A;background:#fff;resize:vertical;line-height:1.5}
+    textarea:focus{outline:none;border-color:#F2A07B}
+    .submit{width:100%;background:#5B8EC9;color:#fff;border:none;padding:18px;border-radius:12px;font-size:17px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;margin-top:24px;transition:background .15s}
+    .submit:hover{background:#4A78B0}
+    .submit:disabled{opacity:0.5;cursor:wait}
+    .status{margin-top:14px;padding:14px;border-radius:10px;font-size:14px;line-height:1.5}
+    .status.ok{background:#E0F4E5;color:#1B5E20;border:1px solid #95D5A0}
+    .status.err{background:#FFE4E4;color:#B71C1C;border:1px solid #F5A5A5}
+    .gate{background:#fff;border-radius:14px;padding:32px;text-align:center;margin-top:40px}
+    .gate h2{font-family:'Fraunces',serif;font-size:22px;margin-bottom:12px}
+    .gate p{color:#7a7a8a;font-size:14px;line-height:1.5}
+    @media (max-width:420px){
+      .row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <div id="gate" class="gate" style="display:none">
+    <h2>Link missing or expired</h2>
+    <p>Open the link Diler sent you. The address must end with <code>?k=...</code>.</p>
+  </div>
+
+  <div id="form-wrap" style="display:none">
+    <h1>Update your prices<span class="dot">.</span></h1>
+    <p class="lede">Edit only what's wrong — leave the rest alone. When you hit Save at the bottom, Diler gets the new prices on Telegram and updates the website.</p>
+
+    <form id="form">
+      <div id="services"></div>
+
+      <div class="cat" style="margin-top:36px">Anything else?</div>
+      <div class="svc">
+        <div class="svc-name" style="margin-bottom:10px">Notes for Diler</div>
+        <textarea id="notes" placeholder="Optional. e.g. 'New service: subtitling, $0.15/word' or 'Conference rates went up because of demand.'"></textarea>
+      </div>
+
+      <button type="submit" class="submit" id="submit-btn">Save and send to Diler</button>
+      <div id="status"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+const SERVICES = [
+  { category: 'Interpretation', name: 'On-site interpretation', desc: 'Conferences, depositions, meetings, USCIS', price: '$125–$165', min: '2-hour minimum' },
+  { category: 'Interpretation', name: 'Remote interpretation (VRI)', desc: 'Google Meet, Zoom, phone, or your platform', price: '$95–$125', min: '30-minute minimum' },
+  { category: 'Interpretation', name: 'Medical interpretation', desc: 'Doctor visits, hospital stays, mental health', price: '$110–$135', min: '2-hour minimum' },
+  { category: 'Interpretation', name: 'Legal interpretation', desc: 'Depositions, USCIS hearings, citizenship prep', price: '$150–$175', min: '2-hour · $550 half-day · $950 full-day' },
+  { category: 'Interpretation', name: 'Conference interpretation', desc: 'Booth & RSI (Zoom / Interprefy)', price: '$1,400–$1,800', min: 'per day · half-day $900' },
+  { category: 'Language coaching', name: 'Conversation EN/PT', desc: 'Conversation, pronunciation, accent', price: '$50', min: 'per hour · no minimum' },
+  { category: 'Language coaching', name: 'USCIS interview prep', desc: 'Mock interviews, civics test, USCIS vocabulary', price: '$75', min: 'per hour · 1-hour minimum' },
+  { category: 'Certified translation', name: 'Personal documents', desc: 'Birth, marriage, divorce, school records', price: 'from $35', min: 'per page · $95 project minimum' },
+  { category: 'Certified translation', name: 'Legal documents', desc: 'Contracts, affidavits, deposition exhibits', price: '$0.22–$0.28', min: 'per word · $150 project minimum' },
+  { category: 'Certified translation', name: 'Medical documents', desc: 'Clinical notes, labs, patient histories', price: '$0.24–$0.32', min: 'per word · $150 project minimum' },
+];
+
+const params = new URLSearchParams(location.search);
+const TOKEN = params.get('k') || '';
+
+if (!TOKEN) {
+  document.getElementById('gate').style.display = 'block';
+} else {
+  document.getElementById('form-wrap').style.display = 'block';
+  renderServices();
+}
+
+function renderServices() {
+  const container = document.getElementById('services');
+  let html = '';
+  let lastCat = null;
+  SERVICES.forEach((s, i) => {
+    if (s.category !== lastCat) {
+      html += `<div class="cat">${s.category}</div>`;
+      lastCat = s.category;
+    }
+    html += `
+      <div class="svc">
+        <div class="svc-name">${s.name}</div>
+        <div class="svc-desc">${s.desc}</div>
+        <div class="row">
+          <div class="field">
+            <label>Price</label>
+            <input type="text" data-idx="${i}" data-field="price" value="${s.price}">
+          </div>
+          <div class="field">
+            <label>Unit / minimum</label>
+            <input type="text" data-idx="${i}" data-field="min" value="${s.min}">
+          </div>
+        </div>
+      </div>`;
+  });
+  container.innerHTML = html;
+
+  // Mark fields that have been changed (for submission diff + visual cue)
+  document.querySelectorAll('input[data-idx]').forEach(input => {
+    const orig = input.value;
+    input.addEventListener('input', () => {
+      input.classList.toggle('changed', input.value !== orig);
+    });
+  });
+}
+
+document.getElementById('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const status = document.getElementById('status');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  status.className = '';
+  status.textContent = '';
+
+  // Snapshot current form values
+  const services = SERVICES.map((orig, i) => {
+    const priceInput = document.querySelector(`input[data-idx="${i}"][data-field="price"]`);
+    const minInput   = document.querySelector(`input[data-idx="${i}"][data-field="min"]`);
+    const newPrice = priceInput ? priceInput.value.trim() : orig.price;
+    const newMin   = minInput   ? minInput.value.trim()   : orig.min;
+    const changed = newPrice !== orig.price || newMin !== orig.min;
+    return {
+      category: orig.category,
+      name: orig.name,
+      price: newPrice,
+      min: newMin,
+      changed,
+    };
+  });
+
+  const body = {
+    k: TOKEN,
+    services,
+    notes: document.getElementById('notes').value.trim(),
+  };
+
+  try {
+    const r = await fetch('/.netlify/functions/prices-update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || ('HTTP ' + r.status));
+    status.className = 'status ok';
+    status.textContent = 'Sent! Diler will review and update the website. You can close this page now.';
+    btn.textContent = 'Sent ✓';
+  } catch (err) {
+    status.className = 'status err';
+    status.textContent = 'Error: ' + (err.message || 'unknown') + '. Try again or text Diler.';
+    btn.disabled = false;
+    btn.textContent = 'Save and send to Diler';
+  }
+});
+</script>
+</body>
+</html>

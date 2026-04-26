@@ -45,6 +45,11 @@ from = "/terms"
 to = "/terms.html"
 status = 200
 
+[[redirects]]
+from = "/staff/prices"
+to = "/staff/prices.html"
+status = 200
+
 # ── Security headers ──────────────────────────────────────────
 [[headers]]
 for = "/*"
