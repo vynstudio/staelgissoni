@@ -1,5 +1,5 @@
 /* =============================================================
-   staelfogarty.com — shared global stylesheet
+   staelgissoni.com — shared global stylesheet
    Extracted from duplicated <style> blocks across 20+ HTML files.
    Page-specific overrides remain inline in each page.
    ============================================================= */
@@ -429,5 +429,17 @@ img, video, iframe { max-width: 100%; height: auto; }
   .wrap { padding-left: 20px; padding-right: 20px; }
   .final { padding: 36px 24px; grid-template-columns: 1fr; gap: 20px; border-radius: 22px; }
   .final h2 { font-size: clamp(1.5rem, 6vw, 1.9rem); }
+}
+
+
+
+/* ───────── DESKTOP ROOT SCALE (≥861px) ─────────
+   Instead of a hacky `zoom: 1.25`, bump the root font-size on desktop
+   so any rem-based sizing scales up ~12.5% naturally. Respects user
+   browser zoom (no compounding), works in all browsers, no Firefox
+   quirks. Mobile stays at browser default (16px) to avoid cramping
+   small screens. */
+@media (min-width: 861px) {
+  html { font-size: 18px; }
 }
 

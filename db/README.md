@@ -6,7 +6,7 @@ One table (`public.services`) drives `/book`. Edit rows in Supabase Studio to ch
 
 1. Create a Supabase project (free tier is fine).
 2. Paste `001_services.sql` into the **SQL Editor** → Run. That creates the table, RLS policies, and seeds the current price list.
-3. Add these env vars to the Netlify site (`stael-fogarty`):
+3. Add these env vars to the Netlify site (`stael-gissoni`):
    - `SUPABASE_URL` — `https://<project-ref>.supabase.co`
    - `SUPABASE_SERVICE_ROLE_KEY` — service role JWT (server-only)
    - `STRIPE_SECRET_KEY` — live secret key (or test for staging)
