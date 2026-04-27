@@ -71,19 +71,8 @@ for = "/*.html"
   Cache-Control = "no-cache, must-revalidate"
 
 # ── Canonical domain redirects ────────────────────────────────
-# staelgissoni.com is canonical. Legacy + Netlify subdomain all 301.
-[[redirects]]
-from = "https://staelgissoni.com/*"
-to = "https://staelgissoni.com/:splat"
-status = 301
-force = true
-
-[[redirects]]
-from = "https://www.staelgissoni.com/*"
-to = "https://staelgissoni.com/:splat"
-status = 301
-force = true
-
+# staelgissoni.com is canonical. www + Netlify subdomain 301 to it.
+# Do NOT add an apex-to-apex redirect here — it creates a 301 loop.
 [[redirects]]
 from = "https://www.staelgissoni.com/*"
 to = "https://staelgissoni.com/:splat"
