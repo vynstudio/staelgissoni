@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Portuguese voice — Stael Gissoni</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:#FFF2EB;color:#2A2A3A;padding:24px 16px 80px;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:600px;margin:0 auto}
+    h1{font-family:'Fraunces',serif;font-weight:800;font-size:32px;letter-spacing:-1px;margin-bottom:8px;line-height:1.1}
+    h1 .dot{color:#F2A07B}
+    .lede{color:#5a5a6a;font-size:15px;line-height:1.5;margin-bottom:32px}
+    .sec{font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:#2A2A3A;margin:32px 0 12px;border-bottom:2px solid #F2A07B;padding-bottom:6px}
+    .card{background:#fff;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(42,42,58,0.06)}
+    .q{font-weight:600;font-size:15px;color:#2A2A3A;margin-bottom:6px}
+    .hint{color:#7a7a8a;font-size:13px;line-height:1.45;margin-bottom:12px}
+    .opts{display:flex;flex-direction:column;gap:8px}
+    .opt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1.5px solid #e8d8cc;border-radius:10px;cursor:pointer;transition:border-color .15s,background .15s}
+    .opt:hover{border-color:#F2A07B;background:#FFF8F2}
+    .opt input{margin-top:3px;accent-color:#F2A07B}
+    .opt-text{flex:1}
+    .opt-text strong{display:block;font-weight:600;font-size:14px;color:#2A2A3A;margin-bottom:2px}
+    .opt-text span{font-size:13px;color:#7a7a8a;line-height:1.4}
+    .opt input:checked + .opt-text strong{color:#B85A2F}
+    label.field-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:#7a7a8a;margin-bottom:5px}
+    input[type=text],textarea{width:100%;padding:12px 14px;border:1.5px solid #e8d8cc;border-radius:10px;font-size:15px;font-family:'Inter',sans-serif;color:#2A2A3A;background:#fff;transition:border-color .15s}
+    input[type=text]:focus,textarea:focus{outline:none;border-color:#F2A07B}
+    textarea{min-height:90px;resize:vertical;line-height:1.5}
+    .submit{width:100%;background:#5B8EC9;color:#fff;border:none;padding:18px;border-radius:12px;font-size:17px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;margin-top:24px;transition:background .15s}
+    .submit:hover{background:#4A78B0}
+    .submit:disabled{opacity:0.5;cursor:wait}
+    .status{margin-top:14px;padding:14px;border-radius:10px;font-size:14px;line-height:1.5}
+    .status.ok{background:#E0F4E5;color:#1B5E20;border:1px solid #95D5A0}
+    .status.err{background:#FFE4E4;color:#B71C1C;border:1px solid #F5A5A5}
+    .gate{background:#fff;border-radius:14px;padding:32px;text-align:center;margin-top:40px}
+    .gate h2{font-family:'Fraunces',serif;font-size:22px;margin-bottom:12px}
+    .gate p{color:#7a7a8a;font-size:14px;line-height:1.5}
+    .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+    .pair label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:#7a7a8a;margin-bottom:5px}
+    @media (max-width:480px){.pair{grid-template-columns:1fr}}
+    .accent-tip{background:#FFF8F2;border-left:3px solid #F2A07B;padding:10px 12px;border-radius:6px;font-size:13px;line-height:1.5;color:#5a5a6a;margin-top:8px}
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <div id="gate" class="gate" style="display:none">
+    <h2>Link missing or expired</h2>
+    <p>Open the link Diler sent you. The address must end with <code>?k=...</code>.</p>
+  </div>
+
+  <div id="form-wrap" style="display:none">
+    <h1>Portuguese voice<span class="dot">.</span></h1>
+    <p class="lede">We're going to publish the site fully in Portuguese. To get the spelling, accents, and tone right — you decide. Fill what you can; skip what you don't have an opinion on. <em>Você pode responder em português.</em></p>
+
+    <form id="form">
+
+      <div class="sec">1. Variant</div>
+      <div class="card">
+        <div class="q">Which Portuguese?</div>
+        <div class="hint">Most of your clients are Brazilian, but tell us if you want European Portuguese instead — or both.</div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="variant" value="pt-BR" checked><div class="opt-text"><strong>Brazilian Portuguese (pt-BR)</strong><span>e.g. "ônibus", "celular", "você"</span></div></label>
+          <label class="opt"><input type="radio" name="variant" value="pt-PT"><div class="opt-text"><strong>European Portuguese (pt-PT)</strong><span>e.g. "autocarro", "telemóvel", "tu"</span></div></label>
+          <label class="opt"><input type="radio" name="variant" value="both"><div class="opt-text"><strong>Both — language switcher</strong><span>Two PT versions, user picks</span></div></label>
+        </div>
+      </div>
+
+      <div class="sec">2. Pronoun &amp; register</div>
+      <div class="card">
+        <div class="q">How do you address the reader?</div>
+        <div class="hint">This shapes every sentence on the site — verbs, possessives, everything.</div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="pronoun" value="voce" checked><div class="opt-text"><strong>"Você" — neutral / professional</strong><span>"Você precisa de um intérprete?" — works across Brazil, default for business sites</span></div></label>
+          <label class="opt"><input type="radio" name="pronoun" value="tu"><div class="opt-text"><strong>"Tu" — informal / regional</strong><span>"Tu precisas de um intérprete?" — Portugal, southern Brazil, more casual</span></div></label>
+          <label class="opt"><input type="radio" name="pronoun" value="senhor"><div class="opt-text"><strong>"O senhor / a senhora" — formal</strong><span>For older / corporate / legal audiences</span></div></label>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="q">Tone</div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="tone" value="warm-pro" checked><div class="opt-text"><strong>Warm but professional</strong><span>Friendly, confident, no slang. Match the English site's voice.</span></div></label>
+          <label class="opt"><input type="radio" name="tone" value="formal"><div class="opt-text"><strong>Formal / corporate</strong><span>Buttoned-up, respectful, distant — for law firms / hospitals</span></div></label>
+          <label class="opt"><input type="radio" name="tone" value="casual"><div class="opt-text"><strong>Casual / familiar</strong><span>Conversational, like talking to a Brazilian friend</span></div></label>
+        </div>
+      </div>
+
+      <div class="sec">3. Word choices</div>
+      <div class="card">
+        <div class="q">Words you always want to use</div>
+        <div class="hint">e.g. "intérprete" (not "tradutor"); "atendimento" not "consulta"; the proper Portuguese name for each service.</div>
+        <textarea id="prefer-words" placeholder="One per line, optional explanation. Example:&#10;intérprete (not tradutora)&#10;atendimento (not consulta)&#10;serviço (not aulinha)"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="q">Words to avoid</div>
+        <div class="hint">Anything that feels wrong, too European, too slang, too clinical, or just not "you".</div>
+        <textarea id="avoid-words" placeholder="One per line, with reason if you have one. Example:&#10;tradutora — I'm an interpreter, not a translator&#10;legal — sounds too informal&#10;coach — prefer 'tutora' or 'professora'"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="q">Accents &amp; spelling — anything you've seen done wrong?</div>
+        <div class="hint">Common Brazilian accents: ã, õ, ç, é, ê, á, â, í, ó, ô, ú. If you've seen the site (or other translators) miss accents on specific words, list them here so we don't repeat the mistake.</div>
+        <textarea id="accent-notes" placeholder="Examples:&#10;'interprete' should be 'intérprete'&#10;'reuniao' should be 'reunião'&#10;'mae' should be 'mãe'&#10;Always use ç in 'serviço', 'preço', 'começar'"></textarea>
+        <div class="accent-tip">📌 We'll use the AO 1990 (Acordo Ortográfico) spelling unless you say otherwise — that's standard for both pt-BR and pt-PT today.</div>
+      </div>
+
+      <div class="sec">4. Brand phrases</div>
+      <div class="card">
+        <div class="q">How do you describe yourself in Portuguese?</div>
+        <div class="hint">Your one-line bio / tagline. The English version is "Professional English↔Portuguese interpretation and language coaching."</div>
+        <textarea id="bio-pt" placeholder="Sou Stael Gissoni — intérprete profissional inglês↔português..."></textarea>
+      </div>
+
+      <div class="card">
+        <div class="q">Hero headline (homepage)</div>
+        <div class="hint">The big headline at the top of the site. English version: "Here to help you connect."</div>
+        <input type="text" id="hero-headline" placeholder="Aqui para te ajudar a se comunicar.">
+      </div>
+
+      <div class="card">
+        <div class="q">Hero subheadline</div>
+        <div class="hint">The sentence right under the headline. English: "Professional English↔Portuguese interpretation for meetings, hospitals, schools, and USCIS interviews."</div>
+        <textarea id="hero-sub" placeholder="Interpretação profissional inglês↔português para reuniões, hospitais, escolas e entrevistas no USCIS..."></textarea>
+      </div>
+
+      <div class="card">
+        <div class="q">Service names — confirm the Portuguese versions</div>
+        <div class="hint">From your last intake. Edit anything that's not quite right.</div>
+        <div class="pair">
+          <div><label>On-site interpretation</label><input type="text" id="svc-onsite" value="Interpretação presencial"></div>
+          <div><label>Remote (VRI)</label><input type="text" id="svc-remote" value="Interpretação remota (VRI)"></div>
+        </div>
+        <div class="pair">
+          <div><label>Medical interpretation</label><input type="text" id="svc-medical" value="Interpretação médica"></div>
+          <div><label>Educational interpretation</label><input type="text" id="svc-educational" value="Interpretação educacional"></div>
+        </div>
+        <div class="pair">
+          <div><label>Conference interpretation</label><input type="text" id="svc-conference" value="Conferências"></div>
+          <div><label>USCIS — Orlando</label><input type="text" id="svc-uscis-orl" value="Entrevista USCIS em Orlando, FL"></div>
+        </div>
+        <div class="pair">
+          <div><label>USCIS — Tampa</label><input type="text" id="svc-uscis-tam" value="Entrevista USCIS em Tampa, FL"></div>
+          <div><label>Conversation EN/PT</label><input type="text" id="svc-conversation" value="Conversação EN/PT"></div>
+        </div>
+        <div class="pair">
+          <div><label>USCIS interview prep</label><input type="text" id="svc-tutoria" value="Tutoria EN/PT"></div>
+          <div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="q">Call-to-action button</div>
+        <div class="hint">"Book a session" / "Get started" — what should the main button say in Portuguese?</div>
+        <input type="text" id="cta-button" placeholder="Agendar sessão">
+      </div>
+
+      <div class="sec">5. Anything else?</div>
+      <div class="card">
+        <div class="q">Free notes for Diler</div>
+        <div class="hint">Anything we missed — sample paragraphs, links to PT sites you like, things to absolutely avoid, family / friend reviewers, etc.</div>
+        <textarea id="notes" placeholder="e.g. 'My friend Camila is a journalist — she can review the final copy.' Or 'Avoid the word coach, it's not Brazilian.'"></textarea>
+      </div>
+
+      <button type="submit" class="submit" id="submit-btn">Save and send to Diler</button>
+      <div id="status"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+const params = new URLSearchParams(location.search);
+const TOKEN = params.get('k') || '';
+
+if (!TOKEN) {
+  document.getElementById('gate').style.display = 'block';
+} else {
+  document.getElementById('form-wrap').style.display = 'block';
+}
+
+document.getElementById('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const status = document.getElementById('status');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  status.className = '';
+  status.textContent = '';
+
+  const $ = (id) => document.getElementById(id);
+  const radio = (n) => { const el = document.querySelector(`input[name="${n}"]:checked`); return el ? el.value : ''; };
+
+  const body = {
+    k: TOKEN,
+    variant: radio('variant'),
+    pronoun: radio('pronoun'),
+    tone: radio('tone'),
+    preferWords: $('prefer-words').value.trim(),
+    avoidWords: $('avoid-words').value.trim(),
+    accentNotes: $('accent-notes').value.trim(),
+    bioPt: $('bio-pt').value.trim(),
+    heroHeadline: $('hero-headline').value.trim(),
+    heroSub: $('hero-sub').value.trim(),
+    services: {
+      onsite: $('svc-onsite').value.trim(),
+      remote: $('svc-remote').value.trim(),
+      medical: $('svc-medical').value.trim(),
+      educational: $('svc-educational').value.trim(),
+      conference: $('svc-conference').value.trim(),
+      uscisOrlando: $('svc-uscis-orl').value.trim(),
+      uscisTampa: $('svc-uscis-tam').value.trim(),
+      conversation: $('svc-conversation').value.trim(),
+      tutoria: $('svc-tutoria').value.trim(),
+    },
+    ctaButton: $('cta-button').value.trim(),
+    notes: $('notes').value.trim(),
+  };
+
+  try {
+    const r = await fetch('/.netlify/functions/portuguese-intake', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || ('HTTP ' + r.status));
+    status.className = 'status ok';
+    status.textContent = 'Sent! Diler has it on Telegram. Obrigada — você pode fechar esta página.';
+    btn.textContent = 'Sent ✓';
+  } catch (err) {
+    status.className = 'status err';
+    status.textContent = 'Error: ' + (err.message || 'unknown') + '. Try again or text Diler.';
+    btn.disabled = false;
+    btn.textContent = 'Save and send to Diler';
+  }
+});
+</script>
+</body>
+</html>
