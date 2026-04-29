@@ -107,64 +107,25 @@ footer { padding: 40px 0 32px; border-top: 1px solid var(--border); margin-top: 
 <section class="page-hero">
   <div class="wrap">
     <span class="eyebrow">Book a session</span>
-    <h1>One form. <em>Pay now,</em> schedule right after.</h1>
-    <p>Pick a service, tell me how long you need, and pay securely via Stripe. I'll email within a few business hours to lock in your time — Google Meet link included for remote sessions.</p>
+    <h1>Book your session in <em>one minute.</em></h1>
+    <p>Pick a service, choose your time, and pay securely via Stripe. You'll get a calendar invite instantly — Google Meet link included for remote sessions.</p>
     <div id="canceled-alert" class="alert warn" style="display:none">Payment canceled — no charge was made. Pick up where you left off whenever you're ready.</div>
   </div>
 </section>
 
-<form id="book-form" class="wrap" novalidate>
+<div class="wrap">
 
-  <section class="section">
-    <span class="label-h">1 · Choose a service</span>
-    <div class="svc-grid" id="svc-grid">
-      <div class="loading">Loading services…</div>
-    </div>
-  </section>
+  <!-- Cal.com inline embed: full 6-service catalog + availability +
+       Stripe payment in one flow. Each event type on Cal.com has its
+       own duration, price, Google Meet link, and Google Calendar
+       sync to hello@staelgissoni.com. -->
+  <div id="cal-inline" style="width:100%;min-height:720px;background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 12px 40px -24px rgba(42,42,58,0.12);"></div>
 
-  <section class="section" id="sec-hours" style="display:none">
-    <span class="label-h">2 · How many hours?</span>
-    <div class="hours-row">
-      <div class="stepper" role="group" aria-label="Hours">
-        <button type="button" id="hours-down" aria-label="Decrease hours">−</button>
-        <span id="hours-display" aria-live="polite">1</span>
-        <button type="button" id="hours-up" aria-label="Increase hours">+</button>
-      </div>
-      <div class="hours-break" id="hours-break">1 hour × $95/hr</div>
-      <div class="hours-total" id="hours-total">$95<small>total today</small></div>
-    </div>
-  </section>
-
-  <section class="section" id="sec-mode" style="display:none">
-    <span class="label-h">3 · Where?</span>
-    <div class="mode-row" id="mode-row"></div>
-  </section>
-
-  <section class="section" id="sec-contact" style="display:none">
-    <span class="label-h">4 · Your details</span>
-    <div class="form-row">
-      <div class="fg"><label for="f-name">Name</label><input type="text" id="f-name" name="name" autocomplete="name" required></div>
-      <div class="fg"><label for="f-email">Email</label><input type="email" id="f-email" name="email" autocomplete="email" required></div>
-    </div>
-    <div class="form-row">
-      <div class="fg"><label for="f-phone">Phone (optional)</label><input type="tel" id="f-phone" name="phone" autocomplete="tel"></div>
-      <div class="fg"><label for="f-when">Preferred time windows (optional)</label><input type="text" id="f-when" name="when" placeholder="e.g. weekdays 6–8pm ET, or next Tue/Wed"></div>
-    </div>
-    <div class="form-row">
-      <div class="fg full"><label for="f-notes">Anything I should know? (optional)</label><textarea id="f-notes" name="notes" maxlength="800" placeholder="Appointment type, dialect preference, sensitive context, venue address…"></textarea></div>
-    </div>
-  </section>
-
-  <div class="pay-box" id="pay-box" style="display:none">
-    <div class="pay-summary">
-      <div><strong id="sum-service">—</strong></div>
-      <div id="sum-hours">—</div>
-    </div>
-    <button type="submit" class="pay-btn" id="pay-btn" disabled>Pay & book →</button>
-  </div>
-  <div id="pay-err"></div>
-  <p class="fine">Secure checkout by Stripe. A receipt + next-step email arrives the moment payment clears.</p>
-</form>
+  <p class="fine" style="text-align:center;margin-top:20px;font-size:0.82rem;">
+    Secure payment via Stripe · Google Meet included for remote sessions · Instant calendar invite on confirmation.<br>
+    Trouble booking? Email <a href="mailto:hello@staelgissoni.com" style="color:var(--peach-deep);font-weight:700">hello@staelgissoni.com</a> and Stael will set it up manually.
+  </p>
+</div>
 </main>
 
 <footer class="wrap">© <span id="yr"></span> Stael Gissoni · <a href="/privacy" style="color:var(--peach-deep)">Privacy</a> · <a href="/terms" style="color:var(--peach-deep)">Terms</a></footer>
@@ -173,156 +134,32 @@ footer { padding: 40px 0 32px; border-top: 1px solid var(--border); margin-top: 
 document.getElementById('navToggle').addEventListener('click', () => document.getElementById('siteNav').classList.toggle('open'));
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-const state = { services: [], selected: null, hours: 1, mode: '' };
-const MODE_LABELS = { 'remote': 'Online (Google Meet / Zoom)', 'in-person': 'In-person (Central Florida)' };
-
+// If ?service=<slug> is present, deep-link straight to that event type on
+// Cal.com (e.g. ?service=medical → cal.com/stael/medical). Otherwise we
+// show Stael's profile page with all 6 event types for the booker to pick.
+const SERVICE_SLUGS = ['on-site','remote','medical','educational','conference','uscis-orlando','uscis-tampa','lessons','citizenship'];
 const params = new URLSearchParams(location.search);
-if (params.get('canceled')) document.getElementById('canceled-alert').style.display = '';
+const pre = params.get('service');
+const calLink = (pre && SERVICE_SLUGS.includes(pre)) ? `stael/${pre}` : 'stael';
+</script>
 
-async function loadServices() {
-  const grid = document.getElementById('svc-grid');
-  try {
-    const r = await fetch('/.netlify/functions/services-list');
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const { services } = await r.json();
-    state.services = services || [];
-    if (!state.services.length) {
-      grid.innerHTML = '<div class="empty">Booking is temporarily unavailable. Email <a href="mailto:hello@staelgissoni.com" style="color:var(--peach-deep);font-weight:700">hello@staelgissoni.com</a> and we\'ll set it up manually.</div>';
-      return;
-    }
-    renderServices();
-    const pre = params.get('service');
-    if (pre && state.services.find(s => s.slug === pre)) selectService(pre);
-  } catch (e) {
-    grid.innerHTML = '<div class="empty">Could not load services. Refresh in a moment or email hello@staelgissoni.com.</div>';
-  }
-}
-
-function renderServices() {
-  const grid = document.getElementById('svc-grid');
-  const fmt$ = (n) => '$' + Number(n).toFixed(Number(n) % 1 ? 2 : 0);
-  grid.innerHTML = state.services.map(s => `
-    <div class="svc-opt ${s.color_accent || 'blue'}" data-slug="${s.slug}">
-      <div class="kind">${s.mode === 'in-person' ? 'In-person' : s.mode === 'either' ? 'Online or in-person' : 'Online'}</div>
-      <h3 class="name">${s.label}</h3>
-      <p class="desc">${s.description || ''}</p>
-      <div class="foot">
-        <span class="price">${fmt$(s.hourly_usd)}<small>/ hour</small></span>
-        <span class="min">${s.min_hours}h min</span>
-      </div>
-    </div>
-  `).join('');
-  grid.querySelectorAll('.svc-opt').forEach(el => el.addEventListener('click', () => selectService(el.dataset.slug)));
-}
-
-function selectService(slug) {
-  const svc = state.services.find(s => s.slug === slug);
-  if (!svc) return;
-  state.selected = svc;
-  state.hours = Number(svc.default_hours ?? svc.min_hours ?? 1);
-  state.mode = svc.mode === 'either' ? '' : svc.mode;
-
-  document.querySelectorAll('.svc-opt').forEach(el => el.classList.toggle('selected', el.dataset.slug === slug));
-
-  document.getElementById('sec-hours').style.display = '';
-  document.getElementById('sec-contact').style.display = '';
-  document.getElementById('pay-box').style.display = '';
-
-  const modeRow = document.getElementById('mode-row');
-  if (svc.mode === 'either') {
-    document.getElementById('sec-mode').style.display = '';
-    modeRow.innerHTML = `
-      <div class="mode-chip" data-mode="remote">Online</div>
-      <div class="mode-chip" data-mode="in-person">In-person (Central FL)</div>`;
-    modeRow.querySelectorAll('.mode-chip').forEach(chip => chip.addEventListener('click', () => {
-      state.mode = chip.dataset.mode;
-      modeRow.querySelectorAll('.mode-chip').forEach(c => c.classList.toggle('selected', c === chip));
-      updateSummary();
-    }));
-  } else {
-    document.getElementById('sec-mode').style.display = 'none';
-  }
-
-  updateSummary();
-  document.getElementById('sec-hours').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function updateSummary() {
-  if (!state.selected) return;
-  const s = state.selected;
-  const total = (Number(s.hourly_usd) * state.hours);
-  document.getElementById('hours-display').textContent = state.hours;
-  document.getElementById('hours-break').textContent = `${state.hours} hour${state.hours !== 1 ? 's' : ''} × $${Number(s.hourly_usd)}/hr`;
-  document.getElementById('hours-total').innerHTML = `$${total.toFixed(total % 1 ? 2 : 0)}<small>total today</small>`;
-  document.getElementById('sum-service').textContent = s.label;
-  document.getElementById('sum-hours').textContent = `${state.hours} h × $${s.hourly_usd}/hr${state.mode ? ' · ' + (MODE_LABELS[state.mode] || state.mode) : ''}`;
-  document.getElementById('pay-btn').textContent = `Pay $${total.toFixed(total % 1 ? 2 : 0)} & book →`;
-  checkReady();
-  document.getElementById('hours-down').disabled = state.hours <= Number(s.min_hours);
-}
-function checkReady() {
-  const s = state.selected; if (!s) return;
-  const name = document.getElementById('f-name').value.trim();
-  const email = document.getElementById('f-email').value.trim();
-  const modeOk = s.mode !== 'either' || state.mode;
-  const ready = name && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && modeOk;
-  document.getElementById('pay-btn').disabled = !ready;
-}
-
-document.getElementById('hours-up').addEventListener('click', () => {
-  if (!state.selected) return;
-  const step = Number(state.selected.step_hours ?? 0.5);
-  state.hours = Math.round((state.hours + step) * 10) / 10;
-  updateSummary();
-});
-document.getElementById('hours-down').addEventListener('click', () => {
-  if (!state.selected) return;
-  const step = Number(state.selected.step_hours ?? 0.5);
-  const min = Number(state.selected.min_hours ?? 1);
-  state.hours = Math.max(min, Math.round((state.hours - step) * 10) / 10);
-  updateSummary();
-});
-
-['f-name','f-email','f-phone','f-notes','f-when'].forEach(id => {
-  document.getElementById(id).addEventListener('input', checkReady);
-});
-
-document.getElementById('book-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const btn = document.getElementById('pay-btn');
-  const errBox = document.getElementById('pay-err');
-  errBox.innerHTML = '';
-  if (!state.selected) return;
-
-  btn.disabled = true; btn.textContent = 'Redirecting to secure checkout…';
-  try {
-    const body = {
-      service: state.selected.slug,
-      hours: state.hours,
-      mode: state.mode || state.selected.mode,
-      name: document.getElementById('f-name').value.trim(),
-      email: document.getElementById('f-email').value.trim(),
-      phone: document.getElementById('f-phone').value.trim(),
-      notes: [
-        document.getElementById('f-when').value.trim() ? 'Preferred: ' + document.getElementById('f-when').value.trim() : '',
-        document.getElementById('f-notes').value.trim(),
-      ].filter(Boolean).join('\n'),
-    };
-    const r = await fetch('/.netlify/functions/create-checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-    const out = await r.json();
-    if (!r.ok || !out.checkout_url) throw new Error(out.error || 'Checkout failed');
-    location.href = out.checkout_url;
-  } catch (err) {
-    errBox.innerHTML = '<div class="alert err">' + (err.message || err) + '</div>';
-    btn.disabled = false; updateSummary();
-  }
-});
-
-loadServices();
+<!-- Cal.com inline embed loader. Mounts the booking widget inside
+     #cal-inline; Cal.com handles availability, booking, Stripe checkout,
+     Google Meet link generation, and Google Calendar sync. -->
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "stael-booking", { origin: "https://cal.com" });
+  Cal.ns["stael-booking"]("inline", {
+    elementOrSelector: "#cal-inline",
+    calLink: calLink,
+    config: { layout: "month_view", theme: "light" },
+  });
+  Cal.ns["stael-booking"]("ui", {
+    theme: "light",
+    styles: { branding: { brandColor: "#E08A60" } },
+    hideEventTypeDetails: false,
+    layout: "month_view",
+  });
 </script>
 </body>
 </html>

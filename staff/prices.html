@@ -82,16 +82,15 @@
 
 <script>
 const SERVICES = [
-  { category: 'Interpretation', name: 'On-site interpretation', desc: 'Conferences, depositions, meetings, USCIS', price: '$125–$165', min: '2-hour minimum' },
-  { category: 'Interpretation', name: 'Remote interpretation (VRI)', desc: 'Google Meet, Zoom, phone, or your platform', price: '$95–$125', min: '30-minute minimum' },
-  { category: 'Interpretation', name: 'Medical interpretation', desc: 'Doctor visits, hospital stays, mental health', price: '$110–$135', min: '2-hour minimum' },
-  { category: 'Interpretation', name: 'Legal interpretation', desc: 'Depositions, USCIS hearings, citizenship prep', price: '$150–$175', min: '2-hour · $550 half-day · $950 full-day' },
-  { category: 'Interpretation', name: 'Conference interpretation', desc: 'Booth & RSI (Zoom / Interprefy)', price: '$1,400–$1,800', min: 'per day · half-day $900' },
-  { category: 'Language coaching', name: 'Conversation EN/PT', desc: 'Conversation, pronunciation, accent', price: '$50', min: 'per hour · no minimum' },
-  { category: 'Language coaching', name: 'USCIS interview prep', desc: 'Mock interviews, civics test, USCIS vocabulary', price: '$75', min: 'per hour · 1-hour minimum' },
-  { category: 'Certified translation', name: 'Personal documents', desc: 'Birth, marriage, divorce, school records', price: 'from $35', min: 'per page · $95 project minimum' },
-  { category: 'Certified translation', name: 'Legal documents', desc: 'Contracts, affidavits, deposition exhibits', price: '$0.22–$0.28', min: 'per word · $150 project minimum' },
-  { category: 'Certified translation', name: 'Medical documents', desc: 'Clinical notes, labs, patient histories', price: '$0.24–$0.32', min: 'per word · $150 project minimum' },
+  { category: 'Interpretation', name: 'On-site interpretation', desc: 'Interpretacao presencial', price: '$55', min: 'p/hr · 2-hr minimo' },
+  { category: 'Interpretation', name: 'Remote interpretation (VRI)', desc: 'Interpretacao remota (VRI)', price: '$45', min: 'p/hr · 2-hr minimo' },
+  { category: 'Interpretation', name: 'Medical interpretation', desc: 'Interpretacao medica', price: '$55', min: 'p/hr · 2-hr minimo' },
+  { category: 'Interpretation', name: 'Educational interpretation', desc: 'Suporte em sala de aula, reunioes de pais e mestres', price: '$55', min: 'p/hr · minimo de 2-hr' },
+  { category: 'Interpretation', name: 'Conference interpretation', desc: 'Conferencias', price: '$100', min: 'p/hr' },
+  { category: 'Interpretation', name: 'USCIS interview — Orlando, FL', desc: 'Entrevista USCIS em Orlando', price: '$300', min: 'minimo de 2-hr · $75 p/hr adicional' },
+  { category: 'Interpretation', name: 'USCIS interview — Tampa, FL', desc: 'Entrevista USCIS em Tampa', price: '$500', min: 'minimo de 2-hr · $75 p/hr adicional' },
+  { category: 'Language coaching', name: 'Conversation EN/PT', desc: 'Conversacao EN/PT', price: '$50', min: 'p/hr · minimo de 1-hr' },
+  { category: 'Language coaching', name: 'USCIS interview prep', desc: 'Tutoria EN/PT', price: '$50', min: 'p/hr · minimo de 1-hr' },
 ];
 
 const params = new URLSearchParams(location.search);
