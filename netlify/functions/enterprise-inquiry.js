@@ -8,11 +8,12 @@ const NOTIFY_TO = (process.env.ENTERPRISE_NOTIFY_TO || 'hello@staelgissoni.com')
   .split(',').map(s => s.trim()).filter(Boolean);
 
 const SERVICE_LABELS = {
-  court: 'Court / deposition / legal',
+  'on-site': 'On-site interpretation',
+  remote: 'Remote interpretation (VRI)',
+  medical: 'Medical / hospital interpretation',
+  educational: 'Educational interpretation (school)',
+  conference: 'Conference / panel interpretation',
   uscis: 'USCIS / immigration interview',
-  medical: 'Medical / hospital on-site',
-  conference: 'Conference simultaneous (booth)',
-  translation: 'Certified translation',
   retainer: 'Enterprise retainer / multi-engagement',
   other: 'Other',
 };
