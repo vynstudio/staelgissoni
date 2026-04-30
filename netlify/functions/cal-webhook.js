@@ -4,10 +4,12 @@
 // BOOKING_CANCELLED, BOOKING_PAID) and forwards a formatted summary to
 // Telegram via the configured bot + chat_id.
 //
-// On BOOKING_PAID, also runs the Stripe Connect 80/20 split: 80% of the
-// charge is transferred from the Vyn Studio platform Stripe to Stael's
-// connected account (acct_1TEwhkRxG91XHPAc), 20% stays as platform fee.
-// Gated behind STAEL_AUTO_SPLIT_ENABLED=true so the code can ship dormant.
+// On BOOKING_PAID, also collects Vyn Studio's 20% platform fee via a
+// connected→platform transfer. Cal.com creates direct charges on Stael's
+// connected account (acct_1TEwhkRxG91XHPAc) so the customer's $X lands
+// in her balance — to take the platform fee we issue a transfer FROM
+// Stael TO Vyn Studio's platform account, sourced from the specific
+// charge. Gated behind STAEL_AUTO_SPLIT_ENABLED=true.
 //
 // Cal.com signs each request with HMAC-SHA256 of the raw body using the
 // webhook's "Secret" — we verify it via the X-Cal-Signature-256 header
@@ -103,28 +105,54 @@ function escapeMd(s) {
   return String(s).replace(/([_*[\]()~`>#+\-=|{}.!])/g, '\\$1');
 }
 
-// ---------- Stripe Connect 80/20 split ----------
+// ---------- Vyn Studio platform fee (20% per Cal.com booking) ----------
 //
-// On BOOKING_PAID, transfer (split_bps / 10000) of the charge from the
-// platform Stripe account to Stael's connected account using a
-// source_transaction-linked transfer. source_transaction lets the funds
-// move immediately even before the underlying charge has settled into
-// the available balance, and Stripe rejects a second transfer linked to
-// the same source charge — built-in idempotency at the API level.
+// Cal.com creates direct charges on Stael's connected Stripe account, so
+// the customer's $X lands in Stael's balance — Vyn Studio (the platform)
+// sees nothing by default. To collect the 20% platform fee on every
+// booking, we issue a connected→platform transfer:
+//
+//   stripe.transfers.create(
+//     { amount: feeCents, destination: <vyn_platform_acct>,
+//       source_transaction: <charge on stael's acct> },
+//     { stripeAccount: STAEL_STRIPE_ACCOUNT_ID }
+//   )
+//
+// The Stripe-Account header makes the call act AS Stael's connected
+// account; the platform's secret key authorizes it because Stael's
+// account is under the same Connect platform. Stripe pulls the fee
+// from the specific charge (source_transaction), so it works even if
+// Stael's available balance is low.
+//
+// Idempotency: idempotencyKey=vyn-fee-<charge_id>. Stripe also rejects
+// a second transfer linked to the same source_transaction, so a webhook
+// retry can't double-bill Stael.
 //
 // Required env:
 //   STRIPE_SECRET_KEY            platform secret (Toro Movers / Vyn Studio)
 //   STAEL_STRIPE_ACCOUNT_ID      acct_1TEwhkRxG91XHPAc
 //   STAEL_AUTO_SPLIT_ENABLED     'true' to enable; anything else = dormant
 // Optional env:
-//   STAEL_SPLIT_PAYEE_BPS        default 8000 (80% to Stael, 20% platform)
-async function runStaelSplit(payload) {
+//   VYN_PLATFORM_FEE_BPS         default 2000 (20% to Vyn, 80% stays Stael)
+//   VYN_PLATFORM_ACCOUNT_ID      override the platform acct id; otherwise
+//                                fetched dynamically via Account.retrieve()
+
+let _platformAcctIdCache = null;
+async function getPlatformAccountId(stripe) {
+  if (process.env.VYN_PLATFORM_ACCOUNT_ID) return process.env.VYN_PLATFORM_ACCOUNT_ID;
+  if (_platformAcctIdCache) return _platformAcctIdCache;
+  const acct = await stripe.accounts.retrieve();
+  _platformAcctIdCache = acct.id;
+  return _platformAcctIdCache;
+}
+
+async function runVynPlatformFee(payload) {
   if (String(process.env.STAEL_AUTO_SPLIT_ENABLED || '').toLowerCase() !== 'true') {
     return { skipped: 'flag_off' };
   }
   const platformKey = process.env.STRIPE_SECRET_KEY;
-  const destination = process.env.STAEL_STRIPE_ACCOUNT_ID;
-  if (!platformKey || !destination) return { skipped: 'env_missing' };
+  const staelAcct = process.env.STAEL_STRIPE_ACCOUNT_ID;
+  if (!platformKey || !staelAcct) return { skipped: 'env_missing' };
 
   const payment = Array.isArray(payload?.payment) && payload.payment[0];
   if (!payment) return { skipped: 'no_payment' };
@@ -137,24 +165,35 @@ async function runStaelSplit(payload) {
   const externalId = payment.externalId || payment.payment_id || payment.paymentId || null;
   if (!externalId) return { skipped: 'no_external_id', booking_uid: bookingUid };
 
-  const payeeBps = Number(process.env.STAEL_SPLIT_PAYEE_BPS || 8000);
-  const payeeCents = Math.floor((totalCents * payeeBps) / 10000);
-  if (payeeCents <= 0) return { skipped: 'zero_payee', booking_uid: bookingUid };
+  const feeBps = Number(process.env.VYN_PLATFORM_FEE_BPS || 2000);
+  const feeCents = Math.floor((totalCents * feeBps) / 10000);
+  if (feeCents <= 0) return { skipped: 'zero_fee', booking_uid: bookingUid };
 
   const stripe = Stripe(platformKey);
 
-  // Cal.com may give us a PaymentIntent (pi_), Charge (ch_), or
-  // Checkout Session (cs_) id. transfers.create needs a charge id,
-  // so resolve PI/CS down to the underlying charge first.
+  let platformAcctId = null;
+  try {
+    platformAcctId = await getPlatformAccountId(stripe);
+  } catch (e) {
+    return { skipped: 'platform_acct_lookup_failed', error: e.message };
+  }
+  if (!platformAcctId) return { skipped: 'platform_acct_missing' };
+
+  // Cal.com's externalId may be ch_, pi_, or cs_. transfers.create needs
+  // a charge id, so resolve PI/CS to the underlying charge first.
+  // The retrieval runs against Stael's connected account because that's
+  // where Cal.com created the charge (direct charge model).
   let chargeId = null;
   try {
     if (externalId.startsWith('ch_')) {
       chargeId = externalId;
     } else if (externalId.startsWith('pi_')) {
-      const pi = await stripe.paymentIntents.retrieve(externalId);
+      const pi = await stripe.paymentIntents.retrieve(externalId, {}, { stripeAccount: staelAcct });
       chargeId = pi.latest_charge || (pi.charges?.data?.[0]?.id) || null;
     } else if (externalId.startsWith('cs_')) {
-      const cs = await stripe.checkout.sessions.retrieve(externalId, { expand: ['payment_intent'] });
+      const cs = await stripe.checkout.sessions.retrieve(
+        externalId, { expand: ['payment_intent'] }, { stripeAccount: staelAcct }
+      );
       const pi = cs.payment_intent;
       chargeId = (pi && pi.latest_charge) || null;
     }
@@ -166,22 +205,25 @@ async function runStaelSplit(payload) {
   try {
     const transfer = await stripe.transfers.create(
       {
-        amount: payeeCents,
+        amount: feeCents,
         currency,
-        destination,
+        destination: platformAcctId,
         source_transaction: chargeId,
-        description: `Stael 80% split · cal booking ${bookingUid || '(unknown)'}`,
+        description: `Vyn Studio platform fee · cal booking ${bookingUid || '(unknown)'}`,
         metadata: {
           cal_booking_uid: bookingUid || '',
           source_charge: chargeId,
           source_external_id: externalId,
-          split_payee_bps: String(payeeBps),
+          fee_bps: String(feeBps),
           total_cents: String(totalCents),
         },
       },
-      { idempotencyKey: `stael-split-${chargeId}` }
+      {
+        idempotencyKey: `vyn-fee-${chargeId}`,
+        stripeAccount: staelAcct,
+      }
     );
-    return { ok: true, transfer_id: transfer.id, amount: payeeCents, charge: chargeId, booking_uid: bookingUid };
+    return { ok: true, transfer_id: transfer.id, fee_cents: feeCents, charge: chargeId, booking_uid: bookingUid };
   } catch (e) {
     return { skipped: 'transfer_failed', error: e.message, code: e.code, charge: chargeId, booking_uid: bookingUid };
   }
@@ -233,11 +275,11 @@ exports.handler = async (event) => {
   let splitResult = null;
   if (trigger === 'BOOKING_PAID') {
     try {
-      splitResult = await runStaelSplit(payload);
+      splitResult = await runVynPlatformFee(payload);
     } catch (e) {
       splitResult = { skipped: 'unhandled_error', error: e.message };
     }
-    console.log('cal-webhook split:', JSON.stringify(splitResult));
+    console.log('cal-webhook fee:', JSON.stringify(splitResult));
   }
 
   // Primary bot (Diler's @Staelbookings_bot). chat_id can be CSV.
