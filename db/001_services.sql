@@ -46,6 +46,6 @@ values
   ('on-site',     'On-site interpretation',         'Real-time consecutive interpretation in Central Florida.',              125, 2,   2, 'in-person', 'blue',  20),
   ('medical',     'Medical interpretation',         'HIPAA-aware interpretation for doctor visits, hospitals, mental health.', 110, 2,   2, 'either',    'lav',   30),
   ('legal',       'Legal / deposition',             'Depositions, USCIS hearings, citizenship interviews.',                  150, 2,   2, 'either',    'blue',  40),
-  ('lessons',     'One-on-one English lesson',      'Conversation, pronunciation, accent — personalized sessions.',           50, 1,   1, 'remote',    'peach', 50),
+  ('lessons',     'Tutoring Classes',               'Tutoria EN/PT.',                                                         50, 1,   1, 'remote',    'peach', 50),
   ('citizenship', 'Citizenship / green-card prep',  'Mock interviews, civics test, USCIS vocabulary.',                        75, 1,   1, 'remote',    'peach', 60)
 on conflict (slug) do nothing;
