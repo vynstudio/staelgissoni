@@ -54,7 +54,7 @@ const SERVICE_LABELS = [
   ['remote', 'Remote (VRI)'],
   ['medical', 'Medical interpretation'],
   ['educational', 'Educational interpretation'],
-  ['conference', 'Conference interpretation'],
+  ['conference', 'Conferences'],
   ['uscisOrlando', 'USCIS — Orlando'],
   ['uscisTampa', 'USCIS — Tampa'],
   ['conversation', 'Conversation EN/PT'],

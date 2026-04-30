@@ -12,7 +12,7 @@ const SERVICE_LABELS = {
   remote: 'Remote interpretation (VRI)',
   medical: 'Medical / hospital interpretation',
   educational: 'Educational interpretation (school)',
-  conference: 'Conference / panel interpretation',
+  conference: 'Conferences',
   uscis: 'USCIS / immigration interview',
   retainer: 'Enterprise retainer / multi-engagement',
   other: 'Other',
