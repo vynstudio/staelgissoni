@@ -4,11 +4,17 @@
 // BOOKING_CANCELLED, BOOKING_PAID) and forwards a formatted summary to
 // Telegram via the configured bot + chat_id.
 //
+// On BOOKING_PAID, also runs the Stripe Connect 80/20 split: 80% of the
+// charge is transferred from the Vyn Studio platform Stripe to Stael's
+// connected account (acct_1TEwhkRxG91XHPAc), 20% stays as platform fee.
+// Gated behind STAEL_AUTO_SPLIT_ENABLED=true so the code can ship dormant.
+//
 // Cal.com signs each request with HMAC-SHA256 of the raw body using the
 // webhook's "Secret" — we verify it via the X-Cal-Signature-256 header
 // to keep this endpoint closed to spoofed calls.
 
 const crypto = require('crypto');
+const Stripe = require('stripe');
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -97,6 +103,90 @@ function escapeMd(s) {
   return String(s).replace(/([_*[\]()~`>#+\-=|{}.!])/g, '\\$1');
 }
 
+// ---------- Stripe Connect 80/20 split ----------
+//
+// On BOOKING_PAID, transfer (split_bps / 10000) of the charge from the
+// platform Stripe account to Stael's connected account using a
+// source_transaction-linked transfer. source_transaction lets the funds
+// move immediately even before the underlying charge has settled into
+// the available balance, and Stripe rejects a second transfer linked to
+// the same source charge — built-in idempotency at the API level.
+//
+// Required env:
+//   STRIPE_SECRET_KEY            platform secret (Toro Movers / Vyn Studio)
+//   STAEL_STRIPE_ACCOUNT_ID      acct_1TEwhkRxG91XHPAc
+//   STAEL_AUTO_SPLIT_ENABLED     'true' to enable; anything else = dormant
+// Optional env:
+//   STAEL_SPLIT_PAYEE_BPS        default 8000 (80% to Stael, 20% platform)
+async function runStaelSplit(payload) {
+  if (String(process.env.STAEL_AUTO_SPLIT_ENABLED || '').toLowerCase() !== 'true') {
+    return { skipped: 'flag_off' };
+  }
+  const platformKey = process.env.STRIPE_SECRET_KEY;
+  const destination = process.env.STAEL_STRIPE_ACCOUNT_ID;
+  if (!platformKey || !destination) return { skipped: 'env_missing' };
+
+  const payment = Array.isArray(payload?.payment) && payload.payment[0];
+  if (!payment) return { skipped: 'no_payment' };
+
+  const totalCents = Number(payment.amount);
+  if (!Number.isFinite(totalCents) || totalCents <= 0) return { skipped: 'bad_amount' };
+
+  const currency = String(payment.currency || 'usd').toLowerCase();
+  const bookingUid = payload?.uid || payload?.bookingId || null;
+  const externalId = payment.externalId || payment.payment_id || payment.paymentId || null;
+  if (!externalId) return { skipped: 'no_external_id', booking_uid: bookingUid };
+
+  const payeeBps = Number(process.env.STAEL_SPLIT_PAYEE_BPS || 8000);
+  const payeeCents = Math.floor((totalCents * payeeBps) / 10000);
+  if (payeeCents <= 0) return { skipped: 'zero_payee', booking_uid: bookingUid };
+
+  const stripe = Stripe(platformKey);
+
+  // Cal.com may give us a PaymentIntent (pi_), Charge (ch_), or
+  // Checkout Session (cs_) id. transfers.create needs a charge id,
+  // so resolve PI/CS down to the underlying charge first.
+  let chargeId = null;
+  try {
+    if (externalId.startsWith('ch_')) {
+      chargeId = externalId;
+    } else if (externalId.startsWith('pi_')) {
+      const pi = await stripe.paymentIntents.retrieve(externalId);
+      chargeId = pi.latest_charge || (pi.charges?.data?.[0]?.id) || null;
+    } else if (externalId.startsWith('cs_')) {
+      const cs = await stripe.checkout.sessions.retrieve(externalId, { expand: ['payment_intent'] });
+      const pi = cs.payment_intent;
+      chargeId = (pi && pi.latest_charge) || null;
+    }
+  } catch (e) {
+    return { skipped: 'resolve_failed', error: e.message, external_id: externalId, booking_uid: bookingUid };
+  }
+  if (!chargeId) return { skipped: 'no_charge_id', external_id: externalId, booking_uid: bookingUid };
+
+  try {
+    const transfer = await stripe.transfers.create(
+      {
+        amount: payeeCents,
+        currency,
+        destination,
+        source_transaction: chargeId,
+        description: `Stael 80% split · cal booking ${bookingUid || '(unknown)'}`,
+        metadata: {
+          cal_booking_uid: bookingUid || '',
+          source_charge: chargeId,
+          source_external_id: externalId,
+          split_payee_bps: String(payeeBps),
+          total_cents: String(totalCents),
+        },
+      },
+      { idempotencyKey: `stael-split-${chargeId}` }
+    );
+    return { ok: true, transfer_id: transfer.id, amount: payeeCents, charge: chargeId, booking_uid: bookingUid };
+  } catch (e) {
+    return { skipped: 'transfer_failed', error: e.message, code: e.code, charge: chargeId, booking_uid: bookingUid };
+  }
+}
+
 async function sendTelegram(token, chatId, text) {
   const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',
@@ -137,6 +227,19 @@ exports.handler = async (event) => {
   const payload = body.payload || body;
   const text = buildMessage(trigger, payload);
 
+  // 80/20 split — only on BOOKING_PAID. Runs in parallel with notifications
+  // and never throws (returns a status object). Logged to function output
+  // for audit + reconciliation against Stripe Connect transfers.
+  let splitResult = null;
+  if (trigger === 'BOOKING_PAID') {
+    try {
+      splitResult = await runStaelSplit(payload);
+    } catch (e) {
+      splitResult = { skipped: 'unhandled_error', error: e.message };
+    }
+    console.log('cal-webhook split:', JSON.stringify(splitResult));
+  }
+
   // Primary bot (Diler's @Staelbookings_bot). chat_id can be CSV.
   const dispatch = String(chatId).split(',').map(s => s.trim()).filter(Boolean)
     .map(cid => sendTelegram(token, cid, text));
@@ -152,9 +255,9 @@ exports.handler = async (event) => {
 
   try {
     await Promise.all(dispatch);
-    return ok({ ok: true, trigger, recipients: dispatch.length });
+    return ok({ ok: true, trigger, recipients: dispatch.length, split: splitResult });
   } catch (e) {
     console.error('cal-webhook send failed:', e);
-    return err(500, { error: e.message });
+    return err(500, { error: e.message, split: splitResult });
   }
 };
